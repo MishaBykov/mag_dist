@@ -20,7 +20,13 @@ public:
     void appendRow( std::string new_row );
 
     int getRow(int index);
-    void setRow(int index);
+    void setRow(int index, int value);
+    void setRow(int index, std::string value);
+
+    void readFromFile(std::string file_name);
+
+private:
+    static int stringToRow(std::string row);
 };
 
 
