@@ -1,5 +1,5 @@
 #include <iostream>
-#include "incidence_matrix/incidence_matrix.hpp"
+#include "incidence-matrix/incidence_matrix.hpp"
 
 
 int main() {

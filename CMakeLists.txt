@@ -4,10 +4,10 @@ project(mag_dist)
 set(CMAKE_CXX_STANDARD 14)
 
 set(
-    incidence_matrix
+        incidence-matrix
 
-        incidence_matrix/incidence_matrix.hpp
-        incidence_matrix/incidence_matrix.cpp
+        incidence-matrix/incidence_matrix.hpp
+        incidence-matrix/incidence_matrix.cpp
 )
 
 add_executable(
