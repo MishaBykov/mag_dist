@@ -4,7 +4,7 @@ project(mag_dist)
 set(CMAKE_CXX_STANDARD 14)
 
 set(
-        incidence-matrix
+        incidence_matrix
 
         incidence-matrix/incidence_matrix.hpp
         incidence-matrix/incidence_matrix.cpp
