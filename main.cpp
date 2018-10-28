@@ -6,6 +6,6 @@ int main() {
     setlocale(LC_ALL, "rus");
     IncidenceMatrix incidence_matrix;
     incidence_matrix.appendRow("0011001");
-    incidence_matrix.readFromFile("../input.txt");
+    incidence_matrix.readFromFile("../3d.txt");
     return 0;
 }
