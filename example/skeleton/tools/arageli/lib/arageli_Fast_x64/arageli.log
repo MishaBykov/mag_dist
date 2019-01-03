@@ -1,0 +1,205 @@
+﻿Build started 13.05.2013 22:09:21.
+     1>Project "C:\Users\Zolotykh\zol\arageli\home\Zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\build\msvs_2008\arageli\arageli.vcxproj" on node 2 (rebuild target(s)).
+     1>_PrepareForClean:
+         Deleting file "../../../lib\arageli_Fast_x64\arageli.lastbuildstate".
+       InitializeBuildStatus:
+         Creating "../../../lib\arageli_Fast_x64\arageli.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /Ox /Ob2 /Oi /Oy /GL /D WIN64 /D NDEBUG /D _CONSOLE /D ARAGELI_SOURCE /D _SECURE_SCL=0 /D _HAS_ITERATOR_DEBUGGING=0 /D ARAGELI_DEBUG_LEVEL=0 /D _MBCS /Gm- /EHsc /MD /GS- /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"../../../lib\arageli_Fast_x64\\" /Fd"../../../lib\arageli_Fast_x64\vc100.pdb" /Gd /TP /errorReport:prompt ..\..\..\src\arageli\_utility.cpp ..\..\..\src\arageli\advsimplmeth.cpp ..\..\..\src\arageli\algebraic.cpp ..\..\..\src\arageli\algebrslt.cpp ..\..\..\src\arageli\bareiss.cpp ..\..\..\src\arageli\berlekamp_hensel.cpp ..\..\..\src\arageli\big_const.cpp ..\..\..\src\arageli\big_float.cpp ..\..\..\src\arageli\big_int.cpp ..\..\..\src\arageli\bigar.cpp ..\..\..\src\arageli\cantor_zassenhaus.cpp ..\..\..\src\arageli\cone.cpp ..\..\..\src\arageli\exception.cpp ..\..\..\src\arageli\gauss.cpp ..\..\..\src\arageli\gcd.cpp ..\..\..\src\arageli\generic.cpp ..\..\..\src\arageli\gram_schmidt.cpp ..\..\..\src\arageli\groebner_basis.cpp ..\..\..\src\arageli\hermite.cpp ..\..\..\src\arageli\intalg.cpp ..\..\..\src\arageli\intconvex.cpp ..\..\..\src\arageli\intcount_barvinok.cpp ..\..\..\src\arageli\io.cpp ..\..\..\src\arageli\karatsuba.cpp ..\..\..\src\arageli\linopt.cpp ..\..\..\src\arageli\lll.cpp ..\..\..\src\arageli\logarithm.cpp ..\..\..\src\arageli\matrix.cpp ..\..\..\src\arageli\motzkin_burger.cpp ..\..\..\src\arageli\orthogonal.cpp ..\..\..\src\arageli\pollard_mult.cpp ..\..\..\src\arageli\polyhedron.cpp ..\..\..\src\arageli\polyhedron_relation.cpp ..\..\..\src\arageli\polynom.cpp ..\..\..\src\arageli\powerest.cpp ..\..\..\src\arageli\prime.cpp ..\..\..\src\arageli\rational.cpp ..\..\..\src\arageli\resultant.cpp ..\..\..\src\arageli\sideset.cpp ..\..\..\src\arageli\smith.cpp ..\..\..\src\arageli\smithpoly.cpp ..\..\..\src\arageli\solve_linsys.cpp ..\..\..\src\arageli\sparse_multipolynom.cpp ..\..\..\src\arageli\sparse_polynom.cpp ..\..\..\src\arageli\sturm.cpp ..\..\..\src\arageli\tex_cartesian2d.cpp ..\..\..\src\arageli\texout.cpp ..\..\..\src\arageli\timer.cpp ..\..\..\src\arageli\triangulation.cpp ..\..\..\src\arageli\type_opers.cpp ..\..\..\src\arageli\type_traits.cpp ..\..\..\src\arageli\vecalg.cpp ..\..\..\src\arageli\vector.cpp ..\..\..\src\arageli\winograd.cpp ..\..\..\src\arageli\smith\near_optimal.cpp ..\..\..\src\arageli\hermite\classic.cpp ..\..\..\src\arageli\hermite\domich.cpp ..\..\..\src\arageli\hermite\hafner.cpp ..\..\..\src\arageli\hermite\storjohann.cpp
+         _utility.cpp
+         advsimplmeth.cpp
+         algebraic.cpp
+         algebrslt.cpp
+         bareiss.cpp
+         berlekamp_hensel.cpp
+         big_const.cpp
+         big_float.cpp
+     1>c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\big_float.cpp(321): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\big_float.cpp(755): warning C4267: 'initializing' : conversion from 'size_t' to 'long', possible loss of data
+     1>c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\big_float.cpp(1206): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\big_float.cpp(1216): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\big_float.cpp(1416): warning C4267: 'argument' : conversion from 'size_t' to 'long', possible loss of data
+     1>c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\big_float.cpp(1417): warning C4267: 'argument' : conversion from 'size_t' to 'long', possible loss of data
+     1>c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\big_float.cpp(1417): warning C4267: 'argument' : conversion from 'size_t' to 'long', possible loss of data
+     1>c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\big_float.cpp(136): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+                 c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\big_float.hpp(457) : see reference to function template instantiation 'T Arageli::big_float::to_native_float<float>(void) const' being compiled
+                 with
+                 [
+                     T=float
+                 ]
+     1>c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\big_float.cpp(141): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\big_float.cpp(136): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+                 c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\big_float.hpp(462) : see reference to function template instantiation 'T Arageli::big_float::to_native_float<double>(void) const' being compiled
+                 with
+                 [
+                     T=double
+                 ]
+     1>c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\big_float.cpp(141): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+     1>c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\big_float.cpp(136): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+                 c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\big_float.hpp(467) : see reference to function template instantiation 'T Arageli::big_float::to_native_float<long double>(void) const' being compiled
+                 with
+                 [
+                     T=long double
+                 ]
+     1>c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\big_float.cpp(141): warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+         big_int.cpp
+         bigar.cpp
+         cantor_zassenhaus.cpp
+         cone.cpp
+         exception.cpp
+         gauss.cpp
+         gcd.cpp
+         generic.cpp
+     1>c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\sparse_multipolynom.hpp(444): warning C4267: '+=' : conversion from 'size_t' to 'int', possible loss of data
+                 c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\sparse_multipolynom.cpp(428) : see reference to function template instantiation 'Arageli::multimonom<F,D,MD> &Arageli::multimonom<F,D,MD>::operator *=<F,D,MD>(const Arageli::multimonom<F,D,MD> &)' being compiled
+                 with
+                 [
+                     F=Arageli::generic_type,
+                     D=int,
+                     MD=Arageli::vector<int,true>
+                 ]
+                 c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\sparse_multipolynom.hpp(1044) : see reference to function template instantiation 'P3 &Arageli::multiplies_smp_by_smp<P1,P2,P1>(const P1 &,const P2 &,P3 &)' being compiled
+                 with
+                 [
+                     P3=Arageli::sparse_multipolynom<Arageli::generic_type>,
+                     P1=Arageli::sparse_multipolynom<Arageli::generic_type>,
+                     P2=Arageli::sparse_multipolynom<Arageli::generic_type>
+                 ]
+                 c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\sparse_multipolynom.hpp(1930) : see reference to function template instantiation 'P1 Arageli::multiplies_smp_by_smp<Arageli::sparse_multipolynom<F>,Arageli::sparse_multipolynom<F>>(const P1 &,const P2 &)' being compiled
+                 with
+                 [
+                     P1=Arageli::sparse_multipolynom<Arageli::generic_type>,
+                     F=Arageli::generic_type,
+                     P2=Arageli::sparse_multipolynom<Arageli::generic_type>
+                 ]
+                 c:\users\zolotykh\zol\arageli\home\zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\src\arageli\generic.cpp(586) : see reference to function template instantiation 'Arageli::sparse_multipolynom<F> Arageli::operator *<Arageli::generic_type,int,Arageli::vector<T,REFCNT>,Arageli::sparse_multipolynom_config_default<F,D,MD>,Arageli::generic_type,int,Arageli::vector<T,REFCNT>,Arageli::sparse_multipolynom_config_default<F,D,MD>>(const Arageli::sparse_multipolynom<F> &,const Arageli::sparse_multipolynom<F> &)' being compiled
+                 with
+                 [
+                     F=Arageli::generic_type,
+                     T=int,
+                     REFCNT=true,
+                     D=int,
+                     MD=Arageli::vector<int,true>
+                 ]
+         gram_schmidt.cpp
+         groebner_basis.cpp
+         hermite.cpp
+         intalg.cpp
+         Compiling...
+         intconvex.cpp
+         intcount_barvinok.cpp
+         io.cpp
+         karatsuba.cpp
+         linopt.cpp
+         lll.cpp
+         logarithm.cpp
+         matrix.cpp
+         motzkin_burger.cpp
+         orthogonal.cpp
+         pollard_mult.cpp
+         polyhedron.cpp
+         polyhedron_relation.cpp
+         polynom.cpp
+         powerest.cpp
+         prime.cpp
+         rational.cpp
+         resultant.cpp
+         sideset.cpp
+         smith.cpp
+         Compiling...
+         smithpoly.cpp
+         solve_linsys.cpp
+         sparse_multipolynom.cpp
+         sparse_polynom.cpp
+         sturm.cpp
+         tex_cartesian2d.cpp
+         texout.cpp
+         timer.cpp
+         triangulation.cpp
+         type_opers.cpp
+         type_traits.cpp
+         vecalg.cpp
+         vector.cpp
+         winograd.cpp
+         near_optimal.cpp
+         classic.cpp
+         domich.cpp
+         hafner.cpp
+         storjohann.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /Ox /Ob2 /Oi /Oy /GL /D WIN64 /D NDEBUG /D _CONSOLE /D ARAGELI_SOURCE /D _SECURE_SCL=0 /D _HAS_ITERATOR_DEBUGGING=0 /D ARAGELI_DEBUG_LEVEL=0 /D _MBCS /Gm- /EHsc /MD /GS- /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"../../../lib\arageli_Fast_x64\classic1.obj" /Fd"../../../lib\arageli_Fast_x64\vc100.pdb" /Gd /TP /errorReport:prompt ..\..\..\src\arageli\smith\classic.cpp
+         classic.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /Ox /Ob2 /Oi /Oy /GL /D WIN64 /D NDEBUG /D _CONSOLE /D ARAGELI_SOURCE /D _SECURE_SCL=0 /D _HAS_ITERATOR_DEBUGGING=0 /D ARAGELI_DEBUG_LEVEL=0 /D _MBCS /Gm- /EHsc /MD /GS- /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"../../../lib\arageli_Fast_x64\storjohann1.obj" /Fd"../../../lib\arageli_Fast_x64\vc100.pdb" /Gd /TP /errorReport:prompt ..\..\..\src\arageli\smith\storjohann.cpp
+         storjohann.cpp
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(1151,5): warning MSB8012: TargetPath(C:\Users\Zolotykh\zol\arageli\home\Zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\build\msvs_2008\arageli\../../../lib\arageli.lib) does not match the Library's OutputFile property value (C:\Users\Zolotykh\zol\arageli\home\Zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\lib\arageli64f.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(1153,5): warning MSB8012: TargetName(arageli) does not match the Library's OutputFile property value (arageli64f). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\Lib.exe /OUT:"../../../lib\arageli64f.lib" /NOLOGO /LTCG ../../../lib\arageli_Fast_x64\_utility.obj
+         ../../../lib\arageli_Fast_x64\advsimplmeth.obj
+         ../../../lib\arageli_Fast_x64\algebraic.obj
+         ../../../lib\arageli_Fast_x64\algebrslt.obj
+         ../../../lib\arageli_Fast_x64\bareiss.obj
+         ../../../lib\arageli_Fast_x64\berlekamp_hensel.obj
+         ../../../lib\arageli_Fast_x64\big_const.obj
+         ../../../lib\arageli_Fast_x64\big_float.obj
+         ../../../lib\arageli_Fast_x64\big_int.obj
+         ../../../lib\arageli_Fast_x64\bigar.obj
+         ../../../lib\arageli_Fast_x64\cantor_zassenhaus.obj
+         ../../../lib\arageli_Fast_x64\cone.obj
+         ../../../lib\arageli_Fast_x64\exception.obj
+         ../../../lib\arageli_Fast_x64\gauss.obj
+         ../../../lib\arageli_Fast_x64\gcd.obj
+         ../../../lib\arageli_Fast_x64\generic.obj
+         ../../../lib\arageli_Fast_x64\gram_schmidt.obj
+         ../../../lib\arageli_Fast_x64\groebner_basis.obj
+         ../../../lib\arageli_Fast_x64\hermite.obj
+         ../../../lib\arageli_Fast_x64\intalg.obj
+         ../../../lib\arageli_Fast_x64\intconvex.obj
+         ../../../lib\arageli_Fast_x64\intcount_barvinok.obj
+         ../../../lib\arageli_Fast_x64\io.obj
+         ../../../lib\arageli_Fast_x64\karatsuba.obj
+         ../../../lib\arageli_Fast_x64\linopt.obj
+         ../../../lib\arageli_Fast_x64\lll.obj
+         ../../../lib\arageli_Fast_x64\logarithm.obj
+         ../../../lib\arageli_Fast_x64\matrix.obj
+         ../../../lib\arageli_Fast_x64\motzkin_burger.obj
+         ../../../lib\arageli_Fast_x64\orthogonal.obj
+         ../../../lib\arageli_Fast_x64\pollard_mult.obj
+         ../../../lib\arageli_Fast_x64\polyhedron.obj
+         ../../../lib\arageli_Fast_x64\polyhedron_relation.obj
+         ../../../lib\arageli_Fast_x64\polynom.obj
+         ../../../lib\arageli_Fast_x64\powerest.obj
+         ../../../lib\arageli_Fast_x64\prime.obj
+         ../../../lib\arageli_Fast_x64\rational.obj
+         ../../../lib\arageli_Fast_x64\resultant.obj
+         ../../../lib\arageli_Fast_x64\sideset.obj
+         ../../../lib\arageli_Fast_x64\smith.obj
+         ../../../lib\arageli_Fast_x64\smithpoly.obj
+         ../../../lib\arageli_Fast_x64\solve_linsys.obj
+         ../../../lib\arageli_Fast_x64\sparse_multipolynom.obj
+         ../../../lib\arageli_Fast_x64\sparse_polynom.obj
+         ../../../lib\arageli_Fast_x64\sturm.obj
+         ../../../lib\arageli_Fast_x64\tex_cartesian2d.obj
+         ../../../lib\arageli_Fast_x64\texout.obj
+         ../../../lib\arageli_Fast_x64\timer.obj
+         ../../../lib\arageli_Fast_x64\triangulation.obj
+         ../../../lib\arageli_Fast_x64\type_opers.obj
+         ../../../lib\arageli_Fast_x64\type_traits.obj
+         ../../../lib\arageli_Fast_x64\vecalg.obj
+         ../../../lib\arageli_Fast_x64\vector.obj
+         ../../../lib\arageli_Fast_x64\winograd.obj
+         ../../../lib\arageli_Fast_x64\near_optimal.obj
+         ../../../lib\arageli_Fast_x64\classic.obj
+         ../../../lib\arageli_Fast_x64\domich.obj
+         ../../../lib\arageli_Fast_x64\hafner.obj
+         ../../../lib\arageli_Fast_x64\storjohann.obj
+         ../../../lib\arageli_Fast_x64\classic1.obj
+         ../../../lib\arageli_Fast_x64\storjohann1.obj /ignore:4221 
+         arageli.vcxproj -> C:\Users\Zolotykh\zol\arageli\home\Zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\build\msvs_2008\arageli\../../../lib\arageli.lib
+       FinalizeBuildStatus:
+         Deleting file "../../../lib\arageli_Fast_x64\arageli.unsuccessfulbuild".
+         Touching "../../../lib\arageli_Fast_x64\arageli.lastbuildstate".
+     1>Done Building Project "C:\Users\Zolotykh\zol\arageli\home\Zolotykh\skeleton.02.01.05\skeleton-work\tools\arageli\build\msvs_2008\arageli\arageli.vcxproj" (rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:36.70

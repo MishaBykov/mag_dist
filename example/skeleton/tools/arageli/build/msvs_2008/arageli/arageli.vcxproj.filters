@@ -1,0 +1,512 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="source\smith">
+      <UniqueIdentifier>{d7e12c4e-f671-4dc7-91af-6099490b9521}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\hermite">
+      <UniqueIdentifier>{965766f9-5660-47d6-9500-4fcb2fb8c2b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\subvector">
+      <UniqueIdentifier>{07195df7-5cb8-48ac-a2e7-35ed290fb637}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\submatrix">
+      <UniqueIdentifier>{86344c6d-06c6-4f98-8faa-d5faec76615e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="header\subvector">
+      <UniqueIdentifier>{c65703b9-e2dd-4c44-94f9-c5b83c5138eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header\submatrix">
+      <UniqueIdentifier>{82a39330-933e-4321-b769-79b1252e9562}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header\smith">
+      <UniqueIdentifier>{1a88a4f4-e46c-4961-a629-22c6ff5da3fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header\hermite">
+      <UniqueIdentifier>{fc91867b-4aa8-4f37-b774-f5496091684a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header\setenumrnd">
+      <UniqueIdentifier>{05a783a1-1317-4c23-bb51-fe9663e2c42d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\arageli\_utility.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\advsimplmeth.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\algebraic.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\algebrslt.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\bareiss.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\berlekamp_hensel.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\big_const.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\big_float.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\big_int.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\bigar.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\cantor_zassenhaus.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\cone.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\exception.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\gauss.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\gcd.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\generic.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\gram_schmidt.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\groebner_basis.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\hermite.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\intalg.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\intconvex.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\intcount_barvinok.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\io.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\karatsuba.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\linopt.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\lll.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\logarithm.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\matrix.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\motzkin_burger.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\orthogonal.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\pollard_mult.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\polyhedron.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\polyhedron_relation.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\polynom.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\powerest.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\prime.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\rational.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\resultant.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\sideset.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\smith.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\smithpoly.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\solve_linsys.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\sparse_multipolynom.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\sparse_polynom.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\sturm.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\tex_cartesian2d.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\texout.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\timer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\triangulation.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\type_opers.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\type_traits.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\vecalg.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\vector.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\winograd.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\smith\classic.cpp">
+      <Filter>source\smith</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\smith\near_optimal.cpp">
+      <Filter>source\smith</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\smith\storjohann.cpp">
+      <Filter>source\smith</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\hermite\classic.cpp">
+      <Filter>source\hermite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\hermite\domich.cpp">
+      <Filter>source\hermite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\hermite\hafner.cpp">
+      <Filter>source\hermite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\arageli\hermite\storjohann.cpp">
+      <Filter>source\hermite</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuildStep Include="..\..\..\src\arageli\_utility.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\advsimplmeth.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\algebraic.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\algebrslt.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\arageli.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\auto_link.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\bareiss.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\basefuncs.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\berlekamp_hensel.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\big_const.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\big_float.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\big_int.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\bigar.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\cantor_zassenhaus.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\cmp.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\cone.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\config.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\ctrl_latexlog.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\ctrl_slog.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\exception.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\factory.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\fft.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\frwrddecl.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\function_traits.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\functional.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\gauss.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\gcd.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\generic.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\gram_schmidt.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\groebner_basis.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\hermite.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\intalg.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\intconvex.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\intcount_barvinok.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\interval.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\io.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\iomanip.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\iteradapt.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\karatsuba.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\linopt.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\lll.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\logarithm.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\matrix.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\misc.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\mixcomp.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\motzkin_burger.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\orthogonal.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\pollard_mult.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\polyalg.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\polyhedron.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\polyhedron_relation.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\polynom.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\powerest.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\prime.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\random.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\rational.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\refcntr.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\residue.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\resultant.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\rndbase.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\setenumrnd.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\sideset.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\simplex_method.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\skeleton.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\smith.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\smithpoly.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\solve_linsys.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\sparse_multipolynom.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\sparse_polynom.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\sqrfree.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\std_import.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\sturm.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\tex_cartesian2d.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\texout.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\timer.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\triangulation.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\type_opers.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\type_pair_traits.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\type_traits.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\vecalg.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\vector.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\winograd.hpp">
+      <Filter>header</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\subvector\indexed.hpp">
+      <Filter>header\subvector</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\submatrix\hpair.hpp">
+      <Filter>header\submatrix</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\submatrix\indexed.hpp">
+      <Filter>header\submatrix</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\smith\classic.hpp">
+      <Filter>header\smith</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\smith\near_optimal.hpp">
+      <Filter>header\smith</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\smith\storjohann.hpp">
+      <Filter>header\smith</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\hermite\classic.hpp">
+      <Filter>header\hermite</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\hermite\domich.hpp">
+      <Filter>header\hermite</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\hermite\hafner.hpp">
+      <Filter>header\hermite</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\hermite\storjohann.hpp">
+      <Filter>header\hermite</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\setenumrnd\grid.hpp">
+      <Filter>header\setenumrnd</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\setenumrnd\integer.hpp">
+      <Filter>header\setenumrnd</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\src\arageli\setenumrnd\vector.hpp">
+      <Filter>header\setenumrnd</Filter>
+    </CustomBuildStep>
+  </ItemGroup>
+</Project>
