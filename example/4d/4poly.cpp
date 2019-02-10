@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
-#include <windows.h>
+#include <skeleton.h>
 
 // Максимальная длина строки входного файла
 #define LINE_SIZE 2048
@@ -138,8 +138,9 @@ int main (int argc, char *argv[])
         fprintf (outf, "\nend\n");
         fprintf (curf, "\nend\n");
         fclose(curf);
+
         // Обрабатываем p.ext с помощью программы skeleton64f.exe
-        system("skeleton64f.exe p.ext --avisfukudaformat --silence --nologinfile --extinc --edges --ridges");
+        Skeleton::init("skeleton64f.exe p.ext --avisfukudaformat --silence --nologinfile --extinc --edges --ridges");
         // Открываем файл p.ext.out -- результат работы skeleton64f.exe
         FILE *skelf = fopen("p.ext.out", "r");
         if (skelf == NULL){
