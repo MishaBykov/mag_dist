@@ -6,7 +6,7 @@
 
 #include <iostream>
 #include <fstream>
-#include "incidence_matrix.hpp"
+#include "../headers/incidence_matrix.hpp"
 
 
 void IncidenceMatrix::appendRow(int new_row) {
