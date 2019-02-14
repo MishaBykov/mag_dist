@@ -12,21 +12,25 @@
 class IncidenceMatrix {
     std::vector< int > matrix;
 
+    static int stringToRow(std::string row);
+
 public:
     IncidenceMatrix () = default;
     ~IncidenceMatrix () = default;
 
     void appendRow( int new_row );
-    void appendRow( std::string new_row );
 
+    void appendRow( std::string new_row );
     int getRow(int index);
     void setRow(int index, int value);
+
     void setRow(int index, std::string value);
 
-    void readFromFile(std::string file_name);
+    void printToFile(const std::string& file_name);
 
-private:
-    static int stringToRow(std::string row);
+    static std::vector<IncidenceMatrix> readFromFile(const std::string& file_name);
+
+    static void printToFile(std::vector<IncidenceMatrix> incidenceMatrix, const std::string& file_name);
 };
 
 

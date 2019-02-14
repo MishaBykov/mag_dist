@@ -4,9 +4,11 @@
 // Created by misha on 11.10.18.
 //
 
+#include <bitset>
+#include <memory>
 #include <iostream>
 #include <fstream>
-#include "../headers/incidence_matrix.hpp"
+#include <incidence_matrix.hpp>
 
 
 void IncidenceMatrix::appendRow(int new_row) {
@@ -26,32 +28,59 @@ void IncidenceMatrix::setRow(int value, int index) {
 }
 
 int IncidenceMatrix::stringToRow(std::string row) {
-    int result = 0;
-    for (unsigned long i = 0; i < row.size(); i++) {
-        if (row[i] == '1') {
-            int a = 1;
-            a <<= row.size() - 1 - i;
-            result += a;
-        }
-    }
-    return result;
+    return std::stoi(row, nullptr, 2);
 }
 
 void IncidenceMatrix::setRow(int index, std::string value) {
     matrix[index] = stringToRow(std::move(value));
 }
 
-void IncidenceMatrix::readFromFile(std::string file_name) {
+std::vector<IncidenceMatrix> IncidenceMatrix::readFromFile(const std::string& file_name) {
+    std::vector<IncidenceMatrix> result;
     std::string buff; // буфер промежуточного хранения считываемого из файла текста
-    std::ifstream fin(file_name); // (ВВЕЛИ НЕ КОРРЕКТНОЕ ИМЯ ФАЙЛА)
+    std::ifstream file_in(file_name); // (ВВЕЛИ НЕ КОРРЕКТНОЕ ИМЯ ФАЙЛА)
 
-    if (!fin.is_open()) {
+    if(!file_in.is_open()) {
+        std::cout << "Файл не может быть открыт!" << std::endl; // сообщить об этом
+        return result;
+    }
+
+    result.emplace_back();
+    while(std::getline(file_in, buff)) {
+        if(buff.empty())
+        {
+            result.emplace_back();
+            continue;
+        }
+        try {
+            result.back().appendRow(buff);
+        }catch (...)
+        {
+            std::cout << "Некоректный файл" << std::endl;
+            result.pop_back();
+            break;
+        }
+    }
+
+    file_in.close(); // закрываем файл
+
+    return result;
+}
+
+void IncidenceMatrix::printToFile(const std::string &file_name) {
+    std::ofstream file_out(file_name); // (ВВЕЛИ НЕ КОРРЕКТНОЕ ИМЯ ФАЙЛА)
+
+    if(!file_out.is_open()) {
         std::cout << "Файл не может быть открыт!" << std::endl; // сообщить об этом
         return;
     }
 
-    std::getline(fin, buff); // считали строку из файла
-    fin.close(); // закрываем файл
-    std::cout << buff << std::endl; // напечатали эту строку
+    std::cout << std::bitset<file_name.size()>(7) << std::endl;
+
+
+    file_out.close();
+}
+
+void IncidenceMatrix::printToFile(std::vector<IncidenceMatrix> incidenceMatrix, const std::string &file_name) {
 
 }
