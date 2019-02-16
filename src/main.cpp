@@ -1,7 +1,6 @@
 #include <iostream>
 #include <incidence_matrix.hpp>
 
-
 int main() {
     setlocale(LC_ALL, "rus");
     IncidenceMatrix incidence_matrix;

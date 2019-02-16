@@ -6,33 +6,62 @@ get_filename_component(PROJECT_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 #--- имя главной цели. CXX значает, что проект на с++
 project( ${PROJECT_NAME} C CXX )
 
+set(source_code src)
+set(headers ${source_code}/headers)
+set(implementation ${source_code}/implementation)
+
+message(
+"
+config:
+    source_code: ${source_code}
+    headers: ${headers}
+    implementation: ${implementation}
+"
+)
+
 ########################################################################
 
 #--- обработка хедеров
-if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/headers)
-    list(APPEND PATH_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/headers)
-    FILE (GLOB_RECURSE  HEADERS ${PATH_INCLUDES}/*)
+if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${headers})
+    list(APPEND PATH_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/${headers})
+    FILE (GLOB_RECURSE FILES_HEADERS ${PATH_HEADERS}/*)
 else()
-    message(FATAL_ERROR "headers not found")
+    message(SEND_ERROR "headers not found")
+endif()
+
+if (FILES_HEADERS)
+    message("FILES_HEADERS not empty")
+else()
+    message(WARNING "FILES_HEADERS empty")
 endif()
 
 ########################################################################
 
 #--- обработка cpp-файлов
-FILE (GLOB_RECURSE SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/implementation/*)
+if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${implementation})
+    list(APPEND PATH_IMPLEMENTATION ${CMAKE_CURRENT_SOURCE_DIR}/${implementation})
+    FILE (GLOB_RECURSE FILES_IMPLEMENTATION ${CMAKE_CURRENT_SOURCE_DIR}/${implementation}/*)
+else()
+    message(SEND_ERROR "implementation not found")
+endif()
+
+if (FILES_IMPLEMENTATION)
+    message("FILES_IMPLEMENTATION not empty")
+else()
+    message(WARNING "FILES_IMPLEMENTATION empty")
+endif()
 
 ########################################################################
 
-#--- создание цели проекта
-#add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} )
-
 add_executable(
     ${PROJECT_NAME}
-    ${SOURCES}
-    ${HEADERS}
-    main.cpp
+    ${FILES_HEADERS}
+    ${FILES_IMPLEMENTATION}
+    ${source_code}/main.cpp
 )
 
 target_include_directories( ${PROJECT_NAME} PUBLIC
-    ${PATH_INCLUDES}
+    ${PATH_HEADERS}
 )
+
+message("")

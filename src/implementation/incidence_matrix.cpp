@@ -4,7 +4,6 @@
 // Created by misha on 11.10.18.
 //
 
-#include <bitset>
 #include <memory>
 #include <iostream>
 #include <fstream>
@@ -67,6 +66,7 @@ std::vector<IncidenceMatrix> IncidenceMatrix::readFromFile(const std::string& fi
     return result;
 }
 
+// todo перейти на bitset
 void IncidenceMatrix::printToFile(const std::string &file_name) {
     std::ofstream file_out(file_name); // (ВВЕЛИ НЕ КОРРЕКТНОЕ ИМЯ ФАЙЛА)
 
@@ -74,8 +74,6 @@ void IncidenceMatrix::printToFile(const std::string &file_name) {
         std::cout << "Файл не может быть открыт!" << std::endl; // сообщить об этом
         return;
     }
-
-    std::cout << std::bitset<file_name.size()>(7) << std::endl;
 
 
     file_out.close();
