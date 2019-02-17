@@ -7,6 +7,7 @@
 #include <memory>
 #include <iostream>
 #include <fstream>
+
 #include <incidence_matrix.hpp>
 
 
