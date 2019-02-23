@@ -10,21 +10,29 @@
 #include <string>
 
 class IncidenceMatrix {
-    std::vector< int > matrix;
 
-    static int stringToRow(std::string row);
+    int dimension = -1;
+    unsigned int count_vertex = 0;
+
+    std::vector<unsigned long int> matrix;
+
+    void updateCountVertex(unsigned long int new_row);
+
+    static unsigned long int stringToRow(std::string row);
 
 public:
-    IncidenceMatrix () = default;
-    ~IncidenceMatrix () = default;
+    IncidenceMatrix() = default;
+    ~IncidenceMatrix() = default;
 
-    void appendRow( int new_row );
+    explicit IncidenceMatrix(int dimension);
+
+    void appendRow( unsigned long int &&new_row );
 
     void appendRow( std::string new_row );
-    int getRow(int index);
-    void setRow(int index, int value);
+    unsigned long getRow(unsigned int index);
+    void setRow(unsigned long index, unsigned long int new_row);
 
-    void setRow(int index, std::string value);
+    void setRow(unsigned long index, std::string value);
 
     void printToFile(const std::string& file_name);
 
