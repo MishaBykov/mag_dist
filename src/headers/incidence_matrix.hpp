@@ -11,12 +11,11 @@
 
 class IncidenceMatrix {
 
-    int dimension = -1;
-    unsigned int count_vertex = 0;
+    unsigned int count_column = 0;
 
     std::vector<unsigned long int> matrix;
 
-    void updateCountVertex(unsigned long int new_row);
+    void updateCountColumn(unsigned long int new_row);
 
     static unsigned long int stringToRow(std::string row);
 
@@ -24,17 +23,16 @@ public:
     IncidenceMatrix() = default;
     ~IncidenceMatrix() = default;
 
-    explicit IncidenceMatrix(int dimension);
+    unsigned int getCountColumn();
+    unsigned long getCountRow();
 
     void appendRow( unsigned long int &&new_row );
-
     void appendRow( std::string new_row );
     unsigned long getRow(unsigned int index);
     void setRow(unsigned long index, unsigned long int new_row);
-
     void setRow(unsigned long index, std::string value);
 
-    void printToFile(const std::string& file_name);
+    void printToFile(std::ofstream& file_out);
 
     static std::vector<IncidenceMatrix> readFromFile(const std::string& file_name);
 
