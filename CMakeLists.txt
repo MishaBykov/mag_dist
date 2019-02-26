@@ -58,7 +58,7 @@ add_executable(
     ${FILES_HEADERS}
     ${FILES_IMPLEMENTATION}
     ${source_code}/main.cpp
-)
+    src/implementation/Polyhedron.cpp src/headers/Polyhedron.h src/implementation/IncidenceMatrix.cpp src/headers/IncidenceMatrix.h)
 
 target_include_directories( ${PROJECT_NAME} PUBLIC
     ${PATH_HEADERS}

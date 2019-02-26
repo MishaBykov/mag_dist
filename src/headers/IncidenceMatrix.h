@@ -2,11 +2,12 @@
 // Created by misha on 11.10.18.
 //
 
-#ifndef mag_dist_MATRIX_H
-#define mag_dist_MATRIX_H
+#ifndef MAG_DIST_INCIDENCE_MATRIX_H
+#define MAG_DIST_INCIDENCE_MATRIX_H
 
 
 #include <vector>
+#include <fstream>
 #include <string>
 
 class IncidenceMatrix {
@@ -40,4 +41,4 @@ public:
 };
 
 
-#endif // mag_dist_MATRIX_H
+#endif //MAG_DIST_INCIDENCE_MATRIX_H

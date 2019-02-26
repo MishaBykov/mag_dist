@@ -1,14 +1,14 @@
-#include <utility>
-
 //
 // Created by misha on 11.10.18.
 //
+
+#include <IncidenceMatrix.h>
+
+#include <utility>
 #include <utility>
 #include <memory>
 #include <iostream>
 #include <fstream>
-
-#include <incidence_matrix.hpp>
 
 
 void IncidenceMatrix::appendRow(unsigned long int &&new_row) {
