@@ -5,6 +5,7 @@
 
 int main() {
     setlocale(LC_ALL, "rus");
-    Polyhedron p;
+    Polyhedron p(3);
+    Polyhedron::readFromFile("in.txt");
     return 0;
 }

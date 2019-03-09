@@ -26,6 +26,8 @@ public:
     IncidenceMatrix() = default;
     ~IncidenceMatrix() = default;
 
+    void readFromFile(std::istream& istream);
+
     unsigned long getCountColumn();
     unsigned long getCountRow();
 

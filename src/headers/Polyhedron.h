@@ -7,6 +7,8 @@
 
 
 #include <IncidenceMatrix.h>
+#include <vector>
+#include <fstream>
 
 class Polyhedron {
 
@@ -15,8 +17,12 @@ class Polyhedron {
 
 public:
 
+    explicit Polyhedron(unsigned int dimension);
+    Polyhedron(unsigned int dimension, const IncidenceMatrix &incidenceMatrix);
 
+    static std::vector<Polyhedron> readFromFile(std::string file_name);
 
+//    static void printToStream(std::vector<Polyhedron> incidenceMatrix, std::string file_name);
 };
 
 

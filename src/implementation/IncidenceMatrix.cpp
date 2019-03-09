@@ -158,3 +158,20 @@ void IncidenceMatrix::setRow(unsigned int index, unsigned long new_value) {
 void IncidenceMatrix::setRow(unsigned int index, std::string new_value) {
     matrix[index] = stringToRow(std::move(new_value));
 }
+
+void IncidenceMatrix::readFromFile(std::istream &istream) {
+    std::string buff;
+
+    while(getline(istream, buff)) {
+        if(!buff.empty()) {
+            try {
+                appendRow(buff);
+            }
+            catch (const std::invalid_argument &e) {
+                std::cout << "Некоректный файл" << std::endl
+                          << "(" << e.what() << ") строка: " << buff << std::endl;
+                break;
+            }
+        }
+    }
+}
