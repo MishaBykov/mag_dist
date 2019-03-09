@@ -1,3 +1,9 @@
+#include <utility>
+
+#include <utility>
+
+#include <utility>
+
 //
 // Created by misha on 11.10.18.
 //
@@ -26,6 +32,14 @@ unsigned long IncidenceMatrix::stringToRow(std::string row) {
     return std::stoull(row, nullptr, 2);
 }
 
+std::vector<bool> IncidenceMatrix::stringToColumn(std::string row) {
+    std::vector<bool> result(row.size());
+    for (int i = 0; i < row.size(); ++i) {
+        result[i] = row[i] - '0';
+    }
+    return result;
+}
+
 void IncidenceMatrix::appendRow(unsigned long new_row) {
     updateCountColumn(new_row);
     matrix.push_back(new_row);
@@ -50,7 +64,7 @@ unsigned long IncidenceMatrix::getCountColumn() {
     return count_column;
 }
 
-void IncidenceMatrix::appendColumn(std::vector<bool> &new_column) {
+void IncidenceMatrix::appendColumn(std::vector<bool> new_column) {
     count_column++;
     for(int i = 0; i < matrix.size(); ++i) {
         matrix[i] <<= 1;
@@ -59,12 +73,7 @@ void IncidenceMatrix::appendColumn(std::vector<bool> &new_column) {
 }
 
 void IncidenceMatrix::appendColumn(std::string new_str_column) {
-    std::vector<bool> new_column;
-    new_column.reserve(new_str_column.size());
-    for (auto &i : new_str_column) {
-        new_column.push_back(bool(int(i - '0')));
-    }
-    appendColumn(new_column);
+    appendColumn(stringToColumn(std::move(new_str_column)));
 }
 
 void IncidenceMatrix::removeColumn(unsigned long index) {
@@ -84,4 +93,68 @@ void IncidenceMatrix::printToStream(std::ostream &ostream) {
         ostream << std::endl;
     }
     ostream << std::endl;
+}
+
+std::vector<bool> IncidenceMatrix::getColumn(unsigned long index) {
+    std::vector<bool> result;
+    unsigned long bit = static_cast<unsigned long>(1) << index;
+    result.reserve(matrix.size());
+    for (unsigned long i : matrix) {
+        result.push_back(bool(i & bit));
+    }
+    return result;
+}
+
+void IncidenceMatrix::removeRow(unsigned long index) {
+    matrix.erase(matrix.begin() + index);
+}
+
+std::vector<unsigned long> IncidenceMatrix::sumRow() {
+    std::vector<unsigned long> result(getCountRow());
+    for (int i = 0; i <matrix.size(); ++i) {
+        for (unsigned long m = matrix[i]; m != 0; m >>= 1) {
+            if (m & 1)
+                result[i]++;
+        }
+    }
+    return result;
+}
+
+std::vector<unsigned long> IncidenceMatrix::sumColumn() {
+    std::vector<unsigned long> result(getCountColumn());
+    for (unsigned long m : matrix) {
+        for (int i = 0; m != 0; i++, m >>= 1) {
+            if (m & 1)
+                result[i]++;
+        }
+    }
+    return result;
+}
+
+void IncidenceMatrix::setColumn(unsigned long index, std::vector<bool> new_value) {
+    unsigned long bit = 1;
+    bit <<= index;
+    for (int i = 0; i < matrix.size(); ++i) {
+        if (new_value[i] != (bit && matrix[i])){
+            if (bit && matrix[i]){
+                matrix[i] -= bit;
+            }
+            if (new_value[i]){
+                matrix[i] += bit;
+            }
+        }
+
+    }
+}
+
+void IncidenceMatrix::setColumn(unsigned long index, std::string new_value) {
+    setColumn(index, stringToColumn(std::move(new_value)));
+}
+
+void IncidenceMatrix::setRow(unsigned int index, unsigned long new_value) {
+    matrix[index] = new_value;
+}
+
+void IncidenceMatrix::setRow(unsigned int index, std::string new_value) {
+    matrix[index] = stringToRow(std::move(new_value));
 }
