@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 2.8)
 
 #--- имя проекта совпадает с именем каталога проекта
-get_filename_component(PROJECT_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+get_filename_component(project_name ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 
 #--- имя главной цели. CXX значает, что проект на с++
-project( ${PROJECT_NAME} C CXX )
+project( ${project_name} C CXX )
 
 set(source_code src)
 set(headers ${source_code}/headers)
@@ -23,45 +23,46 @@ config:
 
 #--- обработка хедеров
 if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${headers})
-    list(APPEND PATH_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/${headers})
-    FILE (GLOB_RECURSE FILES_HEADERS ${PATH_HEADERS}/*)
+    list(APPEND path_headers ${CMAKE_CURRENT_SOURCE_DIR}/${headers})
+    FILE (GLOB_RECURSE files_headers ${path_headers}/*)
 else()
     message(SEND_ERROR "headers not found")
 endif()
 
-if (FILES_HEADERS)
-    message("FILES_HEADERS not empty")
+if (files_headers)
+    message("files_headers not empty")
 else()
-    message(WARNING "FILES_HEADERS empty")
+    message(WARNING "files_headers empty")
 endif()
 
 ########################################################################
 
 #--- обработка cpp-файлов
 if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${implementation})
-    list(APPEND PATH_IMPLEMENTATION ${CMAKE_CURRENT_SOURCE_DIR}/${implementation})
-    FILE (GLOB_RECURSE FILES_IMPLEMENTATION ${CMAKE_CURRENT_SOURCE_DIR}/${implementation}/*)
+    list(APPEND path_implementation ${CMAKE_CURRENT_SOURCE_DIR}/${implementation})
+    FILE (GLOB_RECURSE files_implementation ${CMAKE_CURRENT_SOURCE_DIR}/${implementation}/*)
 else()
     message(SEND_ERROR "implementation not found")
 endif()
 
-if (FILES_IMPLEMENTATION)
-    message("FILES_IMPLEMENTATION not empty")
+if (files_implementation)
+    message("files_implementation not empty")
 else()
-    message(WARNING "FILES_IMPLEMENTATION empty")
+    message(WARNING "files_implementation empty")
 endif()
 
 ########################################################################
 
 add_executable(
-    ${PROJECT_NAME}
-    ${FILES_HEADERS}
-    ${FILES_IMPLEMENTATION}
-    ${source_code}/main.cpp
-    src/implementation/Polyhedron.cpp src/headers/Polyhedron.h src/implementation/IncidenceMatrix.cpp src/headers/IncidenceMatrix.h)
+    ${project_name}
+    ${files_headers}
+    ${files_implementation}
 
-target_include_directories( ${PROJECT_NAME} PUBLIC
-    ${PATH_HEADERS}
+    ${source_code}/main.cpp
+)
+
+target_include_directories( ${project_name} PUBLIC
+    ${path_headers}
 )
 
 message("")
