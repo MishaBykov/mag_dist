@@ -63,5 +63,21 @@ Polyhedron Polyhedron::getVertexFigure(unsigned int index_column) {
 }
 
 Polyhedron Polyhedron::getFacet(unsigned int index_row) {
-    return Polyhedron(0);
+    IncidenceMatrix new_matrix = matrix;
+    unsigned int new_dimension = dimension - 1;
+
+    for (unsigned int i = 0; i < new_matrix.getCountRow(); ++i) {
+        if (index_row != i){
+            new_matrix.appendRow(matrix.getRow(i) & matrix.getRow(index_row));
+        }
+    }
+
+    auto sum_columns = new_matrix.sumColumns();
+    for (unsigned int i = 0; i < sum_columns.size(); ++i) {
+        if (sum_columns[i] < new_dimension) {
+            new_matrix.removeColumn(i);
+        }
+    }
+
+    return Polyhedron(new_dimension, new_matrix);
 }

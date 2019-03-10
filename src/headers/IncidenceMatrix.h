@@ -31,6 +31,8 @@ public:
     unsigned long getCountColumn();
     unsigned long getCountRow();
 
+    unsigned long size();
+
     void appendRow( unsigned long new_row );
     void appendRow( std::string new_row );
     void removeRow(unsigned long index);
@@ -45,7 +47,7 @@ public:
     std::vector<bool> getColumn(unsigned long index);
     void setColumn(unsigned long index, std::vector<bool> new_value);
     void setColumn(unsigned long index, std::string new_value);
-    std::vector<unsigned long> sumColumn();
+    std::vector<unsigned long> sumColumns();
 
     void printToStream(std::ostream &ostream);
 

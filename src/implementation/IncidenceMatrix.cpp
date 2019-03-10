@@ -120,7 +120,7 @@ std::vector<unsigned long> IncidenceMatrix::sumRow() {
     return result;
 }
 
-std::vector<unsigned long> IncidenceMatrix::sumColumn() {
+std::vector<unsigned long> IncidenceMatrix::sumColumns() {
     std::vector<unsigned long> result(getCountColumn());
     for (unsigned long m : matrix) {
         for (int i = 0; m != 0; i++, m >>= 1) {
@@ -174,4 +174,8 @@ void IncidenceMatrix::readFromFile(std::istream &istream) {
             }
         }
     }
+}
+
+unsigned long IncidenceMatrix::size() {
+    return getCountColumn() * getCountRow();
 }
