@@ -8,21 +8,27 @@
 
 #include <IncidenceMatrix.h>
 #include <vector>
-#include <fstream>
+#include <ostream>
 
 class Polyhedron {
 
     unsigned int dimension;
-    IncidenceMatrix incidenceMatrix;
+    IncidenceMatrix matrix;
 
 public:
 
     explicit Polyhedron(unsigned int dimension);
     Polyhedron(unsigned int dimension, const IncidenceMatrix &incidenceMatrix);
 
+    void printToStream(std::ostream& out_stream);
+
+    Polyhedron getVertexFigure(unsigned int index_column);
+
+    Polyhedron getFacet(unsigned int index_row);
+
     static std::vector<Polyhedron> readFromFile(std::string file_name);
 
-//    static void printToStream(std::vector<Polyhedron> incidenceMatrix, std::string file_name);
+    static void printToStream(std::vector<Polyhedron>& incidenceMatrix,const std::string& file_name);
 };
 
 

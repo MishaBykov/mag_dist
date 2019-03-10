@@ -13,7 +13,7 @@
 Polyhedron::Polyhedron(unsigned int dimension) : dimension(dimension) {}
 
 Polyhedron::Polyhedron(unsigned int dimension, const IncidenceMatrix &incidenceMatrix)
-: dimension(dimension), incidenceMatrix(incidenceMatrix) {}
+: dimension(dimension), matrix(incidenceMatrix) {}
 
 std::vector<Polyhedron> Polyhedron::readFromFile(std::string file_name) {
     std::vector<Polyhedron> result;
@@ -37,7 +37,7 @@ std::vector<Polyhedron> Polyhedron::readFromFile(std::string file_name) {
                 break;
             }
             result.emplace_back(dimension);
-            result.back().incidenceMatrix.readFromFile(file_in);
+            result.back().matrix.readFromFile(file_in);
         }
     }
 
@@ -46,21 +46,22 @@ std::vector<Polyhedron> Polyhedron::readFromFile(std::string file_name) {
     return result;
 }
 
-//void Polyhedron::printToStream(std::vector<Polyhedron> vecrtorIncidenceMatrix, const std::string file_name) {
-//    std::ofstream file_out(file_name);
-//
-//    if(!file_out.is_open()) {
-//        std::cout << "Файл(" << file_name << ") не может быть открыт!" << std::endl;
-//        return;
-//    }
-//
-//    for (auto &i : vecrtorIncidenceMatrix) {
-//        i.printToStream(file_out);
-//    }
-//
-//    file_out.close();
-//}
+void Polyhedron::printToStream(std::ostream& out_stream) {
+        out_stream << dimension << std::endl;
+        matrix.printToStream(out_stream);
+}
 
-//std::vector<IncidenceMatrix> Polyhedron::readFromFile(std::string file_name) {
-//    return std::vector<IncidenceMatrix>();
-//}
+void Polyhedron::printToStream(std::vector<Polyhedron>& incidenceMatrix, const std::string &file_name) {
+    std::ofstream out_stream(file_name);
+    for (auto &i : incidenceMatrix) {
+        i.printToStream(out_stream);
+    }
+}
+
+Polyhedron Polyhedron::getVertexFigure(unsigned int index_column) {
+    return Polyhedron(0);
+}
+
+Polyhedron Polyhedron::getFacet(unsigned int index_row) {
+    return Polyhedron(0);
+}
