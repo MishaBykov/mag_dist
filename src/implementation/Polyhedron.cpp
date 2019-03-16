@@ -6,12 +6,11 @@
 #include <memory>
 #include <utility>
 #include <IncidenceMatrix.h>
+
 #include <Polyhedron.h>
 
-#include "Polyhedron.h"
-
+Polyhedron::Polyhedron() = default;
 Polyhedron::Polyhedron(unsigned int dimension) : dimension(dimension) {}
-
 Polyhedron::Polyhedron(unsigned int dimension, const IncidenceMatrix &incidenceMatrix)
 : dimension(dimension), matrix(incidenceMatrix) {}
 
@@ -81,3 +80,5 @@ Polyhedron Polyhedron::getFacet(unsigned int index_row) {
 
     return Polyhedron(new_dimension, new_matrix);
 }
+
+

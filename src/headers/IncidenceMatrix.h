@@ -12,13 +12,11 @@
 
 class IncidenceMatrix {
 
-
-    unsigned long max_row = 0;
     unsigned long count_column = 0;
 
     std::vector<unsigned long> matrix;
 
-    void updateCountColumn(unsigned long new_row);
+    void updateCountColumn();
     static unsigned long stringToRow(std::string row);
     static std::vector<bool> stringToColumn(std::string row);
 
@@ -26,7 +24,7 @@ public:
     IncidenceMatrix() = default;
     ~IncidenceMatrix() = default;
 
-    void readFromFile(std::istream& istream);
+    void readFromFile(std::istream& i_stream);
 
     unsigned long getCountColumn();
     unsigned long getCountRow();
@@ -35,21 +33,21 @@ public:
 
     void appendRow( unsigned long new_row );
     void appendRow( std::string new_row );
-    void removeRow(unsigned long index);
+    void removeRow(unsigned int index);
     unsigned long getRow(unsigned int index);
     void setRow(unsigned int index, unsigned long new_value);
     void setRow(unsigned int index, std::string new_value);
-    std::vector<unsigned long> sumRow();
+    std::vector<unsigned long> sumRows();
 
     void appendColumn( std::vector<bool> new_column );
     void appendColumn( std::string new_column );
-    void removeColumn(unsigned long index);
-    std::vector<bool> getColumn(unsigned long index);
+    void removeColumn(unsigned int index);
+    std::vector<bool> getColumn(unsigned int index);
     void setColumn(unsigned long index, std::vector<bool> new_value);
     void setColumn(unsigned long index, std::string new_value);
     std::vector<unsigned long> sumColumns();
 
-    void printToStream(std::ostream &ostream);
+    void printToStream(std::ostream &o_stream);
 
 };
 

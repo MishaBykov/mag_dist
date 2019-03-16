@@ -12,11 +12,12 @@
 
 class Polyhedron {
 
-    unsigned int dimension;
+    unsigned int dimension = 0;
     IncidenceMatrix matrix;
 
 public:
 
+    Polyhedron();
     explicit Polyhedron(unsigned int dimension);
     Polyhedron(unsigned int dimension, const IncidenceMatrix &incidenceMatrix);
 

@@ -9,16 +9,22 @@
 #include <IncidenceMatrix.h>
 
 class GenerationIncidenceMatrix {
-    unsigned int max_row, max_column;
+    unsigned int max_row = 0;
+    unsigned int max_column = 0;
 
     IncidenceMatrix base;
-
     IncidenceMatrix result;
 
-    std::vector<bool> permutations;
+    std::vector<bool> bits;
 
 public:
-//    next();
+
+    explicit GenerationIncidenceMatrix(IncidenceMatrix base, unsigned int max_row, unsigned int  max_column);
+    ~GenerationIncidenceMatrix();
+
+    bool next();
+
+    IncidenceMatrix getResult();
 };
 
 

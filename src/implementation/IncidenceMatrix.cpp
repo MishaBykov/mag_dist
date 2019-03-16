@@ -2,22 +2,17 @@
 // Created by misha on 11.10.18.
 //
 
-#include <iostream>
-
 #include <IncidenceMatrix.h>
 
-void IncidenceMatrix::updateCountColumn(unsigned long new_row) {
-    if(new_row >= max_row) {
-        if (new_row > max_row) {
-            max_row = new_row;
-        } else {
-            max_row = matrix[0];
-            for (auto &i : matrix)
-                max_row = std::max(max_row, i);
-            new_row = max_row;
-        }
-        for (count_column = 0; new_row != 0; new_row >>= 1, count_column++);
+#include <algorithm>
+#include <iostream>
+
+void IncidenceMatrix::updateCountColumn() {
+    if (matrix.empty()){
+        return;
     }
+    unsigned long max_row = *std::max_element(matrix.begin(), matrix.end());
+    for (count_column = 0; max_row != 0; max_row >>= 1, count_column++);
 }
 
 unsigned long IncidenceMatrix::stringToRow(std::string row) {
@@ -33,8 +28,8 @@ std::vector<bool> IncidenceMatrix::stringToColumn(std::string row) {
 }
 
 void IncidenceMatrix::appendRow(unsigned long new_row) {
-    updateCountColumn(new_row);
     matrix.push_back(new_row);
+    updateCountColumn();
 }
 
 void IncidenceMatrix::appendRow(std::string new_str_row) {
@@ -57,37 +52,44 @@ unsigned long IncidenceMatrix::getCountColumn() {
 }
 
 void IncidenceMatrix::appendColumn(std::vector<bool> new_column) {
+    if (getCountRow() < new_column.size()) {
+        matrix.resize(new_column.size());
+    }
     count_column++;
     for(int i = 0; i < matrix.size(); ++i) {
         matrix[i] <<= 1;
         matrix[i] += new_column[i];
     }
+    updateCountColumn();
 }
 
 void IncidenceMatrix::appendColumn(std::string new_str_column) {
     appendColumn(stringToColumn(std::move(new_str_column)));
 }
 
-void IncidenceMatrix::removeColumn(unsigned long index) {
+void IncidenceMatrix::removeColumn(unsigned int index) {
     auto right = (1 << index) - 1, left = ((1 << count_column) - 1) - ((1 << (index + 1)) - 1);
     count_column--;
     for(auto &i : matrix){
         i = ((left & i) >> 1) + (right & i);
     }
+    updateCountColumn();
 }
 
-void IncidenceMatrix::printToStream(std::ostream &ostream) {
+void IncidenceMatrix::printToStream(std::ostream &o_stream) {
     for (unsigned long row : matrix) {
+        std::string buf;
         for (int j = 0; j < count_column; j++){
-            ostream << (row & 1);
+            buf.push_back(static_cast<char>((row & 1) + '0'));
             row >>= 1;
         }
-        ostream << std::endl;
+        std::reverse(buf.begin(), buf.end());
+        o_stream << buf << std::endl;
     }
-    ostream << std::endl;
+    o_stream << std::endl;
 }
 
-std::vector<bool> IncidenceMatrix::getColumn(unsigned long index) {
+std::vector<bool> IncidenceMatrix::getColumn(unsigned int index) {
     std::vector<bool> result;
     unsigned long bit = static_cast<unsigned long>(1) << index;
     result.reserve(matrix.size());
@@ -97,11 +99,12 @@ std::vector<bool> IncidenceMatrix::getColumn(unsigned long index) {
     return result;
 }
 
-void IncidenceMatrix::removeRow(unsigned long index) {
+void IncidenceMatrix::removeRow(unsigned int index) {
     matrix.erase(matrix.begin() + index);
+    updateCountColumn();
 }
 
-std::vector<unsigned long> IncidenceMatrix::sumRow() {
+std::vector<unsigned long> IncidenceMatrix::sumRows() {
     std::vector<unsigned long> result(getCountRow());
     for (int i = 0; i <matrix.size(); ++i) {
         for (unsigned long m = matrix[i]; m != 0; m >>= 1) {
@@ -124,6 +127,10 @@ std::vector<unsigned long> IncidenceMatrix::sumColumns() {
 }
 
 void IncidenceMatrix::setColumn(unsigned long index, std::vector<bool> new_value) {
+    if (index >= getCountColumn()){
+        std::cout << "[setColumn] "<< index << " за пределами" << std::endl;
+        return;
+    }
     unsigned long bit = 1;
     bit <<= index;
     for (int i = 0; i < matrix.size(); ++i) {
@@ -137,6 +144,7 @@ void IncidenceMatrix::setColumn(unsigned long index, std::vector<bool> new_value
         }
 
     }
+    updateCountColumn();
 }
 
 void IncidenceMatrix::setColumn(unsigned long index, std::string new_value) {
@@ -144,16 +152,20 @@ void IncidenceMatrix::setColumn(unsigned long index, std::string new_value) {
 }
 
 void IncidenceMatrix::setRow(unsigned int index, unsigned long new_value) {
+    if (index >= getCountRow()){
+        std::cout << "[setRow] "<< index << " за пределами" << std::endl;
+        return;
+    }
     matrix[index] = new_value;
+    updateCountColumn();
 }
 
 void IncidenceMatrix::setRow(unsigned int index, std::string new_value) {
-    matrix[index] = stringToRow(std::move(new_value));
+    setRow(index, stringToRow(std::move(new_value)));
 }
 
 void IncidenceMatrix::readFromFile(std::istream &istream) {
     std::string buff;
-
     while(getline(istream, buff)) {
         if(!buff.empty()) {
             try {
