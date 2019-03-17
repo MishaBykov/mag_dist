@@ -168,7 +168,7 @@ void IncidenceMatrix::readFromStream(std::istream &i_stream) {
     if (!i_stream.eof()) {
         std::string buff;
         std::getline(i_stream, buff);
-        while (!buff.empty()) {
+        while (!buff.empty() && !i_stream.eof()) {
             try {
                 appendRow(buff);
             }
@@ -180,7 +180,7 @@ void IncidenceMatrix::readFromStream(std::istream &i_stream) {
             std::getline(i_stream, buff);
         }
     } else {
-        std::cout << "Конец файла" << std::endl;
+        std::cout << "[IncidenceMatrix] Конец файла" << std::endl;
     }
 }
 

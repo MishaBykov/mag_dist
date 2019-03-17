@@ -50,7 +50,7 @@ void Polyhedron::readFromStream(std::istream &i_stream) {
         m.readFromStream(i_stream);
         setMatrix(m);
     } else {
-        std::cout << "Конец файла" << std::endl;
+        std::cout << "[Polyhedron] Конец файла" << std::endl;
     }
 }
 

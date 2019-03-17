@@ -26,8 +26,6 @@ public:
     IncidenceMatrix() = default;
     ~IncidenceMatrix() = default;
 
-
-
     unsigned long getCountColumn();
     unsigned long getCountRow();
     unsigned long size();
