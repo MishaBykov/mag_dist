@@ -15,11 +15,13 @@ class Polyhedron {
     unsigned int dimension = 0;
     IncidenceMatrix matrix;
 
+    static void checkIncidenceMatrix(IncidenceMatrix &incidenceMatrix, unsigned int dimension);
+
 public:
 
     Polyhedron();
     explicit Polyhedron(unsigned int dimension);
-    Polyhedron(unsigned int dimension, const IncidenceMatrix &incidenceMatrix);
+    Polyhedron(unsigned int dimension, IncidenceMatrix &incidenceMatrix);
 
     void printToStream(std::ostream& out_stream);
 
@@ -27,7 +29,13 @@ public:
 
     Polyhedron getFacet(unsigned int index_row);
 
+    IncidenceMatrix getMatrix();
+
+    void setMatrix(IncidenceMatrix new_matrix);
+
     static std::vector<Polyhedron> readFromFile(std::string file_name);
+
+    void readFromStream(std::istream &i_stream);
 
     static void printToStream(std::vector<Polyhedron>& incidenceMatrix,const std::string& file_name);
 };

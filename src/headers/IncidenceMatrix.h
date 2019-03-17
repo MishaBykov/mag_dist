@@ -17,18 +17,19 @@ class IncidenceMatrix {
     std::vector<unsigned long> matrix;
 
     void updateCountColumn();
+
     static unsigned long stringToRow(std::string row);
     static std::vector<bool> stringToColumn(std::string row);
+    static std::string columnToString(const std::vector<bool>& column);
 
 public:
     IncidenceMatrix() = default;
     ~IncidenceMatrix() = default;
 
-    void readFromFile(std::istream& i_stream);
+
 
     unsigned long getCountColumn();
     unsigned long getCountRow();
-
     unsigned long size();
 
     void appendRow( unsigned long new_row );
@@ -47,6 +48,9 @@ public:
     void setColumn(unsigned long index, std::string new_value);
     std::vector<unsigned long> sumColumns();
 
+    void transpose();
+
+    void readFromStream(std::istream &i_stream);
     void printToStream(std::ostream &o_stream);
 
 };

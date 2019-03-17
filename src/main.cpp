@@ -7,16 +7,17 @@
 int main() {
     setlocale(LC_ALL, "rus");
 
-    IncidenceMatrix base;
-    base.appendRow("11");
-    base.appendRow("11");
+    auto vp = Polyhedron::readFromFile("../input_files/4d_temp.txt");
+    std::cout << vp.size() << std::endl;
 
-    base.printToStream(std::cout);
+    int j = 0;
+    for (auto &i : vp) {
+        if (i.getMatrix().getCountRow() < 22)
+            j++;
+            i.printToStream(std::cout);
+    }
 
-    GenerationIncidenceMatrix gim(base, 3, 4);
-
-    while (gim.next())
-        gim.getResult().printToStream(std::cout);
+    std::cout << j << std::endl;
 
     return 0;
 }

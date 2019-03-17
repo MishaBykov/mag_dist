@@ -106,7 +106,7 @@ void IncidenceMatrix::removeRow(unsigned int index) {
 
 std::vector<unsigned long> IncidenceMatrix::sumRows() {
     std::vector<unsigned long> result(getCountRow());
-    for (int i = 0; i <matrix.size(); ++i) {
+    for (int i = 0; i < matrix.size(); ++i) {
         for (unsigned long m = matrix[i]; m != 0; m >>= 1) {
             if (m & 1)
                 result[i]++;
@@ -164,10 +164,11 @@ void IncidenceMatrix::setRow(unsigned int index, std::string new_value) {
     setRow(index, stringToRow(std::move(new_value)));
 }
 
-void IncidenceMatrix::readFromFile(std::istream &istream) {
-    std::string buff;
-    while(getline(istream, buff)) {
-        if(!buff.empty()) {
+void IncidenceMatrix::readFromStream(std::istream &i_stream) {
+    if (!i_stream.eof()) {
+        std::string buff;
+        std::getline(i_stream, buff);
+        while (!buff.empty()) {
             try {
                 appendRow(buff);
             }
@@ -176,10 +177,32 @@ void IncidenceMatrix::readFromFile(std::istream &istream) {
                           << "(" << e.what() << ") строка: " << buff << std::endl;
                 break;
             }
+            std::getline(i_stream, buff);
         }
+    } else {
+        std::cout << "Конец файла" << std::endl;
     }
 }
 
 unsigned long IncidenceMatrix::size() {
     return getCountColumn() * getCountRow();
+}
+
+void IncidenceMatrix::transpose() {
+    std::vector<unsigned long> new_matrix;
+    for (unsigned int i = 0; i < getCountColumn(); ++i) {
+        new_matrix.push_back(stringToRow(columnToString(getColumn(i))));
+    }
+    matrix.clear();
+    matrix = new_matrix;
+}
+
+std::string IncidenceMatrix::columnToString(const std::vector<bool>& column) {
+    std::string result;
+
+    for (auto &&i : column) {
+        result.push_back(i ? '1' : '0');
+    }
+
+    return result;
 }

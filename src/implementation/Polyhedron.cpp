@@ -11,12 +11,14 @@
 
 Polyhedron::Polyhedron() = default;
 Polyhedron::Polyhedron(unsigned int dimension) : dimension(dimension) {}
-Polyhedron::Polyhedron(unsigned int dimension, const IncidenceMatrix &incidenceMatrix)
-: dimension(dimension), matrix(incidenceMatrix) {}
+Polyhedron::Polyhedron(unsigned int dimension, IncidenceMatrix &incidenceMatrix)
+: dimension(dimension) {
+    checkIncidenceMatrix(incidenceMatrix, dimension);
+    this->dimension = dimension;
+}
 
 std::vector<Polyhedron> Polyhedron::readFromFile(std::string file_name) {
     std::vector<Polyhedron> result;
-    std::string buff;
     std::ifstream file_in(file_name);
 
     if(!file_in.is_open()) {
@@ -24,26 +26,34 @@ std::vector<Polyhedron> Polyhedron::readFromFile(std::string file_name) {
         return result;
     }
 
-    while(getline(file_in, buff)) {
-        if(!buff.empty()) {
-            unsigned int dimension = 0;
-            try {
-                file_in >> dimension;
-            }
-            catch (const std::invalid_argument &e) {
-                std::cout << "Некоректный файл" << std::endl
-                          << "(" << e.what() << ") строка: " << buff << std::endl;
-                break;
-            }
-            result.emplace_back(dimension);
-            result.back().matrix.readFromFile(file_in);
-        }
+    while (!file_in.eof()) {
+        result.emplace_back();
+        result.back().readFromStream(file_in);
     }
 
     file_in.close();
 
     return result;
 }
+
+void Polyhedron::readFromStream(std::istream &i_stream) {
+    if (!i_stream.eof()) {
+        try {
+            i_stream >> dimension;
+            i_stream.get();
+        }
+        catch (const std::invalid_argument &e) {
+            std::cout << "Некоректный файл" << std::endl
+                      << "(" << e.what() << ") нет размерности" << std::endl;
+        }
+        IncidenceMatrix m;
+        m.readFromStream(i_stream);
+        setMatrix(m);
+    } else {
+        std::cout << "Конец файла" << std::endl;
+    }
+}
+
 
 void Polyhedron::printToStream(std::ostream& out_stream) {
         out_stream << dimension << std::endl;
@@ -79,6 +89,26 @@ Polyhedron Polyhedron::getFacet(unsigned int index_row) {
     }
 
     return Polyhedron(new_dimension, new_matrix);
+}
+
+IncidenceMatrix Polyhedron::getMatrix() {
+    return matrix;
+}
+
+void Polyhedron::setMatrix(IncidenceMatrix new_matrix) {
+    checkIncidenceMatrix(new_matrix, dimension);
+    matrix = new_matrix;
+}
+
+void Polyhedron::checkIncidenceMatrix(IncidenceMatrix &incidenceMatrix, unsigned int dimension) {
+    auto sum_rows = incidenceMatrix.sumRows();
+    for (unsigned int i = 0; i < sum_rows.size(); ++i) {
+        if (sum_rows[i] < dimension) {
+            incidenceMatrix.removeRow(i);
+            sum_rows.erase(sum_rows.begin() + i);
+            i--;
+        }
+    }
 }
 
 
