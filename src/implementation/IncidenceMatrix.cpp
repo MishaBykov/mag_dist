@@ -67,9 +67,8 @@ void IncidenceMatrix::appendColumn(std::string new_str_column) {
     appendColumn(stringToColumn(std::move(new_str_column)));
 }
 
-void IncidenceMatrix::removeColumn(unsigned int index) {
+void IncidenceMatrix::removeColumn(unsigned long index) {
     auto right = (1 << index) - 1, left = ((1 << count_column) - 1) - ((1 << (index + 1)) - 1);
-    count_column--;
     for(auto &i : matrix){
         i = ((left & i) >> 1) + (right & i);
     }
@@ -77,10 +76,14 @@ void IncidenceMatrix::removeColumn(unsigned int index) {
 }
 
 void IncidenceMatrix::printToStream(std::ostream &o_stream) {
+    if (getCountColumn() == 0 || getCountRow() == 0){
+        o_stream << "IncidenceMatrix empty" << std::endl << std::endl;
+        return;
+    }
     for (unsigned long row : matrix) {
         std::string buf;
         for (int j = 0; j < count_column; j++){
-            buf.push_back(static_cast<char>((row & 1) + '0'));
+            buf.push_back((row & 1) ? '1' : '0');
             row >>= 1;
         }
         std::reverse(buf.begin(), buf.end());
@@ -99,7 +102,7 @@ std::vector<bool> IncidenceMatrix::getColumn(unsigned int index) {
     return result;
 }
 
-void IncidenceMatrix::removeRow(unsigned int index) {
+void IncidenceMatrix::removeRow(unsigned long index) {
     matrix.erase(matrix.begin() + index);
     updateCountColumn();
 }
@@ -205,4 +208,9 @@ std::string IncidenceMatrix::columnToString(const std::vector<bool>& column) {
     }
 
     return result;
+}
+
+void IncidenceMatrix::clear() {
+    matrix.clear();
+    count_column = 0;
 }

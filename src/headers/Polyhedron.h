@@ -21,7 +21,7 @@ public:
 
     Polyhedron();
     explicit Polyhedron(unsigned int dimension);
-    Polyhedron(unsigned int dimension, IncidenceMatrix &incidenceMatrix);
+    Polyhedron(unsigned int dimension, IncidenceMatrix incidenceMatrix);
 
     void printToStream(std::ostream& out_stream);
 
@@ -30,6 +30,8 @@ public:
     Polyhedron getFacet(unsigned int index_row);
 
     IncidenceMatrix getMatrix();
+
+    unsigned int getDimension();
 
     void setMatrix(IncidenceMatrix new_matrix);
 

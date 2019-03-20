@@ -12,6 +12,7 @@ GenerationIncidenceMatrix::GenerationIncidenceMatrix
         : base(base), max_row(max_row), max_column(max_column)
 {
     bits.resize(max_row * max_column - base.size());
+    std::cout << bits.size() << std::endl;
 }
 
 GenerationIncidenceMatrix::~GenerationIncidenceMatrix() {
@@ -36,7 +37,7 @@ bool GenerationIncidenceMatrix::next() {
 
     for (int j = 0; j < max_row - base.getCountRow(); ++j, i += max_column ) {
         std::string row;
-        for (int k = i; k <= i + max_row; ++k) {
+        for (int k = i; k < i + max_row; ++k) {
             row.push_back(bits[k] ? '1' : '0');
         }
         result.appendRow(row);

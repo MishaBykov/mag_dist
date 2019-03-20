@@ -19,7 +19,7 @@ class GenerationIncidenceMatrix {
 
 public:
 
-    explicit GenerationIncidenceMatrix(IncidenceMatrix base, unsigned int max_row, unsigned int  max_column);
+    explicit GenerationIncidenceMatrix(IncidenceMatrix base, unsigned int  max_column, unsigned int max_row);
     ~GenerationIncidenceMatrix();
 
     bool next();

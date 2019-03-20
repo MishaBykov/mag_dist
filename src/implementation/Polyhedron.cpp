@@ -11,10 +11,11 @@
 
 Polyhedron::Polyhedron() = default;
 Polyhedron::Polyhedron(unsigned int dimension) : dimension(dimension) {}
-Polyhedron::Polyhedron(unsigned int dimension, IncidenceMatrix &incidenceMatrix)
+Polyhedron::Polyhedron(unsigned int dimension, IncidenceMatrix incidenceMatrix)
 : dimension(dimension) {
     checkIncidenceMatrix(incidenceMatrix, dimension);
     this->dimension = dimension;
+    this->matrix = incidenceMatrix;
 }
 
 std::vector<Polyhedron> Polyhedron::readFromFile(std::string file_name) {
@@ -72,10 +73,10 @@ Polyhedron Polyhedron::getVertexFigure(unsigned int index_column) {
 }
 
 Polyhedron Polyhedron::getFacet(unsigned int index_row) {
-    IncidenceMatrix new_matrix = matrix;
+    IncidenceMatrix new_matrix;
     unsigned int new_dimension = dimension - 1;
 
-    for (unsigned int i = 0; i < new_matrix.getCountRow(); ++i) {
+    for (unsigned int i = 0; i < matrix.getCountRow(); ++i) {
         if (index_row != i){
             new_matrix.appendRow(matrix.getRow(i) & matrix.getRow(index_row));
         }
@@ -101,14 +102,32 @@ void Polyhedron::setMatrix(IncidenceMatrix new_matrix) {
 }
 
 void Polyhedron::checkIncidenceMatrix(IncidenceMatrix &incidenceMatrix, unsigned int dimension) {
+    auto sum_columns = incidenceMatrix.sumColumns();
+    unsigned long i = sum_columns.size() - 1;
+    do {
+        if (sum_columns[i] < dimension) {
+            incidenceMatrix.removeColumn(i);
+            sum_columns.erase(sum_columns.begin() + i);
+        }
+    } while (i-- != 0);
+
+    if (incidenceMatrix.getCountColumn() < dimension) {
+        incidenceMatrix.clear();
+        return;
+    }
+
     auto sum_rows = incidenceMatrix.sumRows();
-    for (unsigned int i = 0; i < sum_rows.size(); ++i) {
+    i = sum_rows.size() - 1;
+    do {
         if (sum_rows[i] < dimension) {
             incidenceMatrix.removeRow(i);
             sum_rows.erase(sum_rows.begin() + i);
-            i--;
         }
-    }
+    } while (i-- != 0);
+}
+
+unsigned int Polyhedron::getDimension() {
+    return dimension;
 }
 
 

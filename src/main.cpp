@@ -3,21 +3,50 @@
 #include <IncidenceMatrix.h>
 #include <Polyhedron.h>
 #include <GenerationIncidenceMatrix.h>
+#include <Chekcer.h>
 
 int main() {
     setlocale(LC_ALL, "rus");
 
-    auto vp = Polyhedron::readFromFile("../input_files/5d_temp.txt");
+    IncidenceMatrix base;
+    base.appendRow("0111");
+    base.appendRow("1011");
+    base.appendRow("1101");
+    base.appendRow("1110");
 
-    std::ofstream out_file("../input_files/5d.txt");
+//    GenerationIncidenceMatrix gip(base, 9, 20);
+    GenerationIncidenceMatrix gip(base, 6, 14);
 
-    for (auto &i : vp) {
-        if (i.getMatrix().getCountRow() < 22) {
-            i.printToStream(out_file);
+unsigned long k = 0;
+    while (gip.next()){
+        k++;
+        Polyhedron polyhedron(4, gip.getResult());
+
+        if (polyhedron.getMatrix().getCountRow() < 5 || polyhedron.getMatrix().getCountColumn() < 5) {
+            continue;
         }
+        auto sum_row = polyhedron.getMatrix().sumRows();
+        bool f = false;
+        for (unsigned long j : sum_row) {
+            if (j != 4) {
+                f = true;
+                break;
+            }
+        }
+        if (f) {
+            continue;
+        }
+        bool d3simplex = true;
+        unsigned int i = 0;
+        for (i = 0; i < polyhedron.getMatrix().getCountRow(); ++i) {
+            if (!Chekcer::d3simplex(polyhedron.getFacet(i))) {
+                d3simplex = false;
+                break;
+            }
+        }
+        if (d3simplex)
+            polyhedron.printToStream(std::cout);
     }
-
-    out_file.close();
 
     return 0;
 }

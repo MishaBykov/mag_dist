@@ -29,10 +29,11 @@ public:
     unsigned long getCountColumn();
     unsigned long getCountRow();
     unsigned long size();
+    void clear();
 
     void appendRow( unsigned long new_row );
     void appendRow( std::string new_row );
-    void removeRow(unsigned int index);
+    void removeRow(unsigned long index);
     unsigned long getRow(unsigned int index);
     void setRow(unsigned int index, unsigned long new_value);
     void setRow(unsigned int index, std::string new_value);
@@ -40,7 +41,7 @@ public:
 
     void appendColumn( std::vector<bool> new_column );
     void appendColumn( std::string new_column );
-    void removeColumn(unsigned int index);
+    void removeColumn(unsigned long index);
     std::vector<bool> getColumn(unsigned int index);
     void setColumn(unsigned long index, std::vector<bool> new_value);
     void setColumn(unsigned long index, std::string new_value);
