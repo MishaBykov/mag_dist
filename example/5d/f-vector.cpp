@@ -61,9 +61,12 @@ inline int compare_min_facet (const int vertices, const int64_t new_face_vertice
 // columns is the number of vertices
 // the procedure uses the following global arrays:
 // vert_facets, faces
-int eval_fvector(int facets, int vertices, const int64_t *facet_vertex, const int64_t *vertex_facet, int64_t *fvector, int *dimension)
+int eval_fvector(int facets, int vertices, const int64_t *facet_vertex, const int64_t *vertex_facet, int64_t *fvector, int *dimension, int *simpliciality)
 {
-	memset (fvector, 0, sizeof(int)*MAX_VERT);
+	memset (fvector, 0, sizeof(int64_t)*MAX_VERT);
+    int64_t vertexincs[MAX_VERT], facetincs[MAX_VERT];
+	memset (vertexincs, 0, sizeof(int64_t)*MAX_VERT);
+	memset (facetincs, 0, sizeof(int64_t)*MAX_VERT);
 
 	if (facets <= 2 || vertices <= 2) {
 		fvector[0] = 2;
@@ -200,6 +203,9 @@ int eval_fvector(int facets, int vertices, const int64_t *facet_vertex, const in
 				{
 					new_faces[0] += 1;
 					new_faces[new_faces[0]] = cur_candidate->vertices;
+					// __builtin_popcountll -- подсчитывает число единичек (суффикс ll - для 64-битных чисел)
+                    vertexincs[*dimension] += __builtin_popcountll (cur_candidate->vertices);
+					facetincs[*dimension] += __builtin_popcountll (cur_candidate->facets);
 				}
 				Next:
 				cur_candidate = cur_candidate->next;
@@ -218,6 +224,21 @@ int eval_fvector(int facets, int vertices, const int64_t *facet_vertex, const in
 	cur_polytope->simplicial = is_simplicial(cur_polytope->proper_dim);
 	cur_polytope->simplicial |= ((is_3nghb(cur_polytope)) << 1);
 	cur_polytope->simplicial |= ((is_dual2nghb(cur_polytope)) << 7);*/
+	// Вычисляем степень симплициальности многогранника
+    for (i = 1; i <= *dimension; i++){
+        if (fvector[i] * (i+1) != vertexincs[i])
+            break;
+    }
+    *simpliciality = i - 1;
+	/*
+	// Вычисляем степень простоты многогранника
+    for (i = *dimension-1; i > 0; i--){
+        if (fvector[i] * (*dimension - i + 1) != facetincs[i])
+            break;
+    }
+    if (i == 0 && (vertexincs[*dimension] == vertices * (*dimension + 1)))  i--;
+    simplicity = *dimension - i - 1;
+	*/
 	return 0;
 }
 
@@ -294,17 +315,20 @@ int write_inc (char *filename, int facets, int vertices, int64_t *facet_vertex, 
 }
 
 // Write f-vector into file and some additional information
-int write_fvec (FILE *outf, int facets, int vertices, int dimension, int64_t *fvector, bool is_pyramid, bool is_simplicial, char *buffer){
+int write_fvec (FILE *outf, int facets, int vertices, int dimension, int64_t *fvector, bool is_pyramid, int simpliciality, int nincs, int minf_in_v, char *buffer){
 	fprintf (outf, "%s", buffer);
-	fprintf (outf, "  v: %d, f: %d, d: %d, ", vertices, facets, dimension);
+	fprintf (outf, "v: %d, f: %d, d: %d, ", vertices, facets, dimension);
     if (is_pyramid)
         fprintf (outf, "pyramid, ");
-    if (is_simplicial)
+    if (simpliciality >= dimension - 1)
         fprintf (outf, "simplicial, ");
+	else
+        fprintf (outf, "sc=%d, ", simpliciality);
     if (fvector[0] * (fvector[0] - 1) == 2 * fvector[1])
         fprintf (outf, "2-neighborly, ");
-    fprintf (outf, "\n");
-	fprintf (outf, "  f-vector:");
+    fprintf (outf, "inc=%2d, ", nincs);
+    fprintf (outf, "min(f in v)=%d\n", minf_in_v);
+	fprintf (outf, "f-vector:");
 	for (int i = 0; i < dimension; i++){
 		fprintf (outf, " %d", fvector[i]);
 	}
@@ -362,15 +386,25 @@ int main(int argc, char *argv[]) {
             continue;
         }        
         // Evaluate f-vector
-        eval_fvector(facets, vertices, facet_vertex, vertex_facet, fvector, &dimension);
-        if (fvector[0] * (fvector[0] - 1) == 2 * fvector[1]){
-            // Write only 2-neighborly polytopes
-            if (min_facets > fvector[dimension - 1])
-                min_facets = fvector[dimension - 1];
-            if (max_facets < fvector[dimension - 1])
-                max_facets = fvector[dimension - 1];
-            write_fvec (outfile, facets, vertices, dimension, fvector, is_pyramid, is_simplicial, buffer);
-        }    
+		int simpliciality;
+        eval_fvector(facets, vertices, facet_vertex, vertex_facet, fvector, &dimension, &simpliciality);
+		
+//        if (fvector[0] * (fvector[0] - 1) == 2 * fvector[1])// Write only 2-neighborly polytopes
+//        if (simpliciality > 1 && facets < 11) // Write only 2-simplicial polytopes
+        if (simpliciality < 2) // Write only 2-simplicial polytopes
+			continue;
+        if (min_facets > fvector[dimension - 1])
+            min_facets = fvector[dimension - 1];
+        if (max_facets < fvector[dimension - 1])
+            max_facets = fvector[dimension - 1];
+		int i, nincs, minf_in_v;
+		for (i = 0, nincs = 0; i < facets; i++)
+			nincs += __builtin_popcountll (facet_vertex[i]); // Подсчитываем число единичек
+		for (i = 0, minf_in_v = facets; i < vertices; i++){
+			int f_in_v = __builtin_popcountll (vertex_facet[i]); // Подсчитываем число фасет в вершине
+			if (minf_in_v > f_in_v) minf_in_v = f_in_v;
+		}	
+        write_fvec (outfile, facets, vertices, dimension, fvector, is_pyramid, simpliciality, nincs, minf_in_v, buffer);
     }
     
 	fprintf (outfile, "MIN facets: %d\nMAX facets: %d\n", min_facets, max_facets);
