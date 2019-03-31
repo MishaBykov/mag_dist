@@ -11,25 +11,24 @@
 
 Polyhedron::Polyhedron() = default;
 Polyhedron::Polyhedron(unsigned int dimension) : dimension(dimension) {}
-Polyhedron::Polyhedron(unsigned int dimension, IncidenceMatrix incidenceMatrix)
-: dimension(dimension) {
-    checkIncidenceMatrix(incidenceMatrix, dimension);
-    this->dimension = dimension;
-    this->matrix = incidenceMatrix;
+Polyhedron::Polyhedron(unsigned int dimension, std::shared_ptr<IncidenceMatrix> incidenceMatrix){
+    if( checkIncidenceMatrix(incidenceMatrix, dimension) ) {
+        this->matrix = incidenceMatrix;
+        this->dimension = dimension;
+    }
 }
 
-std::vector<Polyhedron> Polyhedron::readFromFile(std::string file_name) {
-    std::vector<Polyhedron> result;
+std::shared_ptr<std::vector<Polyhedron>> Polyhedron::readFromFile(std::string file_name) {
+    std::shared_ptr<std::vector<Polyhedron>> result = std::make_shared<std::vector<Polyhedron>>();
     std::ifstream file_in(file_name);
 
     if(!file_in.is_open()) {
         std::cout << "Файл[" << file_name << "] не может быть открыт" << std::endl;
-        return result;
+        return nullptr;
     }
 
     while (!file_in.eof()) {
-        result.emplace_back();
-        result.back().readFromStream(file_in);
+        result->push_back(*readFromStream(file_in));
     }
 
     file_in.close();
@@ -37,7 +36,8 @@ std::vector<Polyhedron> Polyhedron::readFromFile(std::string file_name) {
     return result;
 }
 
-void Polyhedron::readFromStream(std::istream &i_stream) {
+std::shared_ptr<Polyhedron> Polyhedron::readFromStream(std::istream &i_stream) {
+    unsigned int dimension;
     if (!i_stream.eof()) {
         try {
             i_stream >> dimension;
@@ -47,87 +47,105 @@ void Polyhedron::readFromStream(std::istream &i_stream) {
             std::cout << "Некоректный файл" << std::endl
                       << "(" << e.what() << ") нет размерности" << std::endl;
         }
-        IncidenceMatrix m;
-        m.readFromStream(i_stream);
-        setMatrix(m);
+        std::shared_ptr<IncidenceMatrix> m = std::make_shared<IncidenceMatrix>();
+        m->readFromStream(i_stream);
+        return std::make_shared<Polyhedron>(dimension, m);
     } else {
         std::cout << "[Polyhedron] Конец файла" << std::endl;
     }
+    return nullptr;
 }
 
 
 void Polyhedron::printToStream(std::ostream& out_stream) {
         out_stream << dimension << std::endl;
-        matrix.printToStream(out_stream);
+        matrix->printToStream(out_stream);
 }
 
-void Polyhedron::printToStream(std::vector<Polyhedron>& incidenceMatrix, const std::string &file_name) {
-    std::ofstream out_stream(file_name);
+void Polyhedron::printToFile(std::vector<Polyhedron> &incidenceMatrix, const std::string &file_name) {
+    std::ofstream out_file(file_name);
     for (auto &i : incidenceMatrix) {
-        i.printToStream(out_stream);
+        i.printToStream(out_file);
     }
+    out_file.close();
 }
 
-Polyhedron Polyhedron::getVertexFigure(unsigned int index_column) {
-    return Polyhedron(0);
+std::shared_ptr<Polyhedron> Polyhedron::getVertexFigure(unsigned int index_column) {
+    return std::make_shared<Polyhedron>();
 }
 
-Polyhedron Polyhedron::getFacet(unsigned int index_row) {
-    IncidenceMatrix new_matrix;
+std::shared_ptr<Polyhedron> Polyhedron::getFacetIncidenceMatrix(unsigned int index_row) {
+    std::shared_ptr<IncidenceMatrix> new_matrix = std::make_shared<IncidenceMatrix>();
     unsigned int new_dimension = dimension - 1;
 
-    for (unsigned int i = 0; i < matrix.getCountRow(); ++i) {
+    for (unsigned int i = 0; i < matrix->getCountRow(); ++i) {
         if (index_row != i){
-            new_matrix.appendRow(matrix.getRow(i) & matrix.getRow(index_row));
+            new_matrix->appendRow(matrix->getRow(i) & matrix->getRow(index_row));
         }
     }
 
-    auto sum_columns = new_matrix.sumColumns();
+    auto sum_columns = new_matrix->sumColumns();
     for (unsigned int i = 0; i < sum_columns.size(); ++i) {
         if (sum_columns[i] < new_dimension) {
-            new_matrix.removeColumn(i);
+            new_matrix->removeColumn(i);
         }
     }
 
-    return Polyhedron(new_dimension, new_matrix);
+    return std::make_shared<Polyhedron>(new_dimension, new_matrix);
 }
 
-IncidenceMatrix Polyhedron::getMatrix() {
+std::shared_ptr<IncidenceMatrix> Polyhedron::getMatrix() {
     return matrix;
 }
 
-void Polyhedron::setMatrix(IncidenceMatrix new_matrix) {
-    checkIncidenceMatrix(new_matrix, dimension);
-    matrix = new_matrix;
+void Polyhedron::setMatrix(std::shared_ptr<IncidenceMatrix> new_matrix) {
+    if( checkIncidenceMatrix( new_matrix, dimension ) )
+        matrix = std::move(new_matrix);
+    else
+        std::cout << "new matrix no check" << std::endl;
 }
 
-void Polyhedron::checkIncidenceMatrix(IncidenceMatrix &incidenceMatrix, unsigned int dimension) {
-    auto sum_columns = incidenceMatrix.sumColumns();
-    unsigned long i = sum_columns.size() - 1;
-    do {
-        if (sum_columns[i] < dimension) {
-            incidenceMatrix.removeColumn(i);
-            sum_columns.erase(sum_columns.begin() + i);
-        }
-    } while (i-- != 0);
+bool Polyhedron::checkIncidenceMatrix(std::shared_ptr<IncidenceMatrix> incidenceMatrix, unsigned int dimension) {
+    auto sum_columns = incidenceMatrix->sumColumns();
+    auto sum_rows = incidenceMatrix->sumRows();
 
-    if (incidenceMatrix.getCountColumn() < dimension) {
-        incidenceMatrix.clear();
-        return;
+    unsigned long max_size, min_size;
+    bool min_size_columns = sum_columns.size() < sum_rows.size();
+    if( min_size_columns ) {
+        min_size = sum_columns.size();
+        max_size = sum_rows.size();
+    }
+    else {
+        min_size = sum_rows.size();
+        max_size = sum_columns.size();
     }
 
-    auto sum_rows = incidenceMatrix.sumRows();
-    i = sum_rows.size() - 1;
-    do {
-        if (sum_rows[i] < dimension) {
-            incidenceMatrix.removeRow(i);
-            sum_rows.erase(sum_rows.begin() + i);
+    for (int i = 0; i < min_size; ++i) {
+        if( sum_columns[i] < dimension || sum_rows[i] < dimension )
+            return false;
+    }
+    if( min_size_columns ) {
+        for (unsigned long i = min_size; i < max_size; ++i) {
+            if( sum_rows[i] < dimension )
+                return false;
         }
-    } while (i-- != 0);
+    }
+    else {
+        for (unsigned long i = min_size; i < max_size; ++i) {
+            if( sum_columns[i] < dimension )
+                return false;
+        }
+    }
+
+    return true;
 }
 
 unsigned int Polyhedron::getDimension() {
     return dimension;
+}
+
+bool Polyhedron::isIinitialized() {
+    return bool(matrix);
 }
 
 

@@ -5,8 +5,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
-#include <windows.h>
+//#include <windows.h>
 #include <limits.h>
+#include <skeleton.h>
 
 // Максимальная длина строки входного файла
 #define LINE_SIZE 2048
@@ -102,7 +103,7 @@ int eval_incmatrix (int *fvector, int64_t **poly, int64_t *facet_vertex, FILE *o
     fprintf (curf, "\nend\n");
     fclose(curf);
     // Обрабатываем p.ext с помощью программы skeleton64f.exe
-    system("skeleton64f.exe p.ext --avisfukudaformat --silence --nologinfile --extinc --edges --ridges");
+    Skeleton::init("p.ext --avisfukudaformat --silence --nologinfile --extinc --edges --ridges");
     // Открываем файл p.ext.out -- результат работы skeleton64f.exe
     FILE *skelf = fopen("p.ext.out", "r");
     if (skelf == NULL){
@@ -138,7 +139,7 @@ int eval_incmatrix (int *fvector, int64_t **poly, int64_t *facet_vertex, FILE *o
         }
         if (memcmp(buffer, "* Rays-to-inequalities incidence:", 33) == 0){
             int incnum = 0;
-            //fprintf (outf, "Incidence:\n");
+            fprintf (outf, "Incidence:\n");
             // Матрица инциденций фасет-вершин
             for (int i = 0; i < fvector[DIM-1]; i++){
                 fgets (buffer, LINE_SIZE, skelf);
@@ -160,9 +161,9 @@ int eval_incmatrix (int *fvector, int64_t **poly, int64_t *facet_vertex, FILE *o
                 // Является ли многогранник симплициальным?    
                 //if (vnum != DIM) is_simplicial = false;
                 // Сохраняем одну строку матрицы инциденций в файл    
-                //for (v = 0; v < fvector[0]; v++)
-                //    fprintf (outf, " %d", ((facet_vertex[i]) >> v) & 1);
-                //fprintf (outf, "\n");
+                for (v = 0; v < fvector[0]; v++)
+                    fprintf (outf, " %d", ((facet_vertex[i]) >> v) & 1);
+                fprintf (outf, "\n");
             }    
             if (incnum != fvector[DIM])
                 fprintf (outf, "ERROR: skeleton incnum = %d\n", incnum);

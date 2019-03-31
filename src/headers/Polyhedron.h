@@ -13,33 +13,33 @@
 class Polyhedron {
 
     unsigned int dimension = 0;
-    IncidenceMatrix matrix;
+    std::shared_ptr<IncidenceMatrix> matrix = nullptr;
 
-    static void checkIncidenceMatrix(IncidenceMatrix &incidenceMatrix, unsigned int dimension);
+    static bool checkIncidenceMatrix(std::shared_ptr<IncidenceMatrix> incidenceMatrix, unsigned int dimension);
 
 public:
 
     Polyhedron();
     explicit Polyhedron(unsigned int dimension);
-    Polyhedron(unsigned int dimension, IncidenceMatrix incidenceMatrix);
+    Polyhedron(unsigned int dimension, std::shared_ptr<IncidenceMatrix> incidenceMatrix);
+
+    bool isIinitialized();
 
     void printToStream(std::ostream& out_stream);
 
-    Polyhedron getVertexFigure(unsigned int index_column);
+    std::shared_ptr<Polyhedron> getVertexFigure(unsigned int index_column);
+    std::shared_ptr<Polyhedron> getFacetIncidenceMatrix(unsigned int index_row);
 
-    Polyhedron getFacet(unsigned int index_row);
-
-    IncidenceMatrix getMatrix();
+    std::shared_ptr<IncidenceMatrix> getMatrix();
 
     unsigned int getDimension();
 
-    void setMatrix(IncidenceMatrix new_matrix);
+    void setMatrix(std::shared_ptr<IncidenceMatrix> new_matrix);
 
-    static std::vector<Polyhedron> readFromFile(std::string file_name);
+    static std::shared_ptr<Polyhedron> readFromStream(std::istream &i_stream);
+    static std::shared_ptr<std::vector<Polyhedron>> readFromFile(std::string file_name);
 
-    void readFromStream(std::istream &i_stream);
-
-    static void printToStream(std::vector<Polyhedron>& incidenceMatrix,const std::string& file_name);
+    static void printToFile(std::vector<Polyhedron> &incidenceMatrix, const std::string &file_name);
 };
 
 

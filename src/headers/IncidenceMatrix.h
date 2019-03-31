@@ -13,7 +13,6 @@
 class IncidenceMatrix {
 
     unsigned long count_column = 0;
-
     std::vector<unsigned long> matrix;
 
     void updateCountColumn();
@@ -51,7 +50,6 @@ public:
 
     void readFromStream(std::istream &i_stream);
     void printToStream(std::ostream &o_stream);
-
 };
 
 
