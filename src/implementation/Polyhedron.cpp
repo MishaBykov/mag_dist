@@ -47,9 +47,7 @@ std::shared_ptr<Polyhedron> Polyhedron::readFromStream(std::istream &i_stream) {
             std::cout << "Некоректный файл" << std::endl
                       << "(" << e.what() << ") нет размерности" << std::endl;
         }
-        std::shared_ptr<IncidenceMatrix> m = std::make_shared<IncidenceMatrix>();
-        m->readFromStream(i_stream);
-        return std::make_shared<Polyhedron>(dimension, m);
+        return std::make_shared<Polyhedron>(dimension, IncidenceMatrix::readFromStream(i_stream));
     } else {
         std::cout << "[Polyhedron] Конец файла" << std::endl;
     }
@@ -106,6 +104,8 @@ void Polyhedron::setMatrix(std::shared_ptr<IncidenceMatrix> new_matrix) {
 }
 
 bool Polyhedron::checkIncidenceMatrix(std::shared_ptr<IncidenceMatrix> incidenceMatrix, unsigned int dimension) {
+    if( !incidenceMatrix )
+        return false;
     auto sum_columns = incidenceMatrix->sumColumns();
     auto sum_rows = incidenceMatrix->sumRows();
 

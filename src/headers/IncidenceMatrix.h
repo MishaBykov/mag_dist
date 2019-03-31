@@ -9,6 +9,7 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include <memory>
 
 class IncidenceMatrix {
 
@@ -48,7 +49,7 @@ public:
 
     void transpose();
 
-    void readFromStream(std::istream &i_stream);
+    static std::shared_ptr<IncidenceMatrix> readFromStream(std::istream &i_stream);
     void printToStream(std::ostream &o_stream);
 };
 

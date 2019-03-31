@@ -167,13 +167,14 @@ void IncidenceMatrix::setRow(unsigned int index, std::string new_value) {
     setRow(index, stringToRow(std::move(new_value)));
 }
 
-void IncidenceMatrix::readFromStream(std::istream &i_stream) {
+std::shared_ptr<IncidenceMatrix> IncidenceMatrix::readFromStream(std::istream &i_stream) {
     if (!i_stream.eof()) {
+        std::shared_ptr<IncidenceMatrix> result = std::make_shared<IncidenceMatrix>();
         std::string buff;
         std::getline(i_stream, buff);
         while (!buff.empty() && !i_stream.eof()) {
             try {
-                appendRow(buff);
+                result->appendRow(buff);
             }
             catch (const std::invalid_argument &e) {
                 std::cout << "Некоректный файл" << std::endl
@@ -182,9 +183,11 @@ void IncidenceMatrix::readFromStream(std::istream &i_stream) {
             }
             std::getline(i_stream, buff);
         }
+        return result;
     } else {
         std::cout << "[IncidenceMatrix] Конец файла" << std::endl;
     }
+    return nullptr;
 }
 
 unsigned long IncidenceMatrix::size() {
