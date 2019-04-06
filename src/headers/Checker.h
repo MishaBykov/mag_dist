@@ -12,11 +12,13 @@
 class Checker {
 public:
 
-    static bool isD3simplex(std::shared_ptr<Polyhedron> polyhedron);
+    static bool is3dSimplex(std::shared_ptr<Polyhedron> polyhedron);
 
-    static bool isD3_2sc(std::shared_ptr<Polyhedron> polyhedron);
+    static bool is3d2sc(std::shared_ptr<Polyhedron> polyhedron);
 
     static bool is4d3dsimplex(std::shared_ptr<Polyhedron> polyhedron);
+
+    static bool is4d2sc(std::shared_ptr<Polyhedron> polyhedron);
 };
 
 

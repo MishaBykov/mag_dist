@@ -4,10 +4,11 @@
 
 #include <Checker.h>
 
-bool Checker::isD3simplex(std::shared_ptr<Polyhedron> polyhedron) {
-    if (polyhedron->getDimension() != 3 ||
-        polyhedron->getMatrix()->getCountRow() != 4 ||
-        polyhedron->getMatrix()->getCountColumn() != 4)
+bool Checker::is3dSimplex(std::shared_ptr<Polyhedron> polyhedron) {
+    if ( !polyhedron ||
+         polyhedron->getDimension() != 3 ||
+         polyhedron->getMatrix()->getCountRow() != 4 ||
+         polyhedron->getMatrix()->getCountColumn() != 4)
     {
         return false;
     }
@@ -21,8 +22,8 @@ bool Checker::isD3simplex(std::shared_ptr<Polyhedron> polyhedron) {
     return true;
 }
 
-bool Checker::isD3_2sc(std::shared_ptr<Polyhedron> polyhedron) {
-    if(polyhedron->getDimension() != 3)
+bool Checker::is3d2sc(std::shared_ptr<Polyhedron> polyhedron) {
+    if(!polyhedron || polyhedron->getDimension() != 3)
         return false;
     auto sum_rows = polyhedron->getMatrix()->sumRows();
 
@@ -35,9 +36,23 @@ bool Checker::isD3_2sc(std::shared_ptr<Polyhedron> polyhedron) {
 }
 
 bool Checker::is4d3dsimplex(std::shared_ptr<Polyhedron> polyhedron) {
+    if(!polyhedron || polyhedron->getDimension() != 4)
+        return false;
     unsigned int i = 0;
     for (i = 0; i < polyhedron->getMatrix()->getCountRow(); ++i) {
-        if (!Checker::isD3simplex(polyhedron->getFacetIncidenceMatrix(i))) {
+        if (!Checker::is3dSimplex(polyhedron->getFacetIncidenceMatrix(i))) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Checker::is4d2sc(std::shared_ptr<Polyhedron> polyhedron) {
+    if(!polyhedron || polyhedron->getDimension() != 4)
+        return false;
+    unsigned int i = 0;
+    for (i = 0; i < polyhedron->getMatrix()->getCountRow(); ++i) {
+        if (!Checker::is3d2sc(polyhedron->getFacetIncidenceMatrix(i))) {
             return false;
         }
     }

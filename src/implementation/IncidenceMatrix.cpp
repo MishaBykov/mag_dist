@@ -28,6 +28,7 @@ std::vector<bool> IncidenceMatrix::stringToColumn(std::string row) {
 }
 
 void IncidenceMatrix::appendRow(unsigned long new_row) {
+    sorted = false;
     matrix.push_back(new_row);
     updateCountColumn();
 }
@@ -43,15 +44,16 @@ unsigned long IncidenceMatrix::getRow(unsigned int index) {
     return 0;
 }
 
-unsigned long IncidenceMatrix::getCountRow() {
-    return matrix.size();
+unsigned int IncidenceMatrix::getCountRow() {
+    return static_cast<unsigned int>(matrix.size());
 }
 
-unsigned long IncidenceMatrix::getCountColumn() {
+unsigned int IncidenceMatrix::getCountColumn() {
     return count_column;
 }
 
 void IncidenceMatrix::appendColumn(std::vector<bool> new_column) {
+    sorted = false;
     if (getCountRow() < new_column.size()) {
         matrix.resize(new_column.size());
     }
@@ -68,6 +70,7 @@ void IncidenceMatrix::appendColumn(std::string new_str_column) {
 }
 
 void IncidenceMatrix::removeColumn(unsigned long index) {
+    sorted = false;
     auto right = (1 << index) - 1, left = ((1 << count_column) - 1) - ((1 << (index + 1)) - 1);
     for(auto &i : matrix){
         i = ((left & i) >> 1) + (right & i);
@@ -134,6 +137,7 @@ void IncidenceMatrix::setColumn(unsigned long index, std::vector<bool> new_value
         std::cout << "[setColumn] "<< index << " за пределами" << std::endl;
         return;
     }
+    sorted = false;
     unsigned long bit = 1;
     bit <<= index;
     for (int i = 0; i < matrix.size(); ++i) {
@@ -151,10 +155,16 @@ void IncidenceMatrix::setColumn(unsigned long index, std::vector<bool> new_value
 }
 
 void IncidenceMatrix::setColumn(unsigned long index, std::string new_value) {
+    if (index >= getCountRow()){
+        std::cout << "[setColumn] "<< index << " за пределами" << std::endl;
+        return;
+    }
+    sorted = false;
     setColumn(index, stringToColumn(std::move(new_value)));
 }
 
 void IncidenceMatrix::setRow(unsigned int index, unsigned long new_value) {
+    sorted = false;
     if (index >= getCountRow()){
         std::cout << "[setRow] "<< index << " за пределами" << std::endl;
         return;
@@ -164,10 +174,11 @@ void IncidenceMatrix::setRow(unsigned int index, unsigned long new_value) {
 }
 
 void IncidenceMatrix::setRow(unsigned int index, std::string new_value) {
+    sorted = false;
     setRow(index, stringToRow(std::move(new_value)));
 }
 
-std::shared_ptr<IncidenceMatrix> IncidenceMatrix::readFromStream(std::istream &i_stream) {
+IncidenceMatrixSPtr IncidenceMatrix::readFromStream(std::istream &i_stream) {
     if (!i_stream.eof()) {
         std::shared_ptr<IncidenceMatrix> result = std::make_shared<IncidenceMatrix>();
         std::string buff;
@@ -201,6 +212,7 @@ void IncidenceMatrix::transpose() {
     }
     matrix.clear();
     matrix = new_matrix;
+    sorted = false;
 }
 
 std::string IncidenceMatrix::columnToString(const std::vector<bool>& column) {
@@ -216,4 +228,11 @@ std::string IncidenceMatrix::columnToString(const std::vector<bool>& column) {
 void IncidenceMatrix::clear() {
     matrix.clear();
     count_column = 0;
+}
+
+void IncidenceMatrix::sort() {
+    if( !sorted ) {
+        sorted = true;
+        std::sort(matrix.begin(), matrix.end());
+    }
 }

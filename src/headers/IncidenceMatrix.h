@@ -11,10 +11,15 @@
 #include <string>
 #include <memory>
 
+class IncidenceMatrix;
+using IncidenceMatrixSPtr = std::shared_ptr<IncidenceMatrix>;
+
 class IncidenceMatrix {
 
-    unsigned long count_column = 0;
+    unsigned int count_column = 0;
     std::vector<unsigned long> matrix;
+
+    bool sorted = false;
 
     void updateCountColumn();
 
@@ -26,11 +31,11 @@ public:
     IncidenceMatrix() = default;
     ~IncidenceMatrix() = default;
 
-    unsigned long getCountColumn();
-    unsigned long getCountRow();
+    unsigned int getCountColumn();
+    unsigned int getCountRow();
     unsigned long size();
     void clear();
-
+    void sort();
     void appendRow( unsigned long new_row );
     void appendRow( std::string new_row );
     void removeRow(unsigned long index);
@@ -49,9 +54,8 @@ public:
 
     void transpose();
 
-    static std::shared_ptr<IncidenceMatrix> readFromStream(std::istream &i_stream);
+    static IncidenceMatrixSPtr readFromStream(std::istream &i_stream);
     void printToStream(std::ostream &o_stream);
 };
-
 
 #endif //MAG_DIST_INCIDENCE_MATRIX_H

@@ -5,9 +5,10 @@
 #include <iostream>
 #include <memory>
 #include <utility>
-#include <IncidenceMatrix.h>
+#include <algorithm>
 
 #include <Polyhedron.h>
+#include <IncidenceMatrix.h>
 
 Polyhedron::Polyhedron() = default;
 Polyhedron::Polyhedron(unsigned int dimension) : dimension(dimension) {}
@@ -18,8 +19,8 @@ Polyhedron::Polyhedron(unsigned int dimension, std::shared_ptr<IncidenceMatrix> 
     }
 }
 
-std::shared_ptr<std::vector<Polyhedron>> Polyhedron::readFromFile(std::string file_name) {
-    std::shared_ptr<std::vector<Polyhedron>> result = std::make_shared<std::vector<Polyhedron>>();
+std::shared_ptr<std::vector<PolyhedronSPtr>> Polyhedron::readFromFile(std::string file_name) {
+    std::shared_ptr<std::vector<PolyhedronSPtr>> result = std::make_shared<std::vector<PolyhedronSPtr>>();
     std::ifstream file_in(file_name);
 
     if(!file_in.is_open()) {
@@ -28,7 +29,7 @@ std::shared_ptr<std::vector<Polyhedron>> Polyhedron::readFromFile(std::string fi
     }
 
     while (!file_in.eof()) {
-        result->push_back(*readFromStream(file_in));
+        result->push_back(readFromStream(file_in));
     }
 
     file_in.close();
@@ -60,10 +61,10 @@ void Polyhedron::printToStream(std::ostream& out_stream) {
         matrix->printToStream(out_stream);
 }
 
-void Polyhedron::printToFile(std::vector<Polyhedron> &incidenceMatrix, const std::string &file_name) {
+void Polyhedron::printToFile(std::vector<PolyhedronSPtr> &incidenceMatrix, const std::string &file_name) {
     std::ofstream out_file(file_name);
     for (auto &i : incidenceMatrix) {
-        i.printToStream(out_file);
+        i->printToStream(out_file);
     }
     out_file.close();
 }
@@ -75,20 +76,29 @@ std::shared_ptr<Polyhedron> Polyhedron::getVertexFigure(unsigned int index_colum
 std::shared_ptr<Polyhedron> Polyhedron::getFacetIncidenceMatrix(unsigned int index_row) {
     std::shared_ptr<IncidenceMatrix> new_matrix = std::make_shared<IncidenceMatrix>();
     unsigned int new_dimension = dimension - 1;
-
-    for (unsigned int i = 0; i < matrix->getCountRow(); ++i) {
-        if (index_row != i){
-            new_matrix->appendRow(matrix->getRow(i) & matrix->getRow(index_row));
+    unsigned long select_row = matrix->getRow(index_row);
+    for(unsigned int i = 0; select_row != 0; select_row >>= 1, i++){
+        if( select_row & 1 ) {
+            new_matrix->appendColumn(matrix->getColumn(i));
         }
     }
+    new_matrix->removeRow(index_row);
 
-    auto sum_columns = new_matrix->sumColumns();
-    for (unsigned int i = 0; i < sum_columns.size(); ++i) {
-        if (sum_columns[i] < new_dimension) {
-            new_matrix->removeColumn(i);
+    new_matrix->sort();
+
+    unsigned int i = new_matrix->getCountRow();
+    new_matrix->printToStream(std::cout);
+    while ( --i != 0 ) {
+        select_row = new_matrix->getRow(i);
+        for (unsigned int j = i - 1; j-- != 0;) {
+            if( ( select_row & new_matrix->getRow(j) ) == new_matrix->getRow(j) ) {
+                new_matrix->removeRow(j);
+                i--;
+                new_matrix->printToStream(std::cout);
+            }
         }
     }
-
+    new_matrix->printToStream(std::cout);
     return std::make_shared<Polyhedron>(new_dimension, new_matrix);
 }
 
