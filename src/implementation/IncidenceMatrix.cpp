@@ -79,7 +79,7 @@ void IncidenceMatrix::removeColumn(unsigned long index) {
 }
 
 void IncidenceMatrix::printToStream(std::ostream &o_stream) {
-    if (getCountColumn() == 0 || getCountRow() == 0){
+    if ( getCountColumn() == 0 || getCountRow() == 0){
         o_stream << "IncidenceMatrix empty" << std::endl << std::endl;
         return;
     }
@@ -92,7 +92,6 @@ void IncidenceMatrix::printToStream(std::ostream &o_stream) {
         std::reverse(buf.begin(), buf.end());
         o_stream << buf << std::endl;
     }
-    o_stream << std::endl;
 }
 
 std::vector<bool> IncidenceMatrix::getColumn(unsigned int index) {
@@ -181,9 +180,11 @@ void IncidenceMatrix::setRow(unsigned int index, std::string new_value) {
 IncidenceMatrixSPtr IncidenceMatrix::readFromStream(std::istream &i_stream) {
     if (!i_stream.eof()) {
         std::shared_ptr<IncidenceMatrix> result = std::make_shared<IncidenceMatrix>();
-        std::string buff;
-        std::getline(i_stream, buff);
-        while (!buff.empty() && !i_stream.eof()) {
+        do {
+            std::string buff;
+            std::getline(i_stream, buff);
+            if( buff.empty() )
+                break;
             try {
                 result->appendRow(buff);
             }
@@ -192,8 +193,8 @@ IncidenceMatrixSPtr IncidenceMatrix::readFromStream(std::istream &i_stream) {
                           << "(" << e.what() << ") строка: " << buff << std::endl;
                 break;
             }
-            std::getline(i_stream, buff);
-        }
+
+        } while (!i_stream.eof());
         return result;
     } else {
         std::cout << "[IncidenceMatrix] Конец файла" << std::endl;

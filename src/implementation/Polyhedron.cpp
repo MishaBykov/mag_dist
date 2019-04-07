@@ -38,16 +38,14 @@ std::shared_ptr<std::vector<PolyhedronSPtr>> Polyhedron::readFromFile(std::strin
 }
 
 std::shared_ptr<Polyhedron> Polyhedron::readFromStream(std::istream &i_stream) {
-    unsigned int dimension;
+    unsigned int dimension = 0;
     if (!i_stream.eof()) {
-        try {
-            i_stream >> dimension;
-            i_stream.get();
+        if( !(i_stream >> dimension) ) {
+            std::cout << "Некоректный файл: нет размерности" << std::endl;
+            return nullptr;
         }
-        catch (const std::invalid_argument &e) {
-            std::cout << "Некоректный файл" << std::endl
-                      << "(" << e.what() << ") нет размерности" << std::endl;
-        }
+        i_stream.get();
+
         return std::make_shared<Polyhedron>(dimension, IncidenceMatrix::readFromStream(i_stream));
     } else {
         std::cout << "[Polyhedron] Конец файла" << std::endl;
