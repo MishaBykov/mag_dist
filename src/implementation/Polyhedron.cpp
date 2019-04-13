@@ -29,7 +29,9 @@ std::shared_ptr<std::vector<PolyhedronSPtr>> Polyhedron::readFromFile(std::strin
     }
 
     while (!file_in.eof()) {
-        result->push_back(readFromStream(file_in));
+        auto polyhedron = readFromStream(file_in);
+        if( polyhedron )
+            result->push_back( polyhedron );
     }
 
     file_in.close();
