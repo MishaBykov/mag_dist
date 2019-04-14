@@ -103,6 +103,14 @@ int eval_incmatrix (int *fvector, int64_t **poly, int64_t *facet_vertex, FILE *o
     fprintf (curf, "\nend\n");
     fclose(curf);
     // Обрабатываем p.ext с помощью программы skeleton64f.exe
+//#ifdef __linux
+//    Linux;
+//    узнать версию Linux
+//#elif defined _WIN32
+//    Windows;
+//    Узнать версию Windows
+// etc
+//#endif
     Skeleton::init("p.ext --avisfukudaformat --silence --nologinfile --extinc --edges --ridges");
     // Открываем файл p.ext.out -- результат работы skeleton64f.exe
     FILE *skelf = fopen("p.ext.out", "r");
