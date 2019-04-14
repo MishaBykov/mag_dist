@@ -16,7 +16,7 @@
 // Максимальное число вершин
 #define MAX_VERT 10
 // Максимальной число фасет (гиперграней)
-#define MAX_FACET 128
+#define MAX_FACET 21
 
 // Greatest common divisor
 int gcd (int a, int b) {
