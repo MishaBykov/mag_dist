@@ -77,7 +77,7 @@ End;
 
 {*Предполагается, что текущее сочетание (хранится в массиве С) 
 не является последним.*}
-Procedure GetNext;
+Procedure NextСombinations;
 Var i,j:Integer;
 Begin
     i:=k;
