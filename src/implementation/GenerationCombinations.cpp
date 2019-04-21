@@ -33,7 +33,7 @@ std::vector<std::vector<long long> >& GenerationCombinations::getSmallSc() {
     return SMALL_SC;
 }
 
-std::vector<long long> GenerationCombinations::getWhByNum(long long l) {
+std::vector<long long> GenerationCombinations::getCombinationByNum(long long num){
     std::vector<long long > result;
 
     long long sc = n;
@@ -57,7 +57,7 @@ std::vector<long long> GenerationCombinations::getC() {
     return combination;
 }
 
-bool GenerationCombinations::nextCombination(){
+bool GenerationCombinations::next(){
         for (long long i = k - 1; i >= 0; i--)
             if (combination[i] < n - k + i + 1) {
                 combination[i]++;

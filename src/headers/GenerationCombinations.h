@@ -31,11 +31,11 @@ public:
 
     static std::vector<std::vector<long long> >& getSmallSc();
 
-    std::vector<long long> getWhByNum (long long l);
+    std::vector<long long> getCombinationByNum (long long num);
 
     std::vector<long long> getC();
 
-    bool nextCombination();
+    bool next();
 
     void resetCombination();
 
