@@ -9,20 +9,21 @@
 #include <Polyhedron.h>
 #include <climits>
 
-using LongInt = long long;
+using vec_uns_int = std::vector<unsigned int> ;
+
 
 class GenerationPolyhedron {
 
-    PolyhedronSPtr base = nullptr;
+    vec_uns_int countsRows;
+    vec_uns_int countsColumns;
+
+    PolyhedronSPtr vertexFigure = nullptr;
     PolyhedronSPtr result = nullptr;
-
-
 
 public:
 
     explicit GenerationPolyhedron() = default;
-    explicit GenerationPolyhedron(PolyhedronSPtr base);
-
+    explicit GenerationPolyhedron(PolyhedronSPtr vertexFigure, vec_uns_int countsRows, vec_uns_int countsColumns);
 
     ~GenerationPolyhedron();
 

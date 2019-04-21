@@ -1,3 +1,7 @@
+#include <utility>
+
+#include <utility>
+
 //
 // Created by misha on 07.04.19.
 //
@@ -8,10 +12,11 @@
 
 #include <GenerationPolyhedron.h>
 
-
-GenerationPolyhedron::GenerationPolyhedron(PolyhedronSPtr vertexFigure) : base(std::move(vertexFigure)) {
-
-}
+GenerationPolyhedron::GenerationPolyhedron(
+        PolyhedronSPtr vertexFigure, vec_uns_int countsRows, vec_uns_int countsColumns
+        ) :  vertexFigure(std::move(vertexFigure)),
+        countsRows(std::move(countsRows)),
+        countsColumns(std::move(countsColumns)) {}
 
 GenerationPolyhedron::~GenerationPolyhedron() = default;
 
