@@ -1,6 +1,0 @@
---avisfukudaformat
---silence
---nologinfile
---extinc
---edges
---ridges
