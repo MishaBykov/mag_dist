@@ -18,7 +18,7 @@ class Polyhedron {
     unsigned int dimension = 0;
     std::shared_ptr<IncidenceMatrix> matrix = nullptr;
 
-    static bool checkIncidenceMatrix(std::shared_ptr<IncidenceMatrix> incidenceMatrix, unsigned int dimension);
+    static bool checkIncidenceMatrix(const std::shared_ptr<IncidenceMatrix>& incidenceMatrix, unsigned int dimension);
 
 
 
@@ -26,7 +26,7 @@ public:
 
     Polyhedron();
     explicit Polyhedron(unsigned int dimension);
-    Polyhedron(unsigned int dimension, std::shared_ptr<IncidenceMatrix> incidenceMatrix);
+    Polyhedron(unsigned int dimension, const std::shared_ptr<IncidenceMatrix>& incidenceMatrix);
 
     bool isIinitialized();
 
@@ -38,11 +38,13 @@ public:
     std::shared_ptr<IncidenceMatrix> getMatrix();
 
     unsigned int getDimension();
+    unsigned int getCountFacets();
+    unsigned int getCountVertex();
 
     void setMatrix(std::shared_ptr<IncidenceMatrix> new_matrix);
 
     static PolyhedronSPtr readFromStream(std::istream &i_stream);
-    static std::shared_ptr<std::vector<PolyhedronSPtr>> readFromFile(std::string file_name);
+    static std::vector<PolyhedronSPtr> readFromFile(const std::string& file_name);
 
     static void printToFile(std::vector<PolyhedronSPtr> &incidenceMatrix, const std::string &file_name);
 };
