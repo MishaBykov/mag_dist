@@ -33,7 +33,7 @@ public:
     void printToStream(std::ostream& out_stream);
 
     PolyhedronSPtr getVertexFigure(unsigned int index_column);
-    PolyhedronSPtr getFacetIncidenceMatrix(unsigned int index_row);
+    PolyhedronSPtr getPolyhedronFacet(unsigned int index_row);
 
     std::shared_ptr<IncidenceMatrix> getMatrix();
 

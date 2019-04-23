@@ -73,7 +73,7 @@ std::shared_ptr<Polyhedron> Polyhedron::getVertexFigure(unsigned int index_colum
     return std::make_shared<Polyhedron>();
 }
 
-std::shared_ptr<Polyhedron> Polyhedron::getFacetIncidenceMatrix(unsigned int index_row) {
+std::shared_ptr<Polyhedron> Polyhedron::getPolyhedronFacet(unsigned int index_row) {
     std::shared_ptr<IncidenceMatrix> new_matrix = std::make_shared<IncidenceMatrix>();
     unsigned int new_dimension = dimension - 1;
     unsigned long select_row = matrix->getRow(index_row);
@@ -87,18 +87,15 @@ std::shared_ptr<Polyhedron> Polyhedron::getFacetIncidenceMatrix(unsigned int ind
     new_matrix->sort();
 
     unsigned int i = new_matrix->getCountRow();
-    new_matrix->printToStream(std::cout);
     while ( --i != 0 ) {
         select_row = new_matrix->getRow(i);
         for (unsigned int j = i - 1; j-- != 0;) {
             if( ( select_row & new_matrix->getRow(j) ) == new_matrix->getRow(j) ) {
                 new_matrix->removeRow(j);
                 i--;
-                new_matrix->printToStream(std::cout);
             }
         }
     }
-    new_matrix->printToStream(std::cout);
     return std::make_shared<Polyhedron>(new_dimension, new_matrix);
 }
 
