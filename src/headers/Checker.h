@@ -16,9 +16,11 @@ public:
 
     static bool is3d2sc(std::shared_ptr<Polyhedron> polyhedron);
 
-    static bool is4d3dsimplex(std::shared_ptr<Polyhedron> polyhedron);
+    static bool is4d2neighborly(std::shared_ptr<Polyhedron> polyhedron);
 
     static bool is4d2sc(std::shared_ptr<Polyhedron> polyhedron);
+
+    static bool is5d2neighborly(std::shared_ptr<Polyhedron> polyhedron);
 };
 
 

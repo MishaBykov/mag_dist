@@ -35,12 +35,12 @@ bool Checker::is3d2sc(std::shared_ptr<Polyhedron> polyhedron) {
     return true;
 }
 
-bool Checker::is4d3dsimplex(std::shared_ptr<Polyhedron> polyhedron) {
+bool Checker::is4d2neighborly(std::shared_ptr<Polyhedron> polyhedron) {
     if(!polyhedron || polyhedron->getDimension() != 4)
         return false;
     unsigned int i = 0;
     for (i = 0; i < polyhedron->getMatrix()->getCountRow(); ++i) {
-        if (!Checker::is3dSimplex(polyhedron->getFacetIncidenceMatrix(i))) {
+        if (!Checker::is3dSimplex(polyhedron->getPolyhedronFacet(i))) {
             return false;
         }
     }
@@ -52,7 +52,19 @@ bool Checker::is4d2sc(std::shared_ptr<Polyhedron> polyhedron) {
         return false;
     unsigned int i = 0;
     for (i = 0; i < polyhedron->getMatrix()->getCountRow(); ++i) {
-        if (!Checker::is3d2sc(polyhedron->getFacetIncidenceMatrix(i))) {
+        if (!Checker::is3d2sc(polyhedron->getPolyhedronFacet(i))) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Checker::is5d2neighborly(std::shared_ptr<Polyhedron> polyhedron) {
+    if(!polyhedron || polyhedron->getDimension() != 5)
+        return false;
+    unsigned int i = 0;
+    for (i = 0; i < polyhedron->getMatrix()->getCountRow(); ++i) {
+        if (!Checker::is4d2neighborly(polyhedron->getPolyhedronFacet(i))) {
             return false;
         }
     }
