@@ -71,9 +71,9 @@ void IncidenceMatrix::appendColumn(std::string new_str_column) {
 
 void IncidenceMatrix::removeColumn(unsigned long index) {
     sorted = false;
-    auto right = (1 << index) - 1, left = ((1 << count_column) - 1) - ((1 << (index + 1)) - 1);
-    for(auto &i : matrix){
-        i = ((left & i) >> 1) + (right & i);
+    auto right = (1u << index) - 1, left = ((1u << count_column) - 1) - ((1u << (index + 1)) - 1);
+    for(unsigned long &i : matrix){
+        i = ((left & i) >> 1u) + (right & i);
     }
     updateCountColumn();
 }
@@ -86,12 +86,13 @@ void IncidenceMatrix::printToStream(std::ostream &o_stream) {
     for (unsigned long row : matrix) {
         std::string buf;
         for (int j = 0; j < count_column; j++){
-            buf.push_back((row & 1) ? '1' : '0');
-            row >>= 1;
+            buf.push_back((row & 1u) ? '1' : '0');
+            row >>= 1u;
         }
         std::reverse(buf.begin(), buf.end());
         o_stream << buf << std::endl;
     }
+    o_stream << std::endl;
 }
 
 std::vector<bool> IncidenceMatrix::getColumn(unsigned int index) {
@@ -112,8 +113,8 @@ void IncidenceMatrix::removeRow(unsigned long index) {
 std::vector<unsigned long> IncidenceMatrix::sumRows() {
     std::vector<unsigned long> result(getCountRow());
     for (int i = 0; i < matrix.size(); ++i) {
-        for (unsigned long m = matrix[i]; m != 0; m >>= 1) {
-            if (m & 1)
+        for (unsigned long m = matrix[i]; m != 0; m >>= 1u) {
+            if (m & 1u)
                 result[i]++;
         }
     }
@@ -123,8 +124,8 @@ std::vector<unsigned long> IncidenceMatrix::sumRows() {
 std::vector<unsigned long> IncidenceMatrix::sumColumns() {
     std::vector<unsigned long> result(getCountColumn());
     for (unsigned long m : matrix) {
-        for (int i = 0; m != 0; i++, m >>= 1) {
-            if (m & 1)
+        for (int i = 0; m != 0; i++, m >>= 1u) {
+            if (m & 1u)
                 result[i]++;
         }
     }
