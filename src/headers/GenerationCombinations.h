@@ -23,7 +23,7 @@ class GenerationCombinations {
         InitSmallSc();
     };
 
-    InitSmallSc initSmallSc;
+    static InitSmallSc initSmallSc;
 
 public:
 

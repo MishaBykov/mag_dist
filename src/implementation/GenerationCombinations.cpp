@@ -41,8 +41,8 @@ std::vector<long long> GenerationCombinations::getCombinationByNum(long long num
 
     for (int i = 1; i <= k; i++) {
         int j = 1;
-        while (l >= SMALL_SC[sc - j][k - i]) {
-            l -= SMALL_SC[sc - j][k - i];
+        while (num >= SMALL_SC[sc - j][k - i]) {
+            num -= SMALL_SC[sc - j][k - i];
             j++;
         }
         combination[i - 1] = (ls + j);
