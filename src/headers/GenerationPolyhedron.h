@@ -28,20 +28,8 @@ public:
 
     ~GenerationPolyhedron();
 
-    static std::vector<int> getCountsRow(std::vector< std::shared_ptr< Polyhedron > >& polyhedrons) {
-        std::set<int> counts_row;
-        for (auto &i : polyhedrons) {
-            counts_row.insert(i->getCountFacets());
-        }
-        return std::vector<int>(counts_row.begin(), counts_row.end());
-    }
-    static std::vector<int> getCountsColumn(std::vector< std::shared_ptr< Polyhedron > >& polyhedrons) {
-        std::set<int> counts_column;
-        for (auto &i : polyhedrons) {
-            counts_column.insert(i->getCountVertex());
-        }
-        return std::vector<int>(counts_column.begin(), counts_column.end());
-    }
+    static std::vector<int> getCountsRow(std::vector< std::shared_ptr< Polyhedron > >& polyhedrons);
+    static std::vector<int> getCountsColumn(std::vector< std::shared_ptr< Polyhedron > >& polyhedrons);
 
     bool next();
 
