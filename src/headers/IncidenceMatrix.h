@@ -56,6 +56,8 @@ public:
 
     static IncidenceMatrixSPtr readFromStream(std::istream &i_stream);
     void printToStream(std::ostream &o_stream);
+
+    int getCountOne();
 };
 
 #endif //MAG_DIST_INCIDENCE_MATRIX_H

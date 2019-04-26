@@ -238,3 +238,12 @@ void IncidenceMatrix::sort() {
         std::sort(matrix.begin(), matrix.end());
     }
 }
+
+int IncidenceMatrix::getCountOne() {
+    int result = 0;
+    auto s_r = sumRows();
+    for (unsigned long i : s_r) {
+        result += i;
+    }
+    return 0;
+}

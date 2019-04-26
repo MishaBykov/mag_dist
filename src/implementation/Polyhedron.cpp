@@ -163,4 +163,8 @@ unsigned int Polyhedron::getCountVertex() {
     return matrix->getCountColumn();
 }
 
+unsigned int Polyhedron::getCountOne() {
+    return matrix->getCountOne();
+}
+
 

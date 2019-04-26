@@ -16,7 +16,7 @@ class GenerationCombinations {
 
     static std::vector<std::vector<long long> > SMALL_SC;
 
-    std::vector<long long > combination;
+    std::vector<unsigned long > combination;
 
     class InitSmallSc {
     public:
@@ -33,7 +33,7 @@ public:
 
     std::vector<long long> getCombinationByNum (long long num);
 
-    std::vector<long long> getC();
+    std::vector<unsigned long> getC();
 
     bool next();
 

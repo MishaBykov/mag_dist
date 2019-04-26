@@ -20,8 +20,6 @@ class Polyhedron {
 
     static bool checkIncidenceMatrix(const std::shared_ptr<IncidenceMatrix>& incidenceMatrix, unsigned int dimension);
 
-
-
 public:
 
     Polyhedron();
@@ -40,6 +38,7 @@ public:
     unsigned int getDimension();
     unsigned int getCountFacets();
     unsigned int getCountVertex();
+    unsigned int getCountOne();
 
     void setMatrix(std::shared_ptr<IncidenceMatrix> new_matrix);
 

@@ -26,6 +26,7 @@ GenerationCombinations::InitSmallSc::InitSmallSc() {
 
 GenerationCombinations::GenerationCombinations(int n, int k) : k(k), n(n) {
     combination.resize(static_cast<unsigned long>(k));
+    combination.reserve(static_cast<unsigned long>(k));
     resetCombination();
 }
 
@@ -53,7 +54,7 @@ std::vector<long long> GenerationCombinations::getCombinationByNum(long long num
     return result;
 }
 
-std::vector<long long> GenerationCombinations::getC() {
+std::vector<unsigned long> GenerationCombinations::getC() {
     return combination;
 }
 

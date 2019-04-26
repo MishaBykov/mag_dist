@@ -10,13 +10,11 @@
 #include <set>
 #include <Polyhedron.h>
 
-using vec_uns_int = std::vector<unsigned int> ;
-
 
 class GenerationPolyhedron {
-
-    vec_uns_int countsRows;
-    vec_uns_int countsColumns;
+//  На размерность меньше генерируемого
+    std::vector<PolyhedronSPtr> vertexFigures;
+    std::vector<PolyhedronSPtr> polyhedrons2neighborly;
 
     PolyhedronSPtr vertexFigure = nullptr;
     PolyhedronSPtr result = nullptr;
@@ -24,7 +22,9 @@ class GenerationPolyhedron {
 public:
 
     explicit GenerationPolyhedron() = default;
-    explicit GenerationPolyhedron(PolyhedronSPtr vertexFigure, vec_uns_int countsRows, vec_uns_int countsColumns);
+    explicit GenerationPolyhedron(PolyhedronSPtr vertexFigure,
+                                  std::vector<PolyhedronSPtr> vertexFigures,
+                                  std::vector<PolyhedronSPtr> polyhedrons2neighborly);
 
     ~GenerationPolyhedron();
 
