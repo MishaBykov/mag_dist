@@ -12,10 +12,23 @@
 
 Polyhedron::Polyhedron() = default;
 Polyhedron::Polyhedron(unsigned int dimension) : dimension(dimension) {}
-Polyhedron::Polyhedron(unsigned int dimension, const std::shared_ptr<IncidenceMatrix>& incidenceMatrix){
-    if( checkIncidenceMatrix(incidenceMatrix, dimension) ) {
+Polyhedron::Polyhedron(unsigned int dimension, const std::shared_ptr<IncidenceMatrix> incidenceMatrix) {
+    if (checkIncidenceMatrix(incidenceMatrix, dimension)) {
         this->matrix = incidenceMatrix;
         this->dimension = dimension;
+    }
+}
+
+Polyhedron::Polyhedron(unsigned int dimension, IncidenceMatrix incidenceMatrix){
+    auto s_ptr_incidenceMatrix =  std::make_shared<IncidenceMatrix>(incidenceMatrix);
+    if( checkIncidenceMatrix(s_ptr_incidenceMatrix, dimension) ) {
+        this->matrix = s_ptr_incidenceMatrix;
+        this->dimension = dimension;
+    } else {
+        std::cout << "---DEBUG---" << std::endl;
+        std::cout << dimension << std::endl;
+        incidenceMatrix.printToStream(std::cout);
+        std::cout << "-----------" << std::endl;
     }
 }
 
@@ -24,7 +37,7 @@ std::vector<PolyhedronSPtr> Polyhedron::readFromFile(const std::string& file_nam
     std::ifstream file_in(file_name);
 
     if(!file_in.is_open()) {
-        std::cout << "Файл[" << file_name << "] не может быть открыт" << std::endl;
+        std::cout << "Файл [" << file_name << "] не может быть открыт" << std::endl;
         return result;
     }
 

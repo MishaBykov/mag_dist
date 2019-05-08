@@ -23,7 +23,7 @@ class IncidenceMatrix {
 
     void updateCountColumn();
 
-    static unsigned long stringToRow(std::string row);
+    static unsigned long stringToRow(const std::string& row);
     static std::vector<bool> stringToColumn(std::string row);
     static std::string columnToString(const std::vector<bool>& column);
 
@@ -37,11 +37,11 @@ public:
     void clear();
     void sort();
     void appendRow( unsigned long new_row );
-    void appendRow( std::string new_row );
+    void appendRow( std::string& new_row );
     void removeRow(unsigned long index);
     unsigned long getRow(unsigned int index);
     void setRow(unsigned int index, unsigned long new_value);
-    void setRow(unsigned int index, std::string new_value);
+    void setRow(unsigned int index, const std::string& new_value);
     std::vector<unsigned long> sumRows();
 
     void appendColumn( std::vector<bool> new_column );

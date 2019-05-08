@@ -12,11 +12,11 @@ void IncidenceMatrix::updateCountColumn() {
         return;
     }
     unsigned long max_row = *std::max_element(matrix.begin(), matrix.end());
-    for (count_column = 0; max_row != 0; max_row >>= 1, count_column++);
+    for (count_column = 0; max_row != 0; max_row >>= 1u, count_column++);
 }
 
-unsigned long IncidenceMatrix::stringToRow(std::string row) {
-    return std::stoull(row, nullptr, 2);
+unsigned long IncidenceMatrix::stringToRow(const std::string& row) {
+    return row.empty() ? 0 : std::stoull(row, nullptr, 2);
 }
 
 std::vector<bool> IncidenceMatrix::stringToColumn(std::string row) {
@@ -33,8 +33,8 @@ void IncidenceMatrix::appendRow(unsigned long new_row) {
     updateCountColumn();
 }
 
-void IncidenceMatrix::appendRow(std::string new_str_row) {
-    unsigned long new_row = stringToRow(std::move(new_str_row));
+void IncidenceMatrix::appendRow(std::string& new_str_row) {
+    unsigned long new_row = stringToRow(new_str_row);
     appendRow(new_row);
 }
 
@@ -59,7 +59,7 @@ void IncidenceMatrix::appendColumn(std::vector<bool> new_column) {
     }
     count_column++;
     for(int i = 0; i < matrix.size(); ++i) {
-        matrix[i] <<= 1;
+        matrix[i] <<= 1u;
         matrix[i] += new_column[i];
     }
     updateCountColumn();
@@ -173,9 +173,9 @@ void IncidenceMatrix::setRow(unsigned int index, unsigned long new_value) {
     updateCountColumn();
 }
 
-void IncidenceMatrix::setRow(unsigned int index, std::string new_value) {
+void IncidenceMatrix::setRow(unsigned int index, const std::string& new_value) {
     sorted = false;
-    setRow(index, stringToRow(std::move(new_value)));
+    setRow(index, stringToRow(new_value));
 }
 
 IncidenceMatrixSPtr IncidenceMatrix::readFromStream(std::istream &i_stream) {
@@ -245,5 +245,6 @@ int IncidenceMatrix::getCountOne() {
     for (unsigned long i : s_r) {
         result += i;
     }
-    return 0;
+    return result;
 }
+

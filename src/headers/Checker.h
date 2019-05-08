@@ -12,15 +12,19 @@
 class Checker {
 public:
 
-    static bool is3dSimplex(std::shared_ptr<Polyhedron> polyhedron);
+    static bool is2neighborly(const std::shared_ptr<Polyhedron>& polyhedron);
 
-    static bool is3d2sc(std::shared_ptr<Polyhedron> polyhedron);
+    static bool is3dSimplex(const std::shared_ptr<Polyhedron>& polyhedron);
 
-    static bool is4d2neighborly(std::shared_ptr<Polyhedron> polyhedron);
+    static bool is3d2sc(const std::shared_ptr<Polyhedron>& polyhedron);
 
-    static bool is4d2sc(std::shared_ptr<Polyhedron> polyhedron);
+    static bool is4d2neighborly(const std::shared_ptr<Polyhedron>& polyhedron);
 
-    static bool is5d2neighborly(std::shared_ptr<Polyhedron> polyhedron);
+    static bool is4d2sc(const std::shared_ptr<Polyhedron>& polyhedron);
+
+    static bool is5d2neighborly(const std::shared_ptr<Polyhedron>& polyhedron);
+
+    static bool is6d2neighborly(const std::shared_ptr<Polyhedron>& polyhedron);
 };
 
 
