@@ -8,9 +8,3 @@ add_executable(
     d4
     4poly.cpp
 )
-
-target_include_directories(
-    d4
-    PUBLIC
-    src
-)
