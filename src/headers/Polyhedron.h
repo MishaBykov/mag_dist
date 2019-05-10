@@ -24,10 +24,10 @@ public:
 
     Polyhedron();
     explicit Polyhedron(unsigned int dimension);
-    Polyhedron(unsigned int dimension, std::shared_ptr<IncidenceMatrix> incidenceMatrix);
+    Polyhedron(unsigned int dimension, const std::shared_ptr<IncidenceMatrix>& incidenceMatrix);
     Polyhedron(unsigned int dimension, IncidenceMatrix incidenceMatrix);
 
-    bool isIinitialized();
+    bool isInitialized();
 
     void printToStream(std::ostream& out_stream);
 

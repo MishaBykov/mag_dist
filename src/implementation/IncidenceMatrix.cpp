@@ -33,7 +33,7 @@ void IncidenceMatrix::appendRow(unsigned long new_row) {
     updateCountColumn();
 }
 
-void IncidenceMatrix::appendRow(std::string& new_str_row) {
+void IncidenceMatrix::appendRow(const std::string& new_str_row) {
     unsigned long new_row = stringToRow(new_str_row);
     appendRow(new_row);
 }
@@ -235,7 +235,7 @@ void IncidenceMatrix::clear() {
 void IncidenceMatrix::sort() {
     if( !sorted ) {
         sorted = true;
-        std::sort(matrix.begin(), matrix.end());
+        std::sort(matrix.rbegin(), matrix.rend());
     }
 }
 

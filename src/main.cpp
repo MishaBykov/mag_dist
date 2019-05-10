@@ -32,7 +32,7 @@ int main() {
         w_facet.push_back(item->getCountFacets());
     }
 
-    PolyhedronSPtr base = v_2sc[3];
+    PolyhedronSPtr base = v_2sc[1];
     PolyhedronSPtr result;
 
     IncidenceMatrixSPtr incidenceMatrix = std::make_shared<IncidenceMatrix>(*(base->getMatrix()));
@@ -50,15 +50,13 @@ int main() {
 
     long long count_add_row =
             (base->getCountVertex() * select_wh_2sc.back().second - base->getCountOne()) / select_w_facet[0];
-
     std::vector<std::string> all_comb;
 
     for (auto item : select_w_facet) {
         GenerationCombinations gc(base->getCountVertex(), item);
-        all_comb.push_back(combToRow(base->getCountVertex(), gc.getC()) + '0');
-        while (gc.next()) {
+        do {
             all_comb.push_back(combToRow(base->getCountVertex(), gc.getC()) + '0');
-        }
+        } while (gc.next());
     }
 
     std::vector<bool> column(base->getCountFacets(), true);
@@ -74,8 +72,15 @@ int main() {
                 incidenceMatrix->setRow(base->getCountFacets() + j, all_comb[c[j] - 1]);
             }
             result = std::make_shared<Polyhedron>(base->getDimension() + 1, incidenceMatrix);
-            if( Checker::is2neighborly(result) ) {
+            if (!result->isInitialized()) {
+                std::cout << "[result] not initialized" << std::endl;
+                continue;
+            }
+            if (Checker::is2neighborly(result)) {
+                std::cout << "[result] true" << std::endl;
                 result->printToStream(std::cout);
+            } else {
+                std::cout << "[result] false" << std::endl;
             }
         } while (gc.next());
     }

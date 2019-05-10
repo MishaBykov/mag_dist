@@ -12,7 +12,7 @@
 
 Polyhedron::Polyhedron() = default;
 Polyhedron::Polyhedron(unsigned int dimension) : dimension(dimension) {}
-Polyhedron::Polyhedron(unsigned int dimension, const std::shared_ptr<IncidenceMatrix> incidenceMatrix) {
+Polyhedron::Polyhedron(unsigned int dimension, const std::shared_ptr<IncidenceMatrix>& incidenceMatrix) {
     if (checkIncidenceMatrix(incidenceMatrix, dimension)) {
         this->matrix = incidenceMatrix;
         this->dimension = dimension;
@@ -74,9 +74,9 @@ void Polyhedron::printToStream(std::ostream& out_stream) {
         matrix->printToStream(out_stream);
 }
 
-void Polyhedron::printToFile(std::vector<PolyhedronSPtr> &incidenceMatrix, const std::string &file_name) {
+void Polyhedron::printToFile(std::vector<PolyhedronSPtr> &polyhedrons, const std::string &file_name) {
     std::ofstream out_file(file_name);
-    for (auto &i : incidenceMatrix) {
+    for (auto &i : polyhedrons) {
         i->printToStream(out_file);
     }
     out_file.close();
@@ -87,6 +87,8 @@ std::shared_ptr<Polyhedron> Polyhedron::getVertexFigure(unsigned int index_colum
 }
 
 std::shared_ptr<Polyhedron> Polyhedron::getPolyhedronFacet(unsigned int index_row) {
+    if( !matrix )
+        return nullptr;
     std::shared_ptr<IncidenceMatrix> new_matrix = std::make_shared<IncidenceMatrix>();
     unsigned int new_dimension = dimension - 1;
     unsigned long select_row = matrix->getRow(index_row);
@@ -98,14 +100,13 @@ std::shared_ptr<Polyhedron> Polyhedron::getPolyhedronFacet(unsigned int index_ro
     new_matrix->removeRow(index_row);
 
     new_matrix->sort();
-
-    unsigned int i = new_matrix->getCountRow();
-    while ( --i != 0 ) {
-        select_row = new_matrix->getRow(i);
-        for (unsigned int j = i - 1; j-- != 0;) {
-            if( ( select_row & new_matrix->getRow(j) ) == new_matrix->getRow(j) ) {
+    for (int i = 0; i < new_matrix->getCountRow(); ++i) {
+        auto i_row = new_matrix->getRow(i);
+        for (int j = i + 1; j < new_matrix->getCountRow(); j++) {
+            auto j_row = new_matrix->getRow(j);
+            if( ( i_row & j_row ) == j_row ) {
                 new_matrix->removeRow(j);
-                i--;
+                j--;
             }
         }
     }
@@ -113,10 +114,14 @@ std::shared_ptr<Polyhedron> Polyhedron::getPolyhedronFacet(unsigned int index_ro
 }
 
 std::shared_ptr<IncidenceMatrix> Polyhedron::getMatrix() {
+    if( !matrix )
+        return nullptr;
     return matrix;
 }
 
 void Polyhedron::setMatrix(std::shared_ptr<IncidenceMatrix> new_matrix) {
+    if( !matrix )
+        return;
     if( checkIncidenceMatrix( new_matrix, dimension ) )
         matrix = std::move(new_matrix);
     else
@@ -157,6 +162,16 @@ bool Polyhedron::checkIncidenceMatrix(const std::shared_ptr<IncidenceMatrix>& in
         }
     }
 
+    for (int i = 0; i < incidenceMatrix->getCountRow(); ++i) {
+        auto i_row = incidenceMatrix->getRow(i);
+        for (int j = 1; j < incidenceMatrix->getCountRow(); j++) {
+            auto j_row = incidenceMatrix->getRow(j);
+            if( i_row != j_row &&  (( i_row & j_row ) == j_row || ( i_row & j_row ) == i_row )) {
+                return false;
+            }
+        }
+    }
+
     return true;
 }
 
@@ -164,19 +179,25 @@ unsigned int Polyhedron::getDimension() {
     return dimension;
 }
 
-bool Polyhedron::isIinitialized() {
+bool Polyhedron::isInitialized() {
     return bool(matrix);
 }
 
 unsigned int Polyhedron::getCountFacets() {
+    if( !matrix )
+        return 0;
     return matrix->getCountRow();
 }
 
 unsigned int Polyhedron::getCountVertex() {
+    if( !matrix )
+        return 0;
     return matrix->getCountColumn();
 }
 
 unsigned int Polyhedron::getCountOne() {
+    if( !matrix )
+        return 0;
     return matrix->getCountOne();
 }
 
