@@ -214,6 +214,7 @@ void IncidenceMatrix::transpose() {
     }
     matrix.clear();
     matrix = new_matrix;
+    updateCountColumn();
     sorted = false;
 }
 
@@ -246,5 +247,9 @@ int IncidenceMatrix::getCountOne() {
         result += i;
     }
     return result;
+}
+
+void IncidenceMatrix::appendRow(const std::vector<bool>& new_row) {
+    appendRow(columnToString(new_row));
 }
 

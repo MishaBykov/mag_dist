@@ -38,6 +38,7 @@ public:
     void sort();
     void appendRow( unsigned long new_row );
     void appendRow( const std::string& new_row );
+    void appendRow( const std::vector<bool>& new_row );
     void removeRow(unsigned long index);
     unsigned long getRow(unsigned int index);
     void setRow(unsigned int index, unsigned long new_value);

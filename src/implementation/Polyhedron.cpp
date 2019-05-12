@@ -83,7 +83,36 @@ void Polyhedron::printToFile(std::vector<PolyhedronSPtr> &polyhedrons, const std
 }
 
 std::shared_ptr<Polyhedron> Polyhedron::getVertexFigure(unsigned int index_column) {
-    return std::make_shared<Polyhedron>();
+    if( !matrix )
+        return nullptr;
+
+    std::shared_ptr<IncidenceMatrix> new_matrix = std::make_shared<IncidenceMatrix>();
+    unsigned int new_dimension = dimension - 1;
+    auto select_column = matrix->getColumn(index_column);
+    for(unsigned int i = 0; i < select_column.size(); i++) {
+        if (select_column[i]) {
+            new_matrix->appendRow(matrix->getRow(i));
+        }
+    }
+
+    new_matrix->removeColumn(index_column);
+
+    new_matrix->transpose();
+
+    new_matrix->sort();
+
+    for (int i = 0; i < new_matrix->getCountRow(); ++i) {
+        auto i_row = new_matrix->getRow(i);
+        for (int j = i + 1; j < new_matrix->getCountRow(); j++) {
+            auto j_row = new_matrix->getRow(j);
+            if( ( i_row & j_row ) == j_row ) {
+                new_matrix->removeRow(j);
+                j--;
+            }
+        }
+    }
+    new_matrix->transpose();
+    return std::make_shared<Polyhedron>(new_dimension, new_matrix);
 }
 
 std::shared_ptr<Polyhedron> Polyhedron::getPolyhedronFacet(unsigned int index_row) {

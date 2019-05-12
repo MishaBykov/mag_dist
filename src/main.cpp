@@ -7,6 +7,7 @@
 #include <Polyhedron.h>
 #include <GenerationCombinations.h>
 #include <Checker.h>
+#include <Logs.h>
 
 std::string combToRow(unsigned int n, const std::vector<unsigned long>& combination){
     std::string result(n, '0');
@@ -32,7 +33,7 @@ int main() {
         w_facet.push_back(item->getCountFacets());
     }
 
-    PolyhedronSPtr base = v_2sc[1];
+    PolyhedronSPtr base = v_2sc[4];
     PolyhedronSPtr result;
 
     IncidenceMatrixSPtr incidenceMatrix = std::make_shared<IncidenceMatrix>(*(base->getMatrix()));
@@ -50,6 +51,8 @@ int main() {
 
     long long count_add_row =
             (base->getCountVertex() * select_wh_2sc.back().second - base->getCountOne()) / select_w_facet[0];
+    Logs::print(count_add_row);
+
     std::vector<std::string> all_comb;
 
     for (auto item : select_w_facet) {
@@ -58,6 +61,7 @@ int main() {
             all_comb.push_back(combToRow(base->getCountVertex(), gc.getC()) + '0');
         } while (gc.next());
     }
+    Logs::print(all_comb.size());
 
     std::vector<bool> column(base->getCountFacets(), true);
     incidenceMatrix->appendColumn(column);
@@ -73,14 +77,14 @@ int main() {
             }
             result = std::make_shared<Polyhedron>(base->getDimension() + 1, incidenceMatrix);
             if (!result->isInitialized()) {
-                std::cout << "[result] not initialized" << std::endl;
+                Logs::print("[result] not initialized");
                 continue;
             }
             if (Checker::is2neighborly(result)) {
-                std::cout << "[result] true" << std::endl;
+                Logs::print("[result] true");
                 result->printToStream(std::cout);
             } else {
-                std::cout << "[result] false" << std::endl;
+                Logs::print("[result] false");
             }
         } while (gc.next());
     }

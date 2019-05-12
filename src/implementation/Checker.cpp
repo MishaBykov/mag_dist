@@ -74,6 +74,12 @@ bool Checker::is5d2neighborly(const std::shared_ptr<Polyhedron>& polyhedron) {
 
 bool Checker::is2neighborly(const std::shared_ptr<Polyhedron>& polyhedron) {
 
+    for (int i = 0; i < polyhedron->getCountVertex(); ++i) {
+        if (polyhedron->getCountVertex() - 1 != polyhedron->getVertexFigure(i)->getCountVertex()) {
+            return false;
+        }
+    }
+
     switch (polyhedron->getDimension()) {
         case 3:
             return is3dSimplex(polyhedron);
