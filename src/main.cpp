@@ -51,7 +51,6 @@ int main() {
 
     long long count_add_row =
             (base->getCountVertex() * select_wh_2sc.back().second - base->getCountOne()) / select_w_facet[0];
-    Logs::print(count_add_row);
 
     std::vector<std::string> all_comb;
 
@@ -61,33 +60,39 @@ int main() {
             all_comb.push_back(combToRow(base->getCountVertex(), gc.getC()) + '0');
         } while (gc.next());
     }
-    Logs::print(all_comb.size());
 
     std::vector<bool> column(base->getCountFacets(), true);
     incidenceMatrix->appendColumn(column);
 
+    std::ofstream file_result("result.txt");
+    unsigned int count_false = 0;
     for (unsigned int i = 1; i <= count_add_row; i++) {
         GenerationCombinations gc(all_comb.size(), i);
         std::shared_ptr<Polyhedron> p;
         incidenceMatrix->appendRow(0);
         do {
+            std::string logs;
             auto c = gc.getC();
+            logs = "c:\n";
             for (unsigned int j = 0; j < c.size(); j++) {
+                logs += std::to_string(c[j]) + ' ';
                 incidenceMatrix->setRow(base->getCountFacets() + j, all_comb[c[j] - 1]);
             }
+            logs += "\ncount false:\n";
             result = std::make_shared<Polyhedron>(base->getDimension() + 1, incidenceMatrix);
             if (!result->isInitialized()) {
-                Logs::print("[result] not initialized");
                 continue;
             }
             if (Checker::is2neighborly(result)) {
-                Logs::print("[result] true");
-                result->printToStream(std::cout);
+                result->printToStream(file_result);
             } else {
-                Logs::print("[result] false");
+                count_false++;
             }
+            logs += std::to_string(count_false);
+            Logs::print(logs, "log.txt");
         } while (gc.next());
     }
+    file_result.close();
 
     return 0;
 }

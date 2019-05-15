@@ -11,14 +11,12 @@
 #include <memory>
 
 namespace Logs {
-    static std::ofstream file_log("log.txt");
 
-    template <typename T>
-    void print(const T log) {
+    void print(const std::string& log, const std::string& name_file) {
+        std::ofstream file_log(name_file);
         file_log << log << std::endl;
+        file_log.close();
     }
-
-
-}
+};
 
 #endif //MAG_DIST_LOGS_H
