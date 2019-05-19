@@ -10,13 +10,17 @@
 #include <fstream>
 #include <memory>
 
-namespace Logs {
+class Logs {
 
-    void print(const std::string& log, const std::string& name_file) {
-        std::ofstream file_log(name_file);
-        file_log << log << std::endl;
-        file_log.close();
-    }
+    static std::ofstream file_log;
+
+public:
+
+    explicit Logs(const std::string& name_file);
+
+    ~Logs();
+
+    static void print(const std::string& log);
 };
 
 #endif //MAG_DIST_LOGS_H

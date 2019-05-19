@@ -24,11 +24,6 @@ Polyhedron::Polyhedron(unsigned int dimension, IncidenceMatrix incidenceMatrix){
     if( checkIncidenceMatrix(s_ptr_incidenceMatrix, dimension) ) {
         this->matrix = s_ptr_incidenceMatrix;
         this->dimension = dimension;
-    } else {
-        std::cout << "---DEBUG---" << std::endl;
-        std::cout << dimension << std::endl;
-        incidenceMatrix.printToStream(std::cout);
-        std::cout << "-----------" << std::endl;
     }
 }
 

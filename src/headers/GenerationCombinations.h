@@ -27,17 +27,21 @@ class GenerationCombinations {
 
 public:
 
+    GenerationCombinations();
+
     GenerationCombinations(int n, int k);
 
     static std::vector<std::vector<long long> >& getSmallSc();
 
     std::vector<long long> getCombinationByNum (long long num);
 
-    std::vector<unsigned long> getC();
+    std::vector<unsigned long> getCombination();
 
     bool next();
 
     void resetCombination();
+
+    std::string printCombination();
 
 };
 

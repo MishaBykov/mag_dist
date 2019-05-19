@@ -54,7 +54,7 @@ std::vector<long long> GenerationCombinations::getCombinationByNum(long long num
     return result;
 }
 
-std::vector<unsigned long> GenerationCombinations::getC() {
+std::vector<unsigned long> GenerationCombinations::getCombination() {
     return combination;
 }
 
@@ -73,6 +73,16 @@ bool GenerationCombinations::next(){
 void GenerationCombinations::resetCombination() {
     for( int i = 0; i < combination.size(); i++)
         combination[i] = i + 1;
+}
+
+GenerationCombinations::GenerationCombinations() = default;
+
+std::string GenerationCombinations::printCombination() {
+    std::string result;
+    for (unsigned long i : combination) {
+        result.append(std::to_string(i) + ' ');
+    }
+    return result;
 }
 
 std::vector<std::vector<long long> > GenerationCombinations::SMALL_SC;

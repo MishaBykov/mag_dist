@@ -8,92 +8,43 @@
 #include <GenerationCombinations.h>
 #include <Checker.h>
 #include <Logs.h>
+#include <GenerationPolyhedron.h>
 
-std::string combToRow(unsigned int n, const std::vector<unsigned long>& combination){
-    std::string result(n, '0');
-    for( auto item : combination){
-        result[item - 1] = '1';
-    }
-    return result;
-}
+//std::string combToRow(unsigned int n, const std::vector<unsigned long>& combination){
+//    std::string result(n, '0');
+//    for( auto item : combination){
+//        result[item - 1] = '1';
+//    }
+//    return result;
+//}
 
 int main() {
     setlocale(LC_ALL, "rus");
 
-    std::vector<std::pair<long long, long long> > wh_2sc;
-    std::vector<long long> w_facet;
-    auto v_2sc = Polyhedron::readFromFile("re_src/3d2sc.txt");
-    wh_2sc.reserve(v_2sc.size());
-    for (auto &item : v_2sc) {
-        wh_2sc.emplace_back(item->getCountVertex(), item->getCountFacets());
-    }
-    auto v_2n = Polyhedron::readFromFile("re_src/3d.txt");
-    w_facet.reserve(v_2n.size());
-    for (auto &item : v_2n) {
-        w_facet.push_back(item->getCountFacets());
-    }
+    std::string file_name_3d2sc = "re_src/3d2sc.txt";
+    std::string file_name_3d = "re_src/3d.txt";
 
-    PolyhedronSPtr base = v_2sc[4];
-    PolyhedronSPtr result;
-
-    IncidenceMatrixSPtr incidenceMatrix = std::make_shared<IncidenceMatrix>(*(base->getMatrix()));
-
-    std::vector<std::pair<long long, long long> > select_wh_2sc;
-    std::vector<long long> select_w_facet;
-    for (auto &item : wh_2sc) {
-        if (item.first == base->getCountVertex())
-            select_wh_2sc.push_back(item);
-    }
-    for (auto &item : w_facet) {
-        if (base->getDimension() < item && item <= base->getCountVertex())
-            select_w_facet.push_back(item);
-    }
-
-    long long count_add_row =
-            (base->getCountVertex() * select_wh_2sc.back().second - base->getCountOne()) / select_w_facet[0];
-
-    std::vector<std::string> all_comb;
-
-    for (auto item : select_w_facet) {
-        GenerationCombinations gc(base->getCountVertex(), item);
-        do {
-            all_comb.push_back(combToRow(base->getCountVertex(), gc.getC()) + '0');
-        } while (gc.next());
-    }
-
-    std::vector<bool> column(base->getCountFacets(), true);
-    incidenceMatrix->appendColumn(column);
+    auto v_2sc = Polyhedron::readFromFile(file_name_3d2sc);
 
     std::ofstream file_result("result.txt");
+    GenerationPolyhedron generationPolyhedron = GenerationPolyhedron(*v_2sc[1], file_name_3d2sc, file_name_3d);
     unsigned int count_false = 0;
-    for (unsigned int i = 1; i <= count_add_row; i++) {
-        GenerationCombinations gc(all_comb.size(), i);
-        std::shared_ptr<Polyhedron> p;
-        incidenceMatrix->appendRow(0);
-        do {
-            std::string logs;
-            auto c = gc.getC();
-            logs = "c:\n";
-            for (unsigned int j = 0; j < c.size(); j++) {
-                logs += std::to_string(c[j]) + ' ';
-                incidenceMatrix->setRow(base->getCountFacets() + j, all_comb[c[j] - 1]);
-            }
-            logs += "\ncount false:\n";
-            result = std::make_shared<Polyhedron>(base->getDimension() + 1, incidenceMatrix);
-            if (!result->isInitialized()) {
-                continue;
-            }
-            if (Checker::is2neighborly(result)) {
-                result->printToStream(file_result);
-            } else {
-                count_false++;
-            }
-            logs += std::to_string(count_false);
-            Logs::print(logs, "log.txt");
-        } while (gc.next());
-    }
-    file_result.close();
+    do {
+        Logs print_log("log.txt");
+        Logs::print("c:\n" + generationPolyhedron.getGenerationCombinations().printCombination());
+        Logs::print("\ncount false:\n" + std::to_string(count_false) + '\n');
+        auto result = generationPolyhedron.getResult();
+        if (!result->isInitialized()) {
+            continue;
+        }
+        if (Checker::is2neighborly(result)) {
+            result->printToStream(file_result);
+        } else {
+            count_false++;
+        }
 
+    } while (generationPolyhedron.next());
+    file_result.close();
     return 0;
 }
 

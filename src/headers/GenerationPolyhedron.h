@@ -9,27 +9,31 @@
 #include <climits>
 #include <set>
 #include <Polyhedron.h>
+#include "GenerationCombinations.h"
 
 
 class GenerationPolyhedron {
 //  На размерность меньше генерируемого
-    std::vector<PolyhedronSPtr> vertexFigures;
-    std::vector<PolyhedronSPtr> polyhedrons2neighborly;
+    std::vector<std::pair<long long, long long> > select_wh_2sc;
+    std::vector<long long> select_w_facet;
+    std::vector<std::string> all_comb;
 
-    PolyhedronSPtr vertexFigure = nullptr;
-    PolyhedronSPtr result = nullptr;
+    long long count_add_row = 0;
+    long long k = 1;
+    GenerationCombinations gc;
+
+    Polyhedron base;
+    IncidenceMatrix incidenceMatrix;
+    Polyhedron result;
 
 public:
 
     explicit GenerationPolyhedron() = default;
-//    explicit GenerationPolyhedron(PolyhedronSPtr vertexFigure,
-//                                  std::vector<PolyhedronSPtr> vertexFigures,
-//                                  std::vector<PolyhedronSPtr> polyhedrons2neighborly);
+    GenerationPolyhedron(Polyhedron& vertexFigure, const std::string& file_name_2sc, const std::string& file_name_2n);
 
     ~GenerationPolyhedron();
 
-    static std::vector<int> getCountsRow(std::vector< std::shared_ptr< Polyhedron > >& polyhedrons);
-    static std::vector<int> getCountsColumn(std::vector< std::shared_ptr< Polyhedron > >& polyhedrons);
+    GenerationCombinations getGenerationCombinations();
 
     bool next();
 
