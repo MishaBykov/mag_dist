@@ -6,6 +6,8 @@ get_filename_component(project_name ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 #--- имя главной цели. CXX значает, что проект на с++
 project( ${project_name} C CXX )
 
+set(CMAKE_CXX_STANDARD 14)
+
 set(source_code src)
 set(headers ${source_code}/headers)
 set(implementation ${source_code}/implementation)
