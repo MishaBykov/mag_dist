@@ -5,9 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
-//#include <windows.h>
 #include <limits.h>
-#include <skeleton.h>
 
 // Максимальная длина строки входного файла
 #define LINE_SIZE 2048
@@ -104,7 +102,7 @@ int eval_incmatrix (int *fvector, int64_t **poly, int64_t *facet_vertex, FILE *o
     fclose(curf);
     // Обрабатываем p.ext с помощью программы skeleton64f.exe
 #ifdef __linux
-    system("wine skeleton64f.exe p.ext --avisfukudaformat --silence --nologinfile --extinc --edges --ridges");
+    system("wine ./skeleton64f.exe p.ext --avisfukudaformat --silence --nologinfile --extinc --edges --ridges");
 #else
     system("skeleton64f.exe p.ext --avisfukudaformat --silence --nologinfile --extinc --edges --ridges");
 #endif
