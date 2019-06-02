@@ -1,11 +1,3 @@
-Not simplicial2: 0 1
-Not simplicial2: 0 1
-Not simplicial2: 0 1
-Not simplicial2: 0 1
-Not simplicial2: 0 4
-Not simplicial2: 4 5
-Not simplicial2: 0 1
-Not simplicial2: 0 1
 Incidence:
 0101111
 1010111
@@ -16,7 +8,6 @@ Incidence:
 1100110
 1011010
 
-Not simplicial2: 4 5
 Incidence:
 1011111
 0110101
@@ -61,8 +52,6 @@ Incidence:
 1111000
 1101100
 
-Not simplicial2: 1 2
-Not simplicial2: 0 1
 Incidence:
 0111001
 0110101
@@ -87,8 +76,6 @@ Incidence:
 0010111
 1000111
 
-Not simplicial2: 6 7
-Not simplicial2: 0 1
 Incidence:
 1111010
 0011011
@@ -152,7 +139,6 @@ Incidence:
 0101101
 1101100
 
-Not simplicial2: 0 1
 Incidence:
 0011101
 0010111
@@ -225,4 +211,3 @@ Incidence:
 1110100
 1111000
 1011010
-
