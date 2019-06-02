@@ -7,7 +7,7 @@
 #include <stdint.h>  
 
 #define MAX_VERT 9
-#define MAX_FACET 64
+#define MAX_FACET 21
 // The dimension of a polytope
 #define DIM 5
 // The maximal number of all faces of a polytope
@@ -284,10 +284,10 @@ int read_miyata (char *buffer, int &vertices, int &facets, int64_t *facet_vertex
 }
 
 // Write incidence matrices into file
-int write_inc (char *filename, int facets, int vertices, int64_t *facet_vertex, int64_t *vertex_facet){
-	FILE *incfile = fopen(filename, "w");
-	if (incfile == NULL){
-		printf ("ERROR: Cann't open file %s\n", filename);
+int write_inc (FILE *incfile, int facets, int vertices, int64_t *facet_vertex, int64_t *vertex_facet){
+//	FILE *incfile = fopen(filename, "w");
+	if (incfile == NULL ){
+		printf ("ERROR: Cann't open file %s\n");
 		return 1;
 	}
 
@@ -310,7 +310,7 @@ int write_inc (char *filename, int facets, int vertices, int64_t *facet_vertex, 
 		fprintf (incfile, "\n");
 	}
 	fprintf (incfile, "end\n");
-	fclose (incfile);
+//	fclose (incfile);
 	return 0;
 }
 
@@ -403,8 +403,9 @@ int main(int argc, char *argv[]) {
 		for (i = 0, minf_in_v = facets; i < vertices; i++){
 			int f_in_v = __builtin_popcountll (vertex_facet[i]); // Подсчитываем число фасет в вершине
 			if (minf_in_v > f_in_v) minf_in_v = f_in_v;
-		}	
+		}
         write_fvec (outfile, facets, vertices, dimension, fvector, is_pyramid, simpliciality, nincs, minf_in_v, buffer);
+        write_inc (outfile, facets, vertices, facet_vertex, vertex_facet);
     }
     
 	fprintf (outfile, "MIN facets: %d\nMAX facets: %d\n", min_facets, max_facets);
