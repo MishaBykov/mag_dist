@@ -302,14 +302,14 @@ int write_inc (FILE *incfile, int facets, int vertices, int64_t *facet_vertex, i
 	}
 	fprintf (incfile, "end\n");
 
-	fprintf (incfile, "\nbegin\n%d %d\n", vertices, facets);
-	for (i = 0; i < vertices; i++){
-		for (j = 0, x = 1; j < facets; j++, x <<= 1){
-			fprintf (incfile, " %d", (vertex_facet[i]&x)/x);
-		}
-		fprintf (incfile, "\n");
-	}
-	fprintf (incfile, "end\n");
+//	fprintf (incfile, "\nbegin\n%d %d\n", vertices, facets);
+//	for (i = 0; i < vertices; i++){
+//		for (j = 0, x = 1; j < facets; j++, x <<= 1){
+//			fprintf (incfile, " %d", (vertex_facet[i]&x)/x);
+//		}
+//		fprintf (incfile, "\n");
+//	}
+//	fprintf (incfile, "end\n");
 //	fclose (incfile);
 	return 0;
 }
