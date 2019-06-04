@@ -1,0 +1,48 @@
+http://www.tcs.hut.fi/Software/bliss/ 
+ 
+g++ my_file.cpp graph.cc defs.cc heap.cc orbit.cc partition.cc uintseqhash.cc utils.cc
+
+
+#include <assert.h>
+#include "graph.hh"
+typedef unsigned int Trow;
+
+int bliss_canon(Trow *matrix, int rows, int cols){
+    bliss::Digraph g(cols+rows);
+
+    bliss::Digraph::SplittingHeuristic shs_directed = bliss::Digraph::shs_fsm;
+    g.set_splitting_heuristic(shs_directed);
+    g.set_verbose_level(0);
+    g.set_verbose_file(stdout);
+    g.set_failure_recording(true);
+    g.set_component_recursion(true);
+
+    // Copy data from matrix to the graph g
+Trow one = 1 << (cols-1);
+for(int f = 0; f < rows; f++){
+Trow row = matrix[f];
+for (int v = 0; v < cols; v++, row <<= 1){
+            if (row & one)
+                g.add_edge(cols + f, v);
+        }    
+}
+
+    bliss::Stats stats;
+    // Canonical labeling
+    const unsigned int* cl = g.canonical_form(stats, &report_aut, stdout);
+    // Permute to canonical labeling
+    bliss::Digraph* cf = g.permute(cl);
+        
+   	one = 1;
+    for(int f = 0; f < rows; f++){
+        std::vector<unsigned int> *edges_out = &(cf->vertices[cols+f].edges_out);
+        int len = edges_out->size();
+        unsigned int *vs = edges_out->data();
+        matrix[f] = 0;
+        for (int v = 0; v < len; v++){
+            matrix[f] |= one << vs[v];
+        }    
+    }    
+    delete cf;
+    return 0;
+}
