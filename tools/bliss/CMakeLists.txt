@@ -8,12 +8,12 @@ project( ${project_name} C CXX )
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(source_code src)
-set(headers ${source_code}/headers)
+set(source_code .)
+set(headers ${source_code})
 set(implementation ${source_code}/implementation)
 
 message(
-"
+    "
 config:
     source_code: ${source_code}
     headers: ${headers}
@@ -55,30 +55,14 @@ endif()
 
 ########################################################################
 
-add_executable(
+add_library(
     ${project_name}
     ${files_headers}
     ${files_implementation}
-
-    ${source_code}/main.cpp
 )
 
 target_include_directories( ${project_name} PUBLIC
     ${path_headers}
-)
-
-message("")
-
-add_subdirectory(tools/bliss)
-
-target_include_directories( bliss PUBLIC
-    ${source_code}
     )
 
-target_link_libraries(${project_name} bliss)
-
-target_include_directories(
-    bliss PRIVATE
-    tools/bliss
-)
-
+message("")

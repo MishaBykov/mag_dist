@@ -4,7 +4,7 @@ g++ my_file.cpp graph.cc defs.cc heap.cc orbit.cc partition.cc uintseqhash.cc ut
 
 
 #include <assert.h>
-#include "graph.hh"
+#include <bliss/graph.hh>
 typedef unsigned int Trow;
 
 int bliss_canon(Trow *matrix, int rows, int cols){
