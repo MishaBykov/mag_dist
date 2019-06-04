@@ -43,6 +43,7 @@ public:
 
     std::string printCombination();
 
+    void setCombination(const std::vector<unsigned long >& combination);
 };
 
 #endif //MAG_DIST_GENERATIONCOMBINATIONS_H

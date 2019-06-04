@@ -10,12 +10,18 @@
 #include <Logs.h>
 #include <GenerationPolyhedron.h>
 
-//std::string combToRow(unsigned int n, const std::vector<unsigned long>& combination){
-//    std::string result(n, '0');
-//    for( auto item : combination){
-//        result[item - 1] = '1';
+//int main(){
+//
+//    auto test = Polyhedron::readFromFile("test.txt");
+//    for (int i = 0; i < test.size(); ++i) {
+//        test[i]->getMatrix()->sort();
+//        test[i]->getMatrix()->transpose();
+//        test[i]->getMatrix()->sort();
+//        test[i]->getMatrix()->transpose();
+//        test[i]->printToStream(std::cout);
 //    }
-//    return result;
+//
+//    return 0;
 //}
 
 int main() {
@@ -27,24 +33,25 @@ int main() {
     auto v_2sc = Polyhedron::readFromFile(file_name_3d2sc);
 
     std::ofstream file_result("result.txt");
-    GenerationPolyhedron generationPolyhedron = GenerationPolyhedron(*v_2sc[1], file_name_3d2sc, file_name_3d);
-    unsigned int count_false = 0;
+    GenerationPolyhedron generationPolyhedron = GenerationPolyhedron(*v_2sc[2], file_name_3d2sc, file_name_3d);
+//    unsigned long init_combination[] = {6, 7, 8, 9, 14, 17, 23, 24, 30, 32};
+//    std::vector<unsigned long> combination(init_combination, init_combination + sizeof(init_combination) / sizeof(unsigned long) );
+//    generationPolyhedron.getGenerationCombinations().setCombination(combination);
+    unsigned long count_polyhedron = 0;
     do {
-        Logs print_log("log.txt");
-        Logs::print("c:\n" + generationPolyhedron.getGenerationCombinations().printCombination());
-        Logs::print("\ncount false:\n" + std::to_string(count_false) + '\n');
         auto result = generationPolyhedron.getResult();
         if (!result->isInitialized()) {
             continue;
         }
-        if (Checker::is2neighborly(result)) {
+        count_polyhedron++;
+        if (Checker::isCompleteGraph(result)) {
             result->printToStream(file_result);
-        } else {
-            count_false++;
         }
-
+        std::string log = "c:\n" + generationPolyhedron.getGenerationCombinations().printCombination()
+                + "\ncount false:\n" + std::to_string(count_polyhedron) + '\n';
+        Logs::print("log1", log);
+        Logs::print("log2", log);
     } while (generationPolyhedron.next());
     file_result.close();
     return 0;
 }
-

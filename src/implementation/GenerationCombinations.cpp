@@ -85,4 +85,9 @@ std::string GenerationCombinations::printCombination() {
     return result;
 }
 
+void GenerationCombinations::setCombination(const std::vector<unsigned long>& combination) {
+    k = combination.size();
+    this->combination = combination;
+}
+
 std::vector<std::vector<long long> > GenerationCombinations::SMALL_SC;

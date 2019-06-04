@@ -208,14 +208,18 @@ unsigned long IncidenceMatrix::size() {
 }
 
 void IncidenceMatrix::transpose() {
-    std::vector<unsigned long> new_matrix;
-    for (unsigned int i = 0; i < getCountColumn(); ++i) {
-        new_matrix.push_back(stringToRow(columnToString(getColumn(i))));
-    }
-    matrix.clear();
-    matrix = new_matrix;
+    matrix = getTransposeMatrix();
     updateCountColumn();
     sorted = false;
+}
+
+std::vector<unsigned long> IncidenceMatrix::getTransposeMatrix() {
+    std::vector<unsigned long> result;
+    for (unsigned int i = 0; i < getCountColumn(); ++i) {
+        result.push_back(stringToRow(columnToString(getColumn(i))));
+    }
+
+    return result;
 }
 
 std::string IncidenceMatrix::columnToString(const std::vector<bool>& column) {

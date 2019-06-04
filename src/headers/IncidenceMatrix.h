@@ -54,6 +54,7 @@ public:
     std::vector<unsigned long> sumColumns();
 
     void transpose();
+    std::vector<unsigned long> getTransposeMatrix();
 
     static IncidenceMatrixSPtr readFromStream(std::istream &i_stream);
     void printToStream(std::ostream &o_stream);

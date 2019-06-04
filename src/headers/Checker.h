@@ -12,7 +12,7 @@
 class Checker {
 public:
 
-    static bool is2neighborly(const std::shared_ptr<Polyhedron>& polyhedron);
+    static bool is3dSimplexDepth(const std::shared_ptr<Polyhedron>& polyhedron);
 
     static bool is3dSimplex(const std::shared_ptr<Polyhedron>& polyhedron);
 
@@ -25,6 +25,8 @@ public:
     static bool is5d2neighborly(const std::shared_ptr<Polyhedron>& polyhedron);
 
     static bool is6d2neighborly(const std::shared_ptr<Polyhedron>& polyhedron);
+
+    static bool isCompleteGraph(const std::shared_ptr<Polyhedron> &polyhedron);
 };
 
 

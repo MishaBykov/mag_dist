@@ -2,8 +2,9 @@
 // Created by misha on 18.03.19.
 //
 
-#include <Checker.h>
+#include <algorithm>
 #include <iostream>
+#include <Checker.h>
 
 bool Checker::is3dSimplex(const std::shared_ptr<Polyhedron>& polyhedron) {
     if ( !polyhedron ||
@@ -72,14 +73,7 @@ bool Checker::is5d2neighborly(const std::shared_ptr<Polyhedron>& polyhedron) {
     return true;
 }
 
-bool Checker::is2neighborly(const std::shared_ptr<Polyhedron>& polyhedron) {
-
-    for (int i = 0; i < polyhedron->getCountVertex(); ++i) {
-        if (polyhedron->getCountVertex() - 1 != polyhedron->getVertexFigure(i)->getCountVertex()) {
-            return false;
-        }
-    }
-
+bool Checker::is3dSimplexDepth(const std::shared_ptr<Polyhedron>& polyhedron) {
     switch (polyhedron->getDimension()) {
         case 3:
             return is3dSimplex(polyhedron);
@@ -90,11 +84,36 @@ bool Checker::is2neighborly(const std::shared_ptr<Polyhedron>& polyhedron) {
         case 6:
             return is6d2neighborly(polyhedron);
         default:
-            std::cout << "[Checker::is2neighborly][" << polyhedron->getDimension() <<"] Не известная размерность" << std::endl;
+            std::cout << "[Checker::isCompleteGraph][" << polyhedron->getDimension() <<"] Не известная размерность" << std::endl;
     }
     return false;
 }
 
 bool Checker::is6d2neighborly(const std::shared_ptr<Polyhedron>& polyhedron) {
-    return false;
+    if(!polyhedron || polyhedron->getDimension() != 5)
+        return false;
+    unsigned int i = 0;
+    for (i = 0; i < polyhedron->getMatrix()->getCountRow(); ++i) {
+        if (!Checker::is5d2neighborly(polyhedron->getPolyhedronFacet(i))) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Checker::isCompleteGraph(const std::shared_ptr<Polyhedron> &polyhedron) {
+    auto transpose_matrix = polyhedron->getMatrix()->getTransposeMatrix();
+    std::sort(transpose_matrix.rbegin(), transpose_matrix.rend());
+
+    for (int i = 0; i < transpose_matrix.size(); ++i) {
+        for (int j = i + 1; j < transpose_matrix.size(); ++j) {
+            auto intersection_i_j = transpose_matrix[i] & transpose_matrix[j];
+            for (int k = 0; k < transpose_matrix.size(); ++k) {
+                if( k != i && k !=j && ( (transpose_matrix[k] & intersection_i_j) == intersection_i_j )  ) {
+                   return false;
+                }
+            }
+        }
+    }
+    return true;
 }

@@ -3,18 +3,14 @@
 //
 
 #include <Logs.h>
+#include <iostream>
 
-std::ofstream Logs::file_log;
-
-Logs::Logs(const std::string& name_file) {
-    file_log.open(name_file);
-}
-
-Logs::~Logs() {
-    file_log.close();
-}
-
-void Logs::print(const std::string& log) {
-    if (file_log.is_open())
+void Logs::print(const std::string& file_name, const std::string& log) {
+    std::ofstream file_log(file_name);
+    if (file_log.is_open()) {
         file_log << log << std::endl;
+        file_log.close();
+    } else {
+        std::cout << "file:[" + file_name + "]" << std::endl;
+    }
 }
