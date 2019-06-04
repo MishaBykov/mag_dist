@@ -48,6 +48,7 @@ GenerationPolyhedron::GenerationPolyhedron (
             select_w_facet.push_back(item);
     }
 
+    // todo исправить
     count_add_row = (base.getCountVertex() * select_wh_2sc.back().second - base.getCountOne()) / select_w_facet[0];
 
     for (auto item : select_w_facet) {
