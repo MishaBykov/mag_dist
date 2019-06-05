@@ -21,17 +21,17 @@ std::string combToRow(unsigned int n, const std::vector<unsigned long>& combinat
 }
 
 GenerationPolyhedron::GenerationPolyhedron (
-            Polyhedron& vertexFigure, const std::string& file_name_2sc, const std::string& file_name_2n)
+            Polyhedron& vertexFigure, const std::vector<PolyhedronSPtr>& v_2sc, const std::vector<PolyhedronSPtr>& v_2n)
             : base(vertexFigure)
 {
     std::vector<std::pair<long long, long long> > wh_2sc;
     std::vector<long long> w_facet;
-    auto v_2sc = Polyhedron::readFromFile(file_name_2sc);
+
     wh_2sc.reserve(v_2sc.size());
     for (auto &item : v_2sc) {
         wh_2sc.emplace_back(item->getCountVertex(), item->getCountFacets());
     }
-    auto v_2n = Polyhedron::readFromFile(file_name_2n);
+
     w_facet.reserve(v_2n.size());
     for (auto &item : v_2n) {
         w_facet.push_back(item->getCountFacets());

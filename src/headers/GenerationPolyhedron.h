@@ -29,7 +29,9 @@ class GenerationPolyhedron {
 public:
 
     explicit GenerationPolyhedron() = default;
-    GenerationPolyhedron(Polyhedron& vertexFigure, const std::string& file_name_2sc, const std::string& file_name_2n);
+    GenerationPolyhedron(
+            Polyhedron& vertexFigure, const std::vector<PolyhedronSPtr>& v_2sc, const std::vector<PolyhedronSPtr>& v_2n
+            );
 
     ~GenerationPolyhedron();
 
