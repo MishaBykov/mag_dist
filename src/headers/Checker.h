@@ -27,6 +27,8 @@ public:
     static bool is6d2neighborly(const std::shared_ptr<Polyhedron>& polyhedron);
 
     static bool isCompleteGraph(const std::shared_ptr<Polyhedron> &polyhedron);
+
+    static bool isPolyhedronInVector(const std::shared_ptr<Polyhedron> &polyhedron, const std::vector<PolyhedronSPtr>& v);
 };
 
 

@@ -117,3 +117,12 @@ bool Checker::isCompleteGraph(const std::shared_ptr<Polyhedron> &polyhedron) {
     }
     return true;
 }
+
+bool Checker::isPolyhedronInVector(const std::shared_ptr<Polyhedron> &polyhedron,
+        const std::vector<PolyhedronSPtr>& vector) {
+    for(const auto& item : vector ){
+        if (*item == *polyhedron)
+            return true;
+    }
+    return false;
+}
