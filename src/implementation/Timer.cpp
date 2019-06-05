@@ -8,22 +8,14 @@
 #include <ratio>
 #include <chrono>
 
-int main ()
-{
-    using namespace std::chrono;
+Timer::Timer(std::string file_out) : file_out(std::move(file_out)) {}
 
-    steady_clock::time_point t1 = steady_clock::now();
+Timer::~Timer(){
+    steady_clock::time_point timePointEnd = steady_clock::now();
 
-    std::cout << "printing out 1000 stars...\n";
-    for (int i=0; i<1000; ++i) std::cout << "*";
-    std::cout << std::endl;
+    duration<double> time_span = duration_cast<duration<double>>(timePointEnd - timePointBegin);
 
-    steady_clock::time_point t2 = steady_clock::now();
-
-    duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
-
-    std::cout << "It took me " << time_span.count() << " seconds.";
-    std::cout << std::endl;
-
-    return 0;
+    std::ofstream stream_out(file_out);
+    stream_out << "time work: " << time_span.count() << " seconds.";
+    stream_out << std::endl;
 }
