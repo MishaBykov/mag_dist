@@ -118,11 +118,20 @@ bool Checker::isCompleteGraph(const std::shared_ptr<Polyhedron> &polyhedron) {
     return true;
 }
 
-bool Checker::isPolyhedronInVector(const std::shared_ptr<Polyhedron> &polyhedron,
+bool Checker::isFacetsPolyhedronInVector(const std::shared_ptr<Polyhedron> &polyhedron,
         const std::vector<PolyhedronSPtr>& vector) {
-    for(const auto& item : vector ){
-        if (*item == *polyhedron)
-            return true;
+    for (unsigned int i = 0; i < polyhedron->getMatrix()->getCountRow(); ++i) {
+        auto facet = polyhedron->getPolyhedronFacet(i);
+        bool f = false;
+        for(const auto& item : vector ){
+            if (*item == *facet) {
+                f = true;
+                break;
+            }
+        }
+        if (!f)
+            return false;
     }
-    return false;
+
+    return true;
 }

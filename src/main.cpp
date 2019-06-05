@@ -31,7 +31,7 @@ int main() {
                 continue;
             }
             count_polyhedron++;
-            if (Checker::isCompleteGraph(result) && Checker::isPolyhedronInVector(result, v_2n)) {
+            if (Checker::isCompleteGraph(result) && Checker::isFacetsPolyhedronInVector(result, v_2n)) {
                 result->printToStream(file_result);
             }
             std::string log = "ind_v_2sc:\n" + std::to_string(i) + "\nc:\n" + generationPolyhedron.getGenerationCombinations().printCombination()
