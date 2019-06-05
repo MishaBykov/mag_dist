@@ -793,7 +793,7 @@ public:
     shs_flm
   } SplittingHeuristic;
 
-protected:
+
   class Vertex {
   public:
     Vertex();
@@ -809,6 +809,7 @@ protected:
     unsigned int nof_edges_out() const {return edges_out.size(); }
   };
   std::vector<Vertex> vertices;
+protected:
   void remove_duplicate_edges();
 
   /** \internal
