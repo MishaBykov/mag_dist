@@ -7,6 +7,7 @@
 #include <utility>
 #include <string>
 #include <iostream>
+#include <algorithm>
 
 #include <GenerationPolyhedron.h>
 #include <GenerationCombinations.h>
@@ -24,34 +25,42 @@ GenerationPolyhedron::GenerationPolyhedron (
             Polyhedron& vertexFigure, const std::vector<PolyhedronSPtr>& v_2sc, const std::vector<PolyhedronSPtr>& v_2n)
             : base(vertexFigure)
 {
-    std::vector<std::pair<long long, long long> > wh_2sc;
-    std::vector<long long> w_facet;
+    std::vector<std::pair<long long, long long> > vf_2sc;
+    std::vector<long long> f_facet;
 
-    wh_2sc.reserve(v_2sc.size());
+    long long max_count_facet = 0;
     for (auto &item : v_2sc) {
-        wh_2sc.emplace_back(item->getCountVertex(), item->getCountFacets());
+        if (item->getCountVertex() == base.getCountVertex()) {
+            select_vf_2sc.emplace_back(item->getCountVertex(), item->getCountFacets());
+            if( select_vf_2sc.back().second > max_count_facet )
+                max_count_facet = select_vf_2sc.back().second;
+        }
     }
 
-    w_facet.reserve(v_2n.size());
     for (auto &item : v_2n) {
-        w_facet.push_back(item->getCountFacets());
+        if (base.getDimension() < item->getCountVertex() && item->getCountVertex() <= base.getCountVertex()) {
+            select_v_facet.push_back(item->getCountVertex());
+        }
     }
+    long long min_count_vertex = *std::min_element(select_v_facet.begin(), select_v_facet.end());
 
     incidenceMatrix = (*(base.getMatrix()));
 
-    for (auto &item : wh_2sc) {
+
+    for (auto &item : vf_2sc) {
         if (item.first == base.getCountVertex())
-            select_wh_2sc.push_back(item);
+            select_vf_2sc.push_back(item);
     }
-    for (auto &item : w_facet) {
+
+//    min v
+    for (auto &item : f_facet) {
         if (base.getDimension() < item && item <= base.getCountVertex())
-            select_w_facet.push_back(item);
+            select_v_facet.push_back(item);
     }
 
-    // todo исправить
-    count_add_row = (base.getCountVertex() * select_wh_2sc.back().second - base.getCountOne()) / select_w_facet[0];
+    count_add_row = (base.getCountVertex() * max_count_facet - base.getCountOne()) / min_count_vertex;
 
-    for (auto item : select_w_facet) {
+    for (auto item : select_v_facet) {
         GenerationCombinations gc(base.getCountVertex(), item);
         do {
             all_comb.push_back(combToRow(base.getCountVertex(), gc.getCombination()) + '0');
