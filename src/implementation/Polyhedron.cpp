@@ -40,6 +40,9 @@ std::vector<PolyhedronSPtr> Polyhedron::readFromFile(const std::string& file_nam
         auto polyhedron = readFromStream(file_in);
         if( polyhedron )
             result.push_back( polyhedron );
+        else {
+            std::cout << "Файл [" << file_name << "] позиция: " << file_in.tellg() << std::endl;
+        }
     }
 
     file_in.close();
