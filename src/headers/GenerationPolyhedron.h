@@ -41,7 +41,7 @@ public:
 
     PolyhedronSPtr getResult();
 
-
+    void setCombination(const std::vector<unsigned long> &combination);
 
 };
 

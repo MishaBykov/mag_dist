@@ -91,3 +91,11 @@ bool GenerationPolyhedron::next() {
 GenerationCombinations GenerationPolyhedron::getGenerationCombinations() {
     return gc;
 }
+
+void GenerationPolyhedron::setCombination(const std::vector<unsigned long> &combination) {
+    while( k < combination.size() ){
+        incidenceMatrix.appendRow(0);
+        k++;
+    }
+    gc.setCombination(combination);
+}
