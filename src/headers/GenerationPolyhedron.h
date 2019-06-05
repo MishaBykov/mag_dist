@@ -29,7 +29,7 @@ class GenerationPolyhedron {
 public:
 
     explicit GenerationPolyhedron() = default;
-    GenerationPolyhedron(
+    GenerationPolyhedron(unsigned int max_add_count_row,
             Polyhedron& vertexFigure, const std::vector<PolyhedronSPtr>& v_2sc, const std::vector<PolyhedronSPtr>& v_2n
             );
 

@@ -21,13 +21,10 @@ std::string combToRow(unsigned int n, const std::vector<unsigned long>& combinat
     return result;
 }
 
-GenerationPolyhedron::GenerationPolyhedron (
+GenerationPolyhedron::GenerationPolyhedron (unsigned int max_add_count_row,
             Polyhedron& vertexFigure, const std::vector<PolyhedronSPtr>& v_2sc, const std::vector<PolyhedronSPtr>& v_2n)
             : base(vertexFigure)
 {
-    std::vector<std::pair<long long, long long> > vf_2sc;
-    std::vector<long long> f_facet;
-
     long long max_count_facet = 0;
     for (auto &item : v_2sc) {
         if (item->getCountVertex() == base.getCountVertex()) {
@@ -46,19 +43,9 @@ GenerationPolyhedron::GenerationPolyhedron (
 
     incidenceMatrix = (*(base.getMatrix()));
 
-
-    for (auto &item : vf_2sc) {
-        if (item.first == base.getCountVertex())
-            select_vf_2sc.push_back(item);
-    }
-
-//    min v
-    for (auto &item : f_facet) {
-        if (base.getDimension() < item && item <= base.getCountVertex())
-            select_v_facet.push_back(item);
-    }
-
     count_add_row = (base.getCountVertex() * max_count_facet - base.getCountOne()) / min_count_vertex;
+    if( count_add_row > max_add_count_row )
+        count_add_row = max_add_count_row;
 
     for (auto item : select_v_facet) {
         GenerationCombinations gc(base.getCountVertex(), item);
