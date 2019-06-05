@@ -16,14 +16,14 @@ int main() {
 
     auto v_2sc = Polyhedron::readFromFile("re_src/3d2sc.txt");
     auto v_2n = Polyhedron::readFromFile("re_src/3d.txt");
-    unsigned int max_add_row = 5;
+    unsigned int max_row = 15;
 
     std::string file_name_result = "result";
     std::string file_name_time = "time";
+    Timer timer(file_name_time);
+    std::ofstream file_result(file_name_result);
     for (int i = 0; i < v_2sc.size(); ++i) {
-        std::ofstream file_result(file_name_result + std::to_string(i));
-        Timer timer(file_name_time + std::to_string(i) );
-        GenerationPolyhedron generationPolyhedron = GenerationPolyhedron(max_add_row, *v_2sc[i], v_2sc, v_2n);
+        GenerationPolyhedron generationPolyhedron = GenerationPolyhedron(max_row, *v_2sc[i], v_2sc, v_2n);
         unsigned long count_polyhedron = 0;
         do {
             auto result = generationPolyhedron.getResult();
@@ -31,7 +31,7 @@ int main() {
                 continue;
             }
             count_polyhedron++;
-            if (Checker::isCompleteGraph(result)) {
+            if (Checker::isCompleteGraph(result) && Checker::isFacetsPolyhedronInVector(result, v_2n)) {
                 result->printToStream(file_result);
             }
             std::string log = "ind_v_2sc:\n" + std::to_string(i) + "\nc:\n" + generationPolyhedron.getGenerationCombinations().printCombination()
