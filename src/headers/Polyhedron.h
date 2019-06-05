@@ -47,6 +47,8 @@ public:
     static std::vector<PolyhedronSPtr> readFromFile(const std::string& file_name);
 
     static void printToFile(std::vector<PolyhedronSPtr> &incidenceMatrix, const std::string &file_name);
+
+    bool operator==(Polyhedron &polyhedron);
 };
 
 

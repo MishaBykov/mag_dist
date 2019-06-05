@@ -225,4 +225,10 @@ unsigned int Polyhedron::getCountOne() {
     return matrix->getCountOne();
 }
 
+bool Polyhedron::operator==(Polyhedron &polyhedron) {
+    if (dimension != polyhedron.dimension)
+        return false;
+    return *matrix == *polyhedron.matrix;
+}
+
 

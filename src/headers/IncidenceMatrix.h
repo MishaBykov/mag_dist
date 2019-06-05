@@ -10,6 +10,8 @@
 #include <fstream>
 #include <string>
 #include <memory>
+#include <assert.h>
+#include <bliss/graph.hh>
 
 class IncidenceMatrix;
 using IncidenceMatrixSPtr = std::shared_ptr<IncidenceMatrix>;
@@ -19,6 +21,7 @@ class IncidenceMatrix {
     unsigned int count_column = 0;
     std::vector<unsigned long> matrix;
 
+    bool bliss_canon_f = false;
     bool sorted = false;
 
     void updateCountColumn();
@@ -26,6 +29,8 @@ class IncidenceMatrix {
     static unsigned long stringToRow(const std::string& row);
     static std::vector<bool> stringToColumn(std::string row);
     static std::string columnToString(const std::vector<bool>& column);
+
+    void bliss_canon();
 
 public:
     IncidenceMatrix() = default;
@@ -60,6 +65,9 @@ public:
     void printToStream(std::ostream &o_stream);
 
     int getCountOne();
+
+    bool operator==(IncidenceMatrix &incidenceMatrix);
+
 };
 
 #endif //MAG_DIST_INCIDENCE_MATRIX_H

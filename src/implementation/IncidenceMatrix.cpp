@@ -29,13 +29,13 @@ std::vector<bool> IncidenceMatrix::stringToColumn(std::string row) {
 
 void IncidenceMatrix::appendRow(unsigned long new_row) {
     sorted = false;
+    bliss_canon_f = false;
     matrix.push_back(new_row);
     updateCountColumn();
 }
 
 void IncidenceMatrix::appendRow(const std::string& new_str_row) {
-    unsigned long new_row = stringToRow(new_str_row);
-    appendRow(new_row);
+    appendRow(stringToRow(new_str_row));
 }
 
 unsigned long IncidenceMatrix::getRow(unsigned int index) {
@@ -54,6 +54,7 @@ unsigned int IncidenceMatrix::getCountColumn() {
 
 void IncidenceMatrix::appendColumn(std::vector<bool> new_column) {
     sorted = false;
+    bliss_canon_f = false;
     if (getCountRow() < new_column.size()) {
         matrix.resize(new_column.size());
     }
@@ -71,6 +72,7 @@ void IncidenceMatrix::appendColumn(std::string new_str_column) {
 
 void IncidenceMatrix::removeColumn(unsigned long index) {
     sorted = false;
+    bliss_canon_f = false;
     auto right = (1u << index) - 1, left = ((1u << count_column) - 1) - ((1u << (index + 1)) - 1);
     for(unsigned long &i : matrix){
         i = ((left & i) >> 1u) + (right & i);
@@ -106,6 +108,7 @@ std::vector<bool> IncidenceMatrix::getColumn(unsigned int index) {
 }
 
 void IncidenceMatrix::removeRow(unsigned long index) {
+    bliss_canon_f = false;
     matrix.erase(matrix.begin() + index);
     updateCountColumn();
 }
@@ -138,6 +141,7 @@ void IncidenceMatrix::setColumn(unsigned long index, std::vector<bool> new_value
         return;
     }
     sorted = false;
+    bliss_canon_f = false;
     unsigned long bit = 1;
     bit <<= index;
     for (int i = 0; i < matrix.size(); ++i) {
@@ -159,12 +163,12 @@ void IncidenceMatrix::setColumn(unsigned long index, std::string new_value) {
         std::cout << "[setColumn] "<< index << " за пределами" << std::endl;
         return;
     }
-    sorted = false;
     setColumn(index, stringToColumn(std::move(new_value)));
 }
 
 void IncidenceMatrix::setRow(unsigned int index, unsigned long new_value) {
     sorted = false;
+    bliss_canon_f = false;
     if (index >= getCountRow()){
         std::cout << "[setRow] "<< index << " за пределами" << std::endl;
         return;
@@ -174,7 +178,6 @@ void IncidenceMatrix::setRow(unsigned int index, unsigned long new_value) {
 }
 
 void IncidenceMatrix::setRow(unsigned int index, const std::string& new_value) {
-    sorted = false;
     setRow(index, stringToRow(new_value));
 }
 
@@ -211,6 +214,7 @@ void IncidenceMatrix::transpose() {
     matrix = getTransposeMatrix();
     updateCountColumn();
     sorted = false;
+    bliss_canon_f = false;
 }
 
 std::vector<unsigned long> IncidenceMatrix::getTransposeMatrix() {
@@ -235,6 +239,8 @@ std::string IncidenceMatrix::columnToString(const std::vector<bool>& column) {
 void IncidenceMatrix::clear() {
     matrix.clear();
     count_column = 0;
+    bliss_canon_f = false;
+    sorted = false;
 }
 
 void IncidenceMatrix::sort() {
@@ -257,3 +263,62 @@ void IncidenceMatrix::appendRow(const std::vector<bool>& new_row) {
     appendRow(columnToString(new_row));
 }
 
+
+void IncidenceMatrix::bliss_canon() {
+    if( bliss_canon_f )
+        return;
+
+    bliss::Digraph g(count_column + matrix.size());
+    bliss::Digraph::SplittingHeuristic shs_directed = bliss::Digraph::shs_fsm;
+    g.set_splitting_heuristic(shs_directed);
+    g.set_verbose_level(0);
+    g.set_verbose_file(stdout);
+    g.set_failure_recording(true);
+    g.set_component_recursion(true);
+
+// Copy data from matrix to the graph g
+    unsigned int one = 1u << (count_column - 1u);
+    for (int f = 0; f < matrix.size(); f++) {
+        unsigned int row = matrix[f];
+        for (int v = 0; v < count_column; v++, row <<= 1u) {
+            if (row & one)
+                g.add_edge(count_column + f, v);
+        }
+    }
+
+    bliss::Stats stats;
+// Canonical labeling
+    const unsigned int *cl = g.canonical_form(stats, nullptr, stdout);
+// Permute to canonical labeling
+    bliss::Digraph *cf = g.permute(cl);
+
+    one = 1;
+    for (int f = 0; f < matrix.size(); f++) {
+        std::vector<unsigned int> *edges_out = &(cf->vertices[count_column + f].edges_out);
+        int len = edges_out->size();
+        unsigned int *vs = edges_out->data();
+        matrix[f] = 0;
+        for (int v = 0; v < len; v++) {
+            matrix[f] |= one << vs[v];
+        }
+    }
+    delete cf;
+    delete cl;
+    bliss_canon_f = true;
+}
+
+bool IncidenceMatrix::operator==(IncidenceMatrix &incidenceMatrix) {
+
+    if( count_column != incidenceMatrix.count_column || matrix.size() != incidenceMatrix.matrix.size() )
+        return false;
+
+    bliss_canon();
+    incidenceMatrix.bliss_canon();
+
+    for (int i = 0; i < matrix.size(); ++i) {
+        if( matrix[i] != incidenceMatrix.matrix[i])
+            return false;
+    }
+
+    return true;
+}
