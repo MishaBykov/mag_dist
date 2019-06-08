@@ -14,17 +14,15 @@
 int main() {
     setlocale(LC_ALL, "rus");
 
-    auto v_2sc = Polyhedron::readFromFile("re_src/4d2sc.txt");
-    auto v_2n = Polyhedron::readFromFile("re_src/4d2n.txt");
-    unsigned int max_row = 13;
+    auto v_2sc = Polyhedron::readFromFile("re_src/3d2sc.txt");
+    auto v_2n = Polyhedron::readFromFile("re_src/3d2n.txt");
+    unsigned int max_row = 15;
 
     std::string file_name_result = "result.txt";
     std::string file_name_time = "time";
     Timer timer("full_time");
     std::ofstream file_result(file_name_result);
 
-//    int myints[] = {1 3 13 19 20 22 33 };
-//    std::vector<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
     for (int i = 0; i < v_2sc.size(); ++i) {
         Timer t(file_name_time + std::to_string(i));
         GenerationPolyhedron generationPolyhedron = GenerationPolyhedron(max_row, *v_2sc[i], v_2sc, v_2n);
