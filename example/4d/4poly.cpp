@@ -225,7 +225,6 @@ int main (int argc, char *argv[])
         // Результаты тестирования сохраняем в файл .out
         bool is_s2 = is_simplicial2(facet_vertex, fvector[DIM-1], fvector[0], outf);
         if (is_s2) {
-            printf("+");
             for (auto &i : print_matrix) {
                 fprintf (outf, i.c_str());
                 fprintf (outf, "\n");
