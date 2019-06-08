@@ -24,6 +24,21 @@ bool Checker::is3dSimplex(const std::shared_ptr<Polyhedron>& polyhedron) {
     return true;
 }
 
+bool Checker::is3dSimplicial(const std::shared_ptr<Polyhedron>& polyhedron) {
+    if ( !polyhedron || polyhedron->getDimension() != 3 )
+    {
+        return false;
+    }
+
+    auto sum_rows = polyhedron->getMatrix()->sumRows();
+    for (unsigned long sum_row : sum_rows) {
+        if (sum_row != 3)
+            return false;
+    }
+
+    return true;
+}
+
 bool Checker::is3d2sc(const std::shared_ptr<Polyhedron>& polyhedron) {
     if(!polyhedron || polyhedron->getDimension() != 3)
         return false;

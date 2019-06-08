@@ -29,6 +29,8 @@ public:
     static bool isCompleteGraph(const std::shared_ptr<Polyhedron> &polyhedron);
 
     static bool isFacetsPolyhedronInVector(const std::shared_ptr<Polyhedron> &polyhedron, const std::vector<PolyhedronSPtr>& v);
+
+    static bool is3dSimplicial(const std::shared_ptr<Polyhedron>& polyhedron);
 };
 
 
