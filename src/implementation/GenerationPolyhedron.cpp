@@ -1,5 +1,9 @@
 #include <utility>
 
+#include <utility>
+
+#include <utility>
+
 //
 // Created by misha on 07.04.19.
 //
@@ -22,12 +26,12 @@ std::string combToRow(unsigned int n, const std::vector<unsigned long>& combinat
 }
 
 GenerationPolyhedron::GenerationPolyhedron (unsigned int max_count_row,
-            Polyhedron& vertexFigure, const std::vector<PolyhedronSPtr>& v_2sc, const std::vector<PolyhedronSPtr>& v_2n)
-            : base(vertexFigure)
+            PolyhedronSPtr vertex_figure, const std::vector<PolyhedronSPtr>& v_2sc,
+            const std::vector<PolyhedronSPtr>& v_2n) : base(std::move(vertex_figure))
 {
     long long max_count_facet = 0;
     for (auto &item : v_2sc) {
-        if (item->getCountVertex() == base.getCountVertex()) {
+        if (item->getCountVertex() == base->getCountVertex()) {
             select_vf_2sc.emplace_back(item->getCountVertex(), item->getCountFacets());
             if( select_vf_2sc.back().second > max_count_facet )
                 max_count_facet = select_vf_2sc.back().second;
@@ -35,37 +39,37 @@ GenerationPolyhedron::GenerationPolyhedron (unsigned int max_count_row,
     }
 
     for (auto &item : v_2n) {
-        if (base.getDimension() < item->getCountVertex() && item->getCountVertex() <= base.getCountVertex()) {
+        if (base->getDimension() < item->getCountVertex() && item->getCountVertex() <= base->getCountVertex()) {
             select_v_facet.push_back(item->getCountVertex());
         }
     }
     long long min_count_vertex = *std::min_element(select_v_facet.begin(), select_v_facet.end());
 
-    incidenceMatrix = (*(base.getMatrix()));
+    incidenceMatrix = (*(base->getMatrix()));
 
-    count_add_row = (base.getCountVertex() * max_count_facet - base.getCountOne()) / min_count_vertex;
-    if( base.getCountFacets() + count_add_row > max_count_row )
-        count_add_row = max_count_row - base.getCountFacets();
-    if(count_add_row > std::max( max_count_row, base.getCountFacets()))
+    count_add_row = (base->getCountVertex() * max_count_facet - base->getCountOne()) / min_count_vertex;
+    if( base->getCountFacets() + count_add_row > max_count_row )
+        count_add_row = max_count_row - base->getCountFacets();
+    if(count_add_row > std::max( max_count_row, base->getCountFacets()))
         count_add_row = 0;
     if (count_add_row != 0) {
         for (auto item : select_v_facet) {
-            GenerationCombinations gc(base.getCountVertex(), item);
+            GenerationCombinations gc(base->getCountVertex(), item);
             do {
-                all_comb.push_back(combToRow(base.getCountVertex(), gc.getCombination()) + '0');
+                all_comb.push_back(combToRow(base->getCountVertex(), gc.getCombination()) + '0');
             } while (gc.next());
         }
 
-        std::vector<bool> column(base.getCountFacets(), true);
+        std::vector<bool> column(base->getCountFacets(), true);
         incidenceMatrix.appendColumn(column);
         gc = GenerationCombinations(all_comb.size(), k);
 
         incidenceMatrix.appendRow(0);
         auto combination = gc.getCombination();
         for (unsigned int j = 0; j < combination.size(); j++) {
-            incidenceMatrix.setRow(base.getCountFacets() + j, all_comb[combination[j] - 1]);
+            incidenceMatrix.setRow(base->getCountFacets() + j, all_comb[combination[j] - 1]);
         }
-        result = Polyhedron(base.getDimension() + 1, incidenceMatrix);
+        result = Polyhedron(base->getDimension() + 1, incidenceMatrix);
     }
 }
 
@@ -78,9 +82,9 @@ PolyhedronSPtr GenerationPolyhedron::getResult() {
 bool GenerationPolyhedron::next() {
     auto combination = gc.getCombination();
     for (unsigned int j = 0; j < combination.size(); j++) {
-        incidenceMatrix.setRow(base.getCountFacets() + j, all_comb[combination[j] - 1]);
+        incidenceMatrix.setRow(base->getCountFacets() + j, all_comb[combination[j] - 1]);
     }
-    result = Polyhedron(base.getDimension() + 1, incidenceMatrix);
+    result = Polyhedron(base->getDimension() + 1, incidenceMatrix);
     if (gc.next()) {
         return true;
     } else {

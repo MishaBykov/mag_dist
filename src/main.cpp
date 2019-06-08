@@ -24,8 +24,10 @@ int main() {
     std::ofstream file_result(file_name_result);
 
     for (int i = 0; i < v_2sc.size(); ++i) {
+        if (v_2sc[i]->getCountFacets() >= max_row)
+            continue;
         Timer t(file_name_time + std::to_string(i));
-        GenerationPolyhedron generationPolyhedron = GenerationPolyhedron(max_row, *v_2sc[i], v_2sc, v_2n);
+        GenerationPolyhedron generationPolyhedron = GenerationPolyhedron(max_row, v_2sc[i], v_2sc, v_2n);
         unsigned long count_polyhedron = 0;
         do {
             auto result = generationPolyhedron.getResult();

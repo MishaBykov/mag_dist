@@ -22,16 +22,16 @@ class GenerationPolyhedron {
     long long k = 1;
     GenerationCombinations gc;
 
-    Polyhedron base;
+    PolyhedronSPtr base;
     IncidenceMatrix incidenceMatrix;
     Polyhedron result;
 
 public:
 
     explicit GenerationPolyhedron() = default;
-    GenerationPolyhedron(unsigned int max_add_count_row,
-            Polyhedron& vertexFigure, const std::vector<PolyhedronSPtr>& v_2sc, const std::vector<PolyhedronSPtr>& v_2n
-            );
+    GenerationPolyhedron(
+            unsigned int max_add_count_row, PolyhedronSPtr vertex_figure,
+            const std::vector<PolyhedronSPtr>& v_2sc, const std::vector<PolyhedronSPtr>& v_2n);
 
     ~GenerationPolyhedron();
 
