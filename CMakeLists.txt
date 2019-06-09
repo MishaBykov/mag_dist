@@ -59,7 +59,9 @@ add_executable(
     ${project_name}
     ${files_headers}
     ${files_implementation}
-    ${source_code}/main.cpp
+#    ${source_code}/main.cpp
+#    src/test.cpp
+    src/generate_table.cpp
 )
 
 target_include_directories( ${project_name} PUBLIC
