@@ -38,7 +38,7 @@ std::vector<PolyhedronSPtr> Polyhedron::readFromFile(const std::string& file_nam
 
     while (!file_in.eof()) {
         auto polyhedron = readFromStream(file_in);
-        if( polyhedron )
+        if( polyhedron && polyhedron->isInitialized() )
             result.push_back( polyhedron );
         else {
             std::cout << "Файл [" << file_name << "] позиция: " << file_in.tellg() << std::endl;
@@ -161,7 +161,7 @@ bool Polyhedron::checkIncidenceMatrix(const std::shared_ptr<IncidenceMatrix>& in
     auto sum_columns = incidenceMatrix->sumColumns();
     auto sum_rows = incidenceMatrix->sumRows();
 
-    unsigned long max_size, min_size;
+    unsigned long max_size = 0, min_size = 0;
     bool min_size_columns = sum_columns.size() < sum_rows.size();
     if( min_size_columns ) {
         min_size = sum_columns.size();
