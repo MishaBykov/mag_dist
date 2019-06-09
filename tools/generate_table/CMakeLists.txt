@@ -8,8 +8,8 @@ project( ${project_name} C CXX )
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(source_code .)
-set(headers ${source_code})
+set(source_code src)
+set(headers ${source_code}/headers)
 set(implementation ${source_code}/implementation)
 
 message(
@@ -22,7 +22,7 @@ config:
 )
 
 ########################################################################
-#[[
+
 #--- обработка хедеров
 if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${headers})
     list(APPEND path_headers ${CMAKE_CURRENT_SOURCE_DIR}/${headers})
@@ -36,9 +36,9 @@ if (files_headers)
 else()
     message(WARNING "files_headers empty")
 endif()
-]]
+
 ########################################################################
-#[[
+
 #--- обработка cpp-файлов
 if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${implementation})
     list(APPEND path_implementation ${CMAKE_CURRENT_SOURCE_DIR}/${implementation})
@@ -52,19 +52,34 @@ if (files_implementation)
 else()
     message(WARNING "files_implementation empty")
 endif()
-]]
+
 ########################################################################
 
 add_executable(
     ${project_name}
-#    ${files_headers}
-#    ${files_implementation}
-
+    ${files_headers}
+    ${files_implementation}
+    #    ${source_code}/main.cpp
+    #    tools/generate_table/generate_table.cpp
+    tools/test/test.cpp
 )
 
 target_include_directories( ${project_name} PUBLIC
-        src/headers
     ${path_headers}
     )
 
 message("")
+
+add_subdirectory(tools/bliss)
+
+target_include_directories( bliss PUBLIC
+    ${source_code}
+    )
+
+target_link_libraries(${project_name} bliss)
+
+target_include_directories(
+    bliss PRIVATE
+    tools/bliss
+)
+
