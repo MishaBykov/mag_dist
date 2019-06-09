@@ -59,7 +59,6 @@ add_executable(
     ${project_name}
     ${files_headers}
     ${files_implementation}
-
     ${source_code}/main.cpp
 )
 
@@ -69,7 +68,7 @@ target_include_directories( ${project_name} PUBLIC
 
 message("")
 
-add_subdirectory(tools/bliss)
+add_subdirectory(libs/bliss)
 
 target_include_directories( bliss PUBLIC
     ${source_code}
@@ -79,6 +78,6 @@ target_link_libraries(${project_name} bliss)
 
 target_include_directories(
     bliss PRIVATE
-    tools/bliss
+    libs/bliss
 )
 

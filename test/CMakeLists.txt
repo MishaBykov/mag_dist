@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 #--- имя проекта совпадает с именем каталога проекта
-get_filename_component(project_name ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+get_filename_component(project_name . NAME)
 
 #--- имя главной цели. CXX значает, что проект на с++
 project( ${project_name} C CXX )

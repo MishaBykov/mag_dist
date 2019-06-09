@@ -1,14 +1,14 @@
 cmake_minimum_required(VERSION 2.8)
 
 #--- имя проекта совпадает с именем каталога проекта
-get_filename_component(project_name ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+get_filename_component(project_name . NAME)
 
 #--- имя главной цели. CXX значает, что проект на с++
 project( ${project_name} C CXX )
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(source_code src)
+set(source_code ../src)
 set(headers ${source_code}/headers)
 set(implementation ${source_code}/implementation)
 
@@ -59,9 +59,7 @@ add_executable(
     ${project_name}
     ${files_headers}
     ${files_implementation}
-    #    ${source_code}/main.cpp
-    #    tools/generate_table/generate_table.cpp
-    tools/test/test.cpp
+    generate_table.cpp
 )
 
 target_include_directories( ${project_name} PUBLIC
@@ -70,7 +68,7 @@ target_include_directories( ${project_name} PUBLIC
 
 message("")
 
-add_subdirectory(tools/bliss)
+add_subdirectory(../tools/bliss)
 
 target_include_directories( bliss PUBLIC
     ${source_code}
@@ -80,6 +78,6 @@ target_link_libraries(${project_name} bliss)
 
 target_include_directories(
     bliss PRIVATE
-    tools/bliss
+    ../tools/bliss
 )
 
