@@ -59,7 +59,6 @@ GenerationPolyhedron::GenerationPolyhedron (unsigned int max_count_row,
                 all_comb.push_back(combToRow(base->getCountVertex(), gc.getCombination()) + '0');
             } while (gc.next());
         }
-
         std::vector<bool> column(base->getCountFacets(), true);
         incidenceMatrix.appendColumn(column);
         gc = GenerationCombinations(all_comb.size(), k);

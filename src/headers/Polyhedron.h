@@ -39,7 +39,7 @@ public:
     unsigned int getDimension();
     unsigned int getCountFacets();
     unsigned int getCountVertex();
-    unsigned int getCountOne();
+    int getCountOne();
 
     void setMatrix(std::shared_ptr<IncidenceMatrix> new_matrix);
 
