@@ -10,7 +10,7 @@
 int main() {
     setlocale(LC_ALL, "rus");
 
-    std::string name_file = "4d2sc.txt";
+    std::string name_file = "5d2sc.txt";
 
     auto v = Polyhedron::readFromFile("re_src/" + name_file);
 
