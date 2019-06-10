@@ -7,7 +7,7 @@
 #include <iostream>
 #include <Checker.h>
 
-int main() {
+int test() {
     setlocale(LC_ALL, "rus");
 
     auto v_test = Polyhedron::readFromFile("re_src/4d2sc.txt");

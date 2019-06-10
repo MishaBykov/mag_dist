@@ -60,8 +60,8 @@ add_executable(
     ${files_headers}
     ${files_implementation}
     ${source_code}/main.cpp
-#    src/test.cpp
-#    src/generate_table.cpp
+    src/test.h
+    src/generate_table.h
 )
 
 target_include_directories( ${project_name} PUBLIC
