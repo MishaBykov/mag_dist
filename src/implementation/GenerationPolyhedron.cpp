@@ -62,13 +62,7 @@ GenerationPolyhedron::GenerationPolyhedron (unsigned int max_count_row,
         std::vector<bool> column(base->getCountFacets(), true);
         incidenceMatrix.appendColumn(column);
         gc = GenerationCombinations(all_comb.size(), k);
-
         incidenceMatrix.appendRow(0);
-        auto combination = gc.getCombination();
-        for (unsigned int j = 0; j < combination.size(); j++) {
-            incidenceMatrix.setRow(base->getCountFacets() + j, all_comb[combination[j] - 1]);
-        }
-        result = Polyhedron(base->getDimension() + 1, incidenceMatrix);
     }
 }
 
@@ -87,10 +81,11 @@ bool GenerationPolyhedron::next() {
     if (gc.next()) {
         return true;
     } else {
-        incidenceMatrix.appendRow(0);
         k++;
-        if (k > count_add_row)
+        if (k > count_add_row) {
             return false;
+        }
+        incidenceMatrix.appendRow(0);
         gc = GenerationCombinations(all_comb.size(), k);
         return true;
     }
