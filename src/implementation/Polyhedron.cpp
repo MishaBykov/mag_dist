@@ -191,7 +191,7 @@ bool Polyhedron::checkIncidenceMatrix(const std::shared_ptr<IncidenceMatrix>& in
 
     for (unsigned int i = 0; i < incidenceMatrix->getCountRow(); ++i) {
         auto i_row = incidenceMatrix->getRow(i);
-        for (unsigned int j = 1; j < incidenceMatrix->getCountRow(); j++) {
+        for (unsigned int j = i + 1; j < incidenceMatrix->getCountRow(); j++) {
             auto j_row = incidenceMatrix->getRow(j);
             if( i_row != j_row &&  (( i_row & j_row ) == j_row || ( i_row & j_row ) == i_row )) {
                 return false;
