@@ -288,6 +288,14 @@ void IncidenceMatrix::bliss_canon() {
 
     bliss::Stats stats;
 // Canonical labeling
+/* todo
+    throw при
+    1110
+    1101
+    1011
+    0111
+ */
+printToStream(std::cout);
     const unsigned int *cl = g.canonical_form(stats, nullptr, stdout);
 // Permute to canonical labeling
     bliss::Digraph *cf = g.permute(cl);
