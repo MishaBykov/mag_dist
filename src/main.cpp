@@ -14,7 +14,7 @@
 int main(int argc, char *argv[]) {
     setlocale(LC_ALL, "rus");
 
-    if (argc < 3) {
+    if (argc < 4) {
         std::cout << "Usage: " << argv[0] << " [{int}source dimension] [{int}max_row] [{int}max_column]" << std::endl;
         return 1;
     }
