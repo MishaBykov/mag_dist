@@ -28,7 +28,7 @@ Polyhedron::Polyhedron(unsigned int dimension, IncidenceMatrix incidenceMatrix){
 }
 
 std::vector<PolyhedronSPtr> Polyhedron::readFromFile(
-        const std::string& file_name, unsigned int max_row, unsigned int max_column = 0) {
+        const std::string& file_name, unsigned int max_row, unsigned int count_column, bool count_column_fix) {
     std::vector<PolyhedronSPtr> result;
     std::ifstream file_in(file_name);
 
@@ -40,8 +40,13 @@ std::vector<PolyhedronSPtr> Polyhedron::readFromFile(
     while (!file_in.eof()) {
         auto polyhedron = readFromStream(file_in);
         if( polyhedron && polyhedron->isInitialized()) {
-            if (polyhedron->getCountFacets() < max_row && polyhedron->getCountVertex() < max_column)
-                result.push_back(polyhedron);
+            if (polyhedron->getCountFacets() < max_row) {
+                if (count_column_fix) {
+                    if (polyhedron->getCountVertex() + 1 == count_column)
+                        result.push_back(polyhedron);
+                } else if (polyhedron->getCountVertex() < count_column)
+                    result.push_back(polyhedron);
+            }
         } else {
             std::cout << "Error: File: [" << file_name << "] position: " << file_in.tellg() << std::endl;
         }

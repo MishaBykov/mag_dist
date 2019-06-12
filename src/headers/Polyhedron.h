@@ -46,7 +46,7 @@ public:
     static PolyhedronSPtr readFromStream(std::istream &i_stream);
     static std::vector<PolyhedronSPtr> readFromFile(const std::string& file_name);
     static std::vector<PolyhedronSPtr> readFromFile(
-            const std::string& file_name,  unsigned int max_row, unsigned int max_column);
+            const std::string& file_name,  unsigned int max_row, unsigned int max_column, bool count_column_fix);
 
     static void printToFile(std::vector<PolyhedronSPtr> &incidenceMatrix, const std::string &file_name);
 
