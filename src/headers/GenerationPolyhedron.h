@@ -30,8 +30,8 @@ public:
 
     explicit GenerationPolyhedron() = default;
     GenerationPolyhedron(
-            unsigned int max_add_count_row, PolyhedronSPtr vertex_figure,
-            const std::vector<PolyhedronSPtr>& v_2sc, const std::vector<PolyhedronSPtr>& v_2n);
+            unsigned int max_add_count_row, PolyhedronSPtr vertex_figure, const std::vector<PolyhedronSPtr>& v_2sc,
+            const std::vector<PolyhedronSPtr>& v_2n);
 
     ~GenerationPolyhedron();
 

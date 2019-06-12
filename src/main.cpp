@@ -15,7 +15,8 @@ int main(int argc, char *argv[]) {
     setlocale(LC_ALL, "rus");
 
     if (argc < 4) {
-        std::cout << "Usage: " << argv[0] << " [{int}source dimension] [{int}max_row] [{int}max_column]" << std::endl;
+        std::cout << "Usage: " << argv[0]
+        << " [{unsigned int}source dimension] [{unsigned int}max_row] [{unsigned int}max_column]" << std::endl;
         return 1;
     }
     unsigned int source_dimension = 0;
@@ -27,13 +28,14 @@ int main(int argc, char *argv[]) {
         max_column = std::stoul(argv[3]);
     }
     catch (...) {
-        std::cout << "Usage: " << argv[0] << " [{int}source dimension] [{int}max_row] [{int}max_column]" << std::endl;
+        std::cout << "Usage: " << argv[0]
+        << " [{unsigned int}source dimension] [{unsigned int}max_row] [{unsigned int}max_column]" << std::endl;
         return 1;
     }
     std::string input_name = "re_src/" + std::to_string(source_dimension) + "d2sc.txt";
-    auto v_2sc = Polyhedron::readFromFile(input_name);
+    auto v_2sc = Polyhedron::readFromFile(input_name, max_row, max_column);
     input_name = "re_src/" + std::to_string(source_dimension) + "d2n.txt";
-    auto v_2n = Polyhedron::readFromFile(input_name);
+    auto v_2n = Polyhedron::readFromFile(input_name, max_row, max_column);
 
     std::string file_name_result = "result.txt";
     std::string file_name_time = "time";
@@ -41,8 +43,6 @@ int main(int argc, char *argv[]) {
     std::ofstream file_result(file_name_result);
     int count_generation = 0;
     for (int i = 0; i < v_2sc.size(); ++i) {
-        if (v_2sc[i]->getCountFacets() >= max_row || v_2sc[i]->getCountVertex() >= max_column)
-            continue;
         Timer t(file_name_time + std::to_string(i));
         GenerationPolyhedron generationPolyhedron = GenerationPolyhedron(max_row, v_2sc[i], v_2sc, v_2n);
         unsigned long count_polyhedron = 0;
