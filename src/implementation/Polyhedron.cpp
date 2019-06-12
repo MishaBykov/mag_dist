@@ -33,7 +33,7 @@ std::vector<PolyhedronSPtr> Polyhedron::readFromFile(
     std::ifstream file_in(file_name);
 
     if(!file_in.is_open()) {
-        std::cout << "Файл [" << file_name << "] не может быть открыт" << std::endl;
+        std::cout << "File [" << file_name << "] not found" << std::endl;
         return result;
     }
 
@@ -43,7 +43,7 @@ std::vector<PolyhedronSPtr> Polyhedron::readFromFile(
             if (polyhedron->getCountFacets() < max_row && polyhedron->getCountVertex() < max_column)
                 result.push_back(polyhedron);
         } else {
-            std::cout << "Файл [" << file_name << "] позиция: " << file_in.tellg() << std::endl;
+            std::cout << "Error: File: [" << file_name << "] position: " << file_in.tellg() << std::endl;
         }
     }
 
@@ -56,14 +56,14 @@ std::shared_ptr<Polyhedron> Polyhedron::readFromStream(std::istream &i_stream) {
     unsigned int dimension = 0;
     if (!i_stream.eof()) {
         if( !(i_stream >> dimension) ) {
-            std::cout << "Некоректный файл: нет размерности" << std::endl;
+            std::cout << "Non-correct file: no dimension" << std::endl;
             return nullptr;
         }
         i_stream.get();
 
         return std::make_shared<Polyhedron>(dimension, IncidenceMatrix::readFromStream(i_stream));
     } else {
-        std::cout << "[Polyhedron] Конец файла" << std::endl;
+        std::cout << "[Polyhedron] End file" << std::endl;
     }
     return nullptr;
 }
