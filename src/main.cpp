@@ -47,7 +47,6 @@ int main(int argc, char *argv[]) {
         GenerationPolyhedron generationPolyhedron = GenerationPolyhedron(max_row, v_2sc[i], v_2sc, v_2n);
         unsigned long count_polyhedron = 0;
         do {
-            count_generation++;
             auto result = generationPolyhedron.getResult();
             if (!result->isInitialized()) {
                 continue;
@@ -62,7 +61,6 @@ int main(int argc, char *argv[]) {
             Logs::print("log1", log);
             Logs::print("log2", log);
         } while (generationPolyhedron.next());
-        std::cout << count_generation << std::endl;
     }
     file_result.close();
     return 0;
