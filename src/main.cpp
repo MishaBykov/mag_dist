@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
             if (Checker::isCompleteGraph(result) && Checker::isFacetsPolyhedronInVector(result, v_2n)) {
                 result->printToStream(file_result);
             }
-            std::string log = "ind_v_2sc:\n" + std::to_string(i) + "\nc:\n" +
+            std::string log = "ind_v_2sc:\n" + std::to_string(i) + " from " + std::to_string(v_2sc.size()) + " \nc:\n" +
                               generationPolyhedron.getGenerationCombinations().printCombination()
                               + "\ncount polyhedron:\n" + std::to_string(count_polyhedron) + '\n';
             Logs::print("log1", log);

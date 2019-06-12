@@ -236,4 +236,27 @@ bool Polyhedron::operator==(Polyhedron &polyhedron) {
     return *matrix == *polyhedron.matrix;
 }
 
+std::vector<PolyhedronSPtr> Polyhedron::readFromFile(const std::string &file_name) {
+    std::vector<PolyhedronSPtr> result;
+    std::ifstream file_in(file_name);
+
+    if(!file_in.is_open()) {
+        std::cout << "File [" << file_name << "] not found" << std::endl;
+        return result;
+    }
+
+    while (!file_in.eof()) {
+        auto polyhedron = readFromStream(file_in);
+        if( polyhedron && polyhedron->isInitialized()) {
+            result.push_back(polyhedron);
+        } else {
+            std::cout << "Error: File: [" << file_name << "] position: " << file_in.tellg() << std::endl;
+        }
+    }
+
+    file_in.close();
+
+    return result;
+}
+
 

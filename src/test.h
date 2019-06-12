@@ -10,7 +10,7 @@
 int test() {
     setlocale(LC_ALL, "rus");
 
-    auto v_test = Polyhedron::readFromFile("re_src/4d2sc.txt");
+    auto v_test = Polyhedron::readFromFile("re_src/test.txt");
 
     for (int i = 0; i < v_test.size(); ++i) {
         auto sc = v_test[i]->getMatrix()->sumColumns();
@@ -19,11 +19,15 @@ int test() {
             i--;
             continue;
         }
-        if (sc.back() == 0) {
-            v_test[i]->printToStream(std::cout);
-            v_test[i]->getMatrix()->removeColumn(sc.size() - 1);
+        for (unsigned int k = 0; k < sc.size(); ++k) {
+            if (sc[k] == 0) {
+                v_test[i]->printToStream(std::cout);
+                v_test[i]->getMatrix()->removeColumn(k);
+                sc.erase(sc.begin() + k);
+                k--;
+            }
         }
-        for (int j = 0; j < v_test[i]->getCountFacets(); ++j) {
+        for (unsigned int j = 0; j < v_test[i]->getCountFacets(); ++j) {
             if ( !Checker::is3dSimplicial(v_test[i]->getPolyhedronFacet(j) ) )
             {
                 std::cout << i << std::endl;
@@ -34,7 +38,7 @@ int test() {
             }
         }
     }
-    Polyhedron::printToFile(v_test, "re_src/4d2sc.txt");
+    Polyhedron::printToFile(v_test, "re_src/test.txt");
 
     return 0;
 }
