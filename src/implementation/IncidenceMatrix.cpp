@@ -318,9 +318,18 @@ bool IncidenceMatrix::operator==(IncidenceMatrix &incidenceMatrix) {
 
     if( count_column != incidenceMatrix.count_column || matrix.size() != incidenceMatrix.matrix.size() )
         return false;
-
-    bliss_canon();
-    incidenceMatrix.bliss_canon();
+    try {
+        bliss_canon();
+    } catch (...){
+        std::cout << "bliss error" << std::endl;
+        printToStream(std::cout);
+    }
+    try {
+        incidenceMatrix.bliss_canon();
+    } catch (...){
+        std::cout << "bliss error" << std::endl;
+        incidenceMatrix.printToStream(std::cout);
+    }
 
     for (int i = 0; i < matrix.size(); ++i) {
         if( matrix[i] != incidenceMatrix.matrix[i])
