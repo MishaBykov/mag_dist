@@ -18,11 +18,11 @@ int main(int argc, char *argv[]) {
         std::cout << "Usage: " << argv[0] << " [{int}source dimension] [{int}max_row] [{int}max_column]" << std::endl;
         return 1;
     }
-    int source_dimension = 0;
+    unsigned int source_dimension = 0;
     unsigned int max_row = 0;
     unsigned int max_column = 0;
     try {
-        source_dimension = std::stoll(argv[1]);
+        source_dimension = std::stoul(argv[1]);
         max_row = std::stoul(argv[2]);
         max_column = std::stoul(argv[3]);
     }
