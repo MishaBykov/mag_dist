@@ -11,9 +11,7 @@
 int generate_table() {
     setlocale(LC_ALL, "rus");
 
-    std::string name_file = "5d2n.txt";
-
-    auto v = Polyhedron::readFromFile("re_src/" + name_file);
+    auto v = Polyhedron::readFromFile("result/d5 to d6/5d_to_6d_less14.txt");
 
     std::vector<std::vector<unsigned int>> result;
 
@@ -64,7 +62,7 @@ int generate_table() {
     }
 
 
-    std::ofstream file_result("tables/" + name_file);
+    std::ofstream file_result("tables/5d_to_6d_less14.txt");
     file_result << "tables1:" << std::endl;
     for (int i = 0; i < table1.size(); ++i) {
         file_result << table1[i] << std::endl;
