@@ -37,9 +37,11 @@ int main(int argc, char *argv[]) {
     input_name = "re_src/" + std::to_string(source_dimension) + "d2n.txt";
     auto v_2n = Polyhedron::readFromFile(input_name, max_row, count_column, false);
 
-    std::string file_name_result = "result.txt";
-    std::string file_name_time = "time";
-    Timer timer("full_time");
+    std::string file_name_result = "result";
+    file_name_result += "_f_max" + std::to_string(max_row) + "_v" + std::to_string(count_column) + ".txt";
+    std::string file_name_time = "full_time";
+    file_name_time += "_f_max" + std::to_string(max_row) + "_v" + std::to_string(count_column) + ".txt";
+    Timer timer(file_name_time);
     std::ofstream file_result(file_name_result);
     int count_generation = 0;
     for (int i = 0; i < v_2sc.size(); ++i) {
