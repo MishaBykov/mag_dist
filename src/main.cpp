@@ -11,10 +11,10 @@
 #include <GenerationPolyhedron.h>
 #include <Timer.h>
 
-#include <generate_table.h>
+#include <test.h>
 
 int main(int argc, char *argv[]) {
-    generate_table();
+    test();
     return 0;
 
 

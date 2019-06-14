@@ -10,7 +10,7 @@
 int test() {
     setlocale(LC_ALL, "rus");
 
-    auto v_test = Polyhedron::readFromFile("result/d5 to d6/5d to 6d less 14 v 10/result.txt");
+    auto v_test = Polyhedron::readFromFile("result/d5 to d6/all_gen_6d_less14.txt");
 
     for(unsigned int i = 0; i < v_test.size(); i++ )
     {
@@ -22,7 +22,7 @@ int test() {
         }
     }
 
-    Polyhedron::printToFile(v_test, "result/del copy/5d_to_6d_less_14f_v10.txt");
+    Polyhedron::printToFile(v_test, "result/del copy/all_gen_6d_less14.txt");
 
 
     return 0;
