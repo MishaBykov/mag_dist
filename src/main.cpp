@@ -11,7 +11,13 @@
 #include <GenerationPolyhedron.h>
 #include <Timer.h>
 
+#include <test.h>
+
 int main(int argc, char *argv[]) {
+    test();
+    return 0;
+
+
     setlocale(LC_ALL, "rus");
 
     if (argc < 4) {

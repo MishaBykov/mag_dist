@@ -10,35 +10,20 @@
 int test() {
     setlocale(LC_ALL, "rus");
 
-    auto v_test = Polyhedron::readFromFile("re_src/test.txt");
+    auto v_test = Polyhedron::readFromFile("result/4d to 5d less 12/result.txt");
 
-    for (int i = 0; i < v_test.size(); ++i) {
-        auto sc = v_test[i]->getMatrix()->sumColumns();
-        if (sc.empty()){
-            v_test.erase(v_test.begin() + i);
-            i--;
-            continue;
-        }
-        for (unsigned int k = 0; k < sc.size(); ++k) {
-            if (sc[k] == 0) {
-                v_test[i]->printToStream(std::cout);
-                v_test[i]->getMatrix()->removeColumn(k);
-                sc.erase(sc.begin() + k);
-                k--;
-            }
-        }
-        for (unsigned int j = 0; j < v_test[i]->getCountFacets(); ++j) {
-            if ( !Checker::is3dSimplicial(v_test[i]->getPolyhedronFacet(j) ) )
-            {
-                std::cout << i << std::endl;
-                v_test[i]->printToStream(std::cout);
-                v_test.erase(v_test.begin() + i);
-                i--;
-                break;
+    for(unsigned int i = 0; i < v_test.size(); i++ )
+    {
+        for(unsigned int j = i + 1; j < v_test.size(); j++ ) {
+            if (*v_test[i] == *v_test[j]) {
+                v_test.erase(v_test.begin() + j);
+                j--;
             }
         }
     }
-    Polyhedron::printToFile(v_test, "re_src/test.txt");
+
+    Polyhedron::printToFile(v_test, "result/del copy/4d_to_5d_less_12.txt");
+
 
     return 0;
 }
