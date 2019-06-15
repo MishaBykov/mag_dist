@@ -9,7 +9,6 @@
 
 int test() {
     setlocale(LC_ALL, "rus");
-
     auto v_test = Polyhedron::readFromFile("result/d5 to d6/all_gen_6d_less14.txt");
 
     for(unsigned int i = 0; i < v_test.size(); i++ )
