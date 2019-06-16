@@ -67,17 +67,17 @@ int main(int argc, char *argv[])
             {
                 result->printToStream(file_result);
             }
-            if(count_polyhedron % 2000 == 0)
-            {
-                std::string log =
-                        "ind_v_2sc:\n" + std::to_string(i) + " from " + std::to_string(v_2sc.size()) + " \nc:\n" +
-                        generationPolyhedron.getGenerationCombinations().printCombination()
-                        + "\ncount polyhedron:\n" + std::to_string(count_polyhedron) + '\n';
-                if (count_polyhedron % 2 == 0)
-                    Logs::print("log0", log);
-                else
-                    Logs::print("log1", log);
-            }
+//            if(count_polyhedron % 2000 == 0)
+//            {
+//                std::string log =
+//                        "ind_v_2sc:\n" + std::to_string(i) + " from " + std::to_string(v_2sc.size()) + " \nc:\n" +
+//                        generationPolyhedron.getGenerationCombinations().printCombination()
+//                        + "\ncount polyhedron:\n" + std::to_string(count_polyhedron) + '\n';
+//                if (count_polyhedron % 2 == 0)
+//                    Logs::print("log0", log);
+//                else
+//                    Logs::print("log1", log);
+//            }
         } while(generationPolyhedron.next());
     }
     file_result.close();
