@@ -46,9 +46,9 @@ int main(int argc, char *argv[])
     auto v_2n = Polyhedron::readFromFile(input_name, max_facet, count_vertex, false);
 
     std::string file_name_result = "result";
-    file_name_result += "_f_max" + std::to_string(max_facet) + "_v" + std::to_string(count_vertex) + ".txt";
+    file_name_result += std::to_string(source_dimension) + "d_f_max" + std::to_string(max_facet) + "_v" + std::to_string(count_vertex) + ".txt";
     std::string file_name_time = "full_time";
-    file_name_time += "_f_max" + std::to_string(max_facet) + "_v" + std::to_string(count_vertex) + ".txt";
+    file_name_time += std::to_string(source_dimension) + "d_f_max" + std::to_string(max_facet) + "_v" + std::to_string(count_vertex) + ".txt";
     Timer timer(file_name_time);
     std::ofstream file_result(file_name_result);
     for(int i = 0; i < v_2sc.size(); ++i)
