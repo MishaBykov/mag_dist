@@ -54,10 +54,10 @@ GenerationPolyhedron::GenerationPolyhedron (unsigned int max_count_row,
         count_add_row = 0;
     if (count_add_row != 0) {
         for (auto item : select_v_facet) {
-            GenerationCombinations gc(base->getCountVertex(), item);
+            GenerationCombinations generationCombinations(base->getCountVertex(), item);
             do {
-                all_comb.push_back(combToRow(base->getCountVertex(), gc.getCombination()) + '0');
-            } while (gc.next());
+                all_comb.push_back(combToRow(base->getCountVertex(), generationCombinations.getCombination()) + '0');
+            } while (generationCombinations.next());
         }
         std::vector<bool> column(base->getCountFacets(), true);
         incidenceMatrix.appendColumn(column);
