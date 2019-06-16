@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
             {
                 result->printToStream(file_result);
             }
-            if(count_polyhedron % 1000 == 0)
+            if(count_polyhedron % 2000 == 0)
             {
                 std::string log =
                         "ind_v_2sc:\n" + std::to_string(i) + " from " + std::to_string(v_2sc.size()) + " \nc:\n" +

@@ -30,20 +30,19 @@ GenerationPolyhedron::GenerationPolyhedron (unsigned int max_count_row,
             const std::vector<PolyhedronSPtr>& v_2n) : base(std::move(vertex_figure))
 {
     long long max_count_facet = 0;
-    for (auto &item : v_2sc) {
-        if (item->getCountVertex() == base->getCountVertex()) {
-            select_vf_2sc.emplace_back(item->getCountVertex(), item->getCountFacets());
-            if( select_vf_2sc.back().second > max_count_facet )
-                max_count_facet = select_vf_2sc.back().second;
-        }
+    for (auto &item : v_2sc)
+    {
+        select_f_2sc.push_back(item->getCountFacets());
+        max_count_facet = std::max(max_count_facet, select_f_2sc.back());
     }
+
 
     for (auto &item : v_2n) {
         if (base->getDimension() < item->getCountVertex() && item->getCountVertex() <= base->getCountVertex()) {
-            select_v_facet.push_back(item->getCountVertex());
+            select_v_2n.push_back(item->getCountVertex());
         }
     }
-    long long min_count_vertex = *std::min_element(select_v_facet.begin(), select_v_facet.end());
+    long long min_count_vertex = *std::min_element(select_v_2n.begin(), select_v_2n.end());
 
     incidenceMatrix = (*(base->getMatrix()));
 
@@ -53,7 +52,7 @@ GenerationPolyhedron::GenerationPolyhedron (unsigned int max_count_row,
     if(count_add_row > std::max( max_count_row, base->getCountFacets()))
         count_add_row = 0;
     if (count_add_row != 0) {
-        for (auto item : select_v_facet) {
+        for (auto item : select_v_2n) {
             GenerationCombinations generationCombinations(base->getCountVertex(), item);
             do {
                 all_comb.push_back(combToRow(base->getCountVertex(), generationCombinations.getCombination()) + '0');

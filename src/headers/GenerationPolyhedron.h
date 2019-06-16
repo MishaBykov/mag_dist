@@ -14,8 +14,8 @@
 
 class GenerationPolyhedron {
 //  На размерность меньше генерируемого
-    std::vector<std::pair<long long, long long> > select_vf_2sc;
-    std::vector<long long> select_v_facet;
+    std::vector<long long> select_f_2sc;
+    std::vector<long long> select_v_2n;
     std::vector<std::string> all_comb;
 
     long long count_add_row = 0;
