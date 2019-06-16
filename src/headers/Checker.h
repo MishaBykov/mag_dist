@@ -12,7 +12,7 @@
 class Checker {
 public:
 
-    static bool is3dSimplexDepth(const std::shared_ptr<Polyhedron>& polyhedron);
+    static bool isDepth3dSimplex(const std::shared_ptr<Polyhedron> &polyhedron);
 
     static bool is3dSimplex(const std::shared_ptr<Polyhedron>& polyhedron);
 

@@ -88,7 +88,7 @@ bool Checker::is5d2neighborly(const std::shared_ptr<Polyhedron>& polyhedron) {
     return true;
 }
 
-bool Checker::is3dSimplexDepth(const std::shared_ptr<Polyhedron>& polyhedron) {
+bool Checker::isDepth3dSimplex(const std::shared_ptr<Polyhedron> &polyhedron) {
     switch (polyhedron->getDimension()) {
         case 3:
             return is3dSimplex(polyhedron);
