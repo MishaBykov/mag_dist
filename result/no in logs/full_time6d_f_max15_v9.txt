@@ -1,1 +1,0 @@
-time work: 17.0156 seconds.
